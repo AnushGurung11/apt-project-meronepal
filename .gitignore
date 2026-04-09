@@ -68,3 +68,7 @@ Thumbs.db
 *.jar
 # Tomcat / SmartTomcat plugin
 .smarttomcat/
+# Tomcat runtime folders
+src/main/webapp/conf/
+src/main/webapp/logs/
+src/main/webapp/work/

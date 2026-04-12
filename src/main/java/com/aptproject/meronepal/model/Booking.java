@@ -17,6 +17,19 @@ public class Booking {
         this.status = "Pending";
     }
 
+    /**
+     *
+     * @param bookingId
+     * @param userId
+     * @param packageId
+     * @param bookingDate
+     * @param payDate
+     * @param eventDate
+     * @param status
+     *
+     * 
+     */
+
     // All-arg constructor
     public Booking(int bookingId, int userId, int packageId,
                    LocalDate bookingDate, LocalDate payDate,

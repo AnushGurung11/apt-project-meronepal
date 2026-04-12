@@ -68,15 +68,15 @@ CREATE TABLE Package_Service (
 --    Booking (M) --Selects-- (1) Package
 -- ============================================
 CREATE TABLE Booking (
-    booking_id    INT         PRIMARY KEY AUTO_INCREMENT,
-    user_id       INT         NOT NULL,
-    package_id    INT         NOT NULL,
-    booking_date  DATE        NOT NULL,
-    pay_date      DATE,
-    event_date    DATE        NOT NULL,
-    status        VARCHAR(50) NOT NULL DEFAULT 'Pending',
-    CONSTRAINT fk_booking_user    FOREIGN KEY (user_id)    REFERENCES User(id)                ON DELETE CASCADE,
-    CONSTRAINT fk_booking_package FOREIGN KEY (package_id) REFERENCES Package(package_id)     ON DELETE RESTRICT
+    booking_id   INT         PRIMARY KEY AUTO_INCREMENT,
+    user_id      INT         NOT NULL,
+    package_id   INT         NOT NULL,
+    booking_date DATE        NOT NULL,
+    pay_date     DATE,
+    event_date   DATE        NOT NULL,
+    status       VARCHAR(50) NOT NULL DEFAULT 'Pending',
+    CONSTRAINT fk_booking_user    FOREIGN KEY (user_id)    REFERENCES User(user_id)       ON DELETE CASCADE,
+    CONSTRAINT fk_booking_package FOREIGN KEY (package_id) REFERENCES Package(package_id) ON DELETE RESTRICT
 );
 
 -- ============================================

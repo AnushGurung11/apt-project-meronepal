@@ -1,5 +1,6 @@
 package com.aptproject.meronepal.model;
 
+
 public class PackageService {
 
     private int packageServiceId;

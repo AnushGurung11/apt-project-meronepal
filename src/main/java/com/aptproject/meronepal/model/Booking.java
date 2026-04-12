@@ -8,7 +8,7 @@ public class Booking {
     private int userId;
     private int packageId;
     private LocalDate bookingDate;
-    private LocalDate payDate;       // nullable
+    private LocalDate payDate;
     private LocalDate eventDate;
     private String status;
 
@@ -27,7 +27,7 @@ public class Booking {
      * @param eventDate
      * @param status
      *
-     * 
+     *
      */
 
     // All-arg constructor

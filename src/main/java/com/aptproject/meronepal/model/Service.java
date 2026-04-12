@@ -1,6 +1,6 @@
 package com.aptproject.meronepal.model;
 
-public class Services {
+public class Service {
 
     private int serviceId;
     private String serviceName;
@@ -8,10 +8,10 @@ public class Services {
     private String description;
 
     // No-arg constructor
-    public Services() {}
+    public Service() {}
 
     // All-arg constructor
-    public Services(int serviceId, String serviceName, String serviceType, String description) {
+    public Service(int serviceId, String serviceName, String serviceType, String description) {
         this.serviceId = serviceId;
         this.serviceName = serviceName;
         this.serviceType = serviceType;
@@ -19,7 +19,7 @@ public class Services {
     }
 
     // Convenience constructor (without serviceId — for new records before DB insert)
-    public Services(String serviceName, String serviceType, String description) {
+    public Service(String serviceName, String serviceType, String description) {
         this.serviceName = serviceName;
         this.serviceType = serviceType;
         this.description = description;

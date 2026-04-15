@@ -42,4 +42,23 @@ public class ServiceDAO implements ServiceDAOInterface{
         }
         return null;
     }
+    //TODO Check for pre existing service and return that instead
+
+    @Override
+    public int insertService(String serviceName, String serviceType, String description){
+        try {
+            final String INSERT_SERVICE = "insert into services (service_name, service_type, description) values (?,?,?);";
+
+            PreparedStatement pStm_ = conn.prepareStatement(INSERT_SERVICE);
+            pStm_.setString(1, serviceName);
+            pStm_.setString(2, serviceType);
+            pStm_.setString(3, description);
+
+            return pStm_.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getLocalizedMessage());
+            return 0;
+        }
+    }
 }

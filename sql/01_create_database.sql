@@ -61,7 +61,7 @@ CREATE TABLE Services (
     service_name  VARCHAR(100) NOT NULL,
     service_type  VARCHAR(50),                        -- e.g. 'Media', 'Venue', 'Food'
     description   TEXT,
-    is_active     TINYINT(1)   NOT NULL DEFAULT 1
+    is_active     BOOLEAN  NOT NULL DEFAULT TRUE
 );
 
 -- ============================================================

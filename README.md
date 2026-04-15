@@ -12,11 +12,6 @@
 
 ### Things to work on 
 
-[] Service DAO Interface 
-[] Service DAO
-[] Package DAO Interface
-[] Package DAO 
-[] Package Service DAO and Interface
 [] Booking DAO And Interface 
 [] Testing Booking
 [] Debugging

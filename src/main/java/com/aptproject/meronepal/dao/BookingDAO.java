@@ -24,7 +24,7 @@ public class BookingDAO implements BookingDAOInterface {
         }
     }
     @Override
-    public int insertBooking(User user, PackageService aPackageService, String event_address, String notes, String event_date){
+    public int insertBooking(User user, PackageService aPackageService, String eventAddress, String notes, String eventDate){
 
         int user_id = user.getUserId();
         //TODO Here is the confusion
@@ -35,8 +35,8 @@ public class BookingDAO implements BookingDAOInterface {
             PreparedStatement pStm = conn.prepareStatement(INSERT_Booking);
             pStm.setInt(1, user_id);
             pStm.setInt(2, packageServiceID);
-            pStm.setString(3, event_date);
-            pStm.setString(4, event_address);
+            pStm.setString(3, eventDate);
+            pStm.setString(4, eventAddress);
             pStm.setString(5, notes);
 
             int re = pStm.executeUpdate();

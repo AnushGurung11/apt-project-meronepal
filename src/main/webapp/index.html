@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mero Nepal Production</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;900&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .hero-scroll {
+        --black: #0a0a0a;
+        --dark: #111111;
+        --surface: #181818;
+        --surface2: #222222;
+        --border: #2a2a2a;
+        --gold: #c9a84c;
+        --gold-light: #e2c07a;
+        --gold-dim: #c9a84c33;
+        --white: #f5f0e8;
+        --muted: #888880;
+        --red: #c0392b;
+        --font-display: "Cormorant Garamond", Georgia, serif;
+        --font-body: "Outfit", sans-serif;
+        --radius: 6px;
+        --radius-lg: 12px;
+        --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+        font-family: var(--font-body);
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        bottom: 36px;
+        right: 48px;
+        writing-mode: vertical-rl;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .hero-scroll::after {
+        content: "";
+        display: block;
+        width: 1px;
+        height: 60px;
+        background: linear-gradient(to bottom, var(--muted), transparent);
+      }
+
+      @media (max-width: 768px) {
+        .hero-scroll {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Background Grid -->
+    <div class="fixed inset-0 opacity-20 z-0 background-grid">
+      <script>
+        for (let i = 0; i < 96; i++)
+          document.write('<div class="grid-cell"></div>');
+      </script>
+    </div>
+
+    <!-- Film grain -->
+    <div
+      class="fixed inset-0 opacity-5 pointer-events-none grain-overlay"
+    ></div>
+
+    <!-- ── MOBILE TOP BAR (hidden on md+) ── -->
+    <div
+      class="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-14 bg-[#0a0a0a]"
+      style="border-bottom: 1px solid var(--color-border)"
+    >
+      <div class="text-xl font-black">M.NP</div>
+      <button
+        id="nav-toggle"
+        class="flex flex-col gap-[5px] p-1"
+        aria-label="Toggle menu"
+      >
+        <span
+          id="bar1"
+          class="block w-6 h-px bg-white"
+          style="
+            transition:
+              transform 0.25s,
+              opacity 0.25s;
+          "
+        ></span>
+        <span
+          id="bar2"
+          class="block w-6 h-px bg-white"
+          style="transition: opacity 0.25s"
+        ></span>
+        <span
+          id="bar3"
+          class="block w-4 h-px bg-white"
+          style="transition: transform 0.25s"
+        ></span>
+      </button>
+    </div>
+
+    <!-- Mobile nav drawer -->
+    <nav
+      id="mobile-nav"
+      class="md:hidden fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col justify-center items-center gap-10"
+      style="transform: translateX(100%); transition: transform 0.3s ease"
+    >
+      <a href="#" class="text-3xl font-black uppercase tracking-widest">Home</a>
+      <a href="#" class="text-3xl font-black uppercase tracking-widest"
+        >Package</a
+      >
+      <a href="#" class="text-3xl font-black uppercase tracking-widest"
+        >About</a
+      >
+      <a href="#" class="text-3xl font-black uppercase tracking-widest">Blog</a>
+      <a href="pages/auth/login.html" class="uppercase btn-secondary mt-4"
+        >Login</a
+      >
+      <a href="pages/packages.html" class="uppercase btn-primary mt-4"
+        >Book Now</a
+      >
+    </nav>
+
+    <!-- Main layout -->
+    <div
+      class="relative z-10 grid md:grid-cols-[80px_1fr_300px] min-h-screen border-b border-white/10"
+    >
+      <!-- ── LEFT RAIL (desktop only) ── -->
+      <aside
+        class="hidden md:flex flex-col justify-between items-center py-12 border-r border-white/10 sticky top-0 h-screen"
+      >
+        <div class="text-2xl font-black">M.NP</div>
+        <div
+          class="vertical-text text-[10px] tracking-[0.4em] uppercase"
+          style="color: var(--color-gold)"
+        >
+          Mero Nepal Production — EST. 2014
+        </div>
+        <div
+          class="w-2 h-2 rounded-full"
+          style="background: var(--color-gold)"
+        ></div>
+      </aside>
+
+      <!-- ── CENTER ── -->
+      <main class="pt-14 md:pt-0">
+        <!-- HERO -->
+        <header
+          class="relative min-h-screen flex items-center px-6 md:px-16 border-b border-white/10 overflow-hidden"
+        >
+          <img
+            class="absolute inset-0 w-full h-full object-cover opacity-40 grayscale"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGv4WHV5o1cuql3s9Qrrj1b-Hg05djI-bhGUtD13wFFUDVCibL9J0pDwJL6C3tb1PXeUCyR6SZUgF7fSrx-tYLk6UBd_1fvL9poV260auVGwenJHPlSbKBI5VqBvYtj3V7yeImHUVwStzmoyyxNLxnJ0N8KHB7xomkqEpyJAfvmMXNbXWGUCvl7CfT7mqMLhYf60lT8ooGc9gjmyaeaDOdvgFOV3devEjmY-ouXQkHjx4BE1zkHjUvuhNb7w1y1UYngkVKV2ybRJk"
+            alt="Hero background"
+          />
+          <div class="relative z-10 fade-in">
+            <span
+              class="text-[11px] uppercase tracking-[0.5em] block mb-4 md:mb-6"
+              style="color: var(--color-gold)"
+            >
+              Cinematic Production House
+            </span>
+
+            <h1
+              class="font-black leading-[0.85] uppercase mb-6 md:mb-8"
+              style="font-size: clamp(2.8rem, 12vw, 140px)"
+            >
+              Mero<br />Nepal <br />Production
+            </h1>
+
+            <p
+              class="serif italic text-base md:text-xl text-white/60 max-w-sm md:max-w-md"
+            >
+              Capturing the raw, uncompromising soul of the Himalayas.
+            </p>
+
+            <div
+              class="mt-10 md:mt-16 flex flex-wrap gap-5 md:gap-8 items-center"
+            >
+              <button
+                class="px-8 md:px-10 py-3 md:py-4 text-xs font-bold uppercase text-black"
+                style="background: var(--color-gold)"
+                onclick="window.location.href = 'pages/packages.html'"
+              >
+                View Packages
+              </button>
+              <div class="flex gap-3 items-center cursor-pointer btn-secondary">
+                <a href="pages/about.html">
+                  <span class="text-[10px] uppercase">Meet The Team</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="hero-scroll">Scroll</div>
+        </header>
+
+        <!-- STATS -->
+        <section class="grid grid-cols-3 border-b border-white/10">
+          <div class="p-5 md:p-12 text-center">
+            <div class="text-2xl md:text-5xl font-black">500+</div>
+            <div
+              class="text-[9px] md:text-xs uppercase text-gray-500 mt-1 leading-tight"
+            >
+              Events Covered
+            </div>
+          </div>
+          <div class="p-5 md:p-12 text-center border-x border-white/10">
+            <div class="text-2xl md:text-5xl font-black">1M+</div>
+            <div
+              class="text-[9px] md:text-xs uppercase text-gray-500 mt-1 leading-tight"
+            >
+              Photos Delivered
+            </div>
+          </div>
+          <div class="p-5 md:p-12 text-center">
+            <div class="text-2xl md:text-5xl font-black">10+</div>
+            <div
+              class="text-[9px] md:text-xs uppercase text-gray-500 mt-1 leading-tight"
+            >
+              Years Active
+            </div>
+          </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section class="py-16 md:py-32 px-6 md:px-16 border-b border-white/10">
+          <h2 class="text-3xl md:text-5xl font-black mb-12 md:mb-24">
+            Mastering the <br />
+            <span class="serif italic" style="color: var(--color-gold)"
+              >Narrative</span
+            >
+          </h2>
+          <div
+            class="flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-6 md:items-start"
+          >
+            <!-- Card 1 -->
+            <div class="bg-[#201f1f] p-8 md:p-12 rounded flex flex-col gap-4">
+              <h3 class="text-2xl font-serif">Wedding</h3>
+              <p class="text-white/60 leading-relaxed">
+                Capturing the sacred union of souls against the backdrop of
+                tradition and eternal love.
+              </p>
+              <a
+                href="pages/packages.html"
+                class="text-xs uppercase tracking-widest text-[#e6c364] flex items-center gap-2"
+              >
+                Discover More →
+              </a>
+            </div>
+
+            <!-- Card 2 -->
+            <div
+              class="bg-[#201f1f] p-8 md:p-12 rounded flex flex-col gap-4 md:mt-12"
+            >
+              <h3 class="text-2xl font-serif">Commercial</h3>
+              <p class="text-white/60 leading-relaxed">
+                Elevating brands through cinematic storytelling and
+                high-fidelity production quality.
+              </p>
+              <a
+                href="pages/packages.html"
+                class="text-xs uppercase tracking-widest text-[#e6c364] flex items-center gap-2"
+              >
+                Discover More →
+              </a>
+            </div>
+
+            <!-- Card 3 -->
+            <div
+              class="bg-[#201f1f] p-8 md:p-12 rounded flex flex-col gap-4 md:mt-24"
+            >
+              <h3 class="text-2xl font-serif">Documentary</h3>
+              <p class="text-white/60 leading-relaxed">
+                Authentic human stories told with journalistic integrity and
+                cinematic depth.
+              </p>
+              <a
+                href="pages/packages.html"
+                class="text-xs uppercase tracking-widest text-[#e6c364] flex items-center gap-2"
+              >
+                Discover More →
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- PORTFOLIO -->
+        <div class="py-32 px-12 max-w-[1600px] flex flex-col gap-24">
+          <!-- Heading -->
+          <div class="flex flex-col gap-6 w-full">
+            <div class="text-center">
+              <h2 class="text-[60px] leading-[60px] font-serif text-[#e5e2e1]">
+                Our Perspective
+              </h2>
+            </div>
+            <div class="text-center">
+              <p class="text-[12px] uppercase tracking-[1.2px] text-white/40">
+                SELECT WORKS FROM 2023-2024
+              </p>
+            </div>
+          </div>
+
+          <!-- Grid -->
+          <div class="grid grid-cols-12 gap-6">
+            <!-- Item 1 -->
+            <div
+              class="col-span-8 h-[600px] relative rounded overflow-hidden group"
+            >
+              <img
+                src="assets/img/portfolio/STS X meronepalpro (1).jpg"
+                class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0 grayscale brightness-75 group-hover:brightness-100"
+              />
+              <div
+                class="absolute bottom-0 left-0 right-0 p-12 bg-gradient-to-t from-black/80 to-transparent"
+              >
+                <h3 class="text-[30px] leading-[36px] font-serif">
+                  Portrait of Swastima Khadka
+                </h3>
+                <p class="text-[10px] uppercase tracking-[1px]">
+                  ARCHITECTURE • 2024
+                </p>
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div
+              class="col-span-4 h-[600px] relative rounded overflow-hidden group"
+            >
+              <img
+                src="assets/img/portfolio/STS X meronepalpro (65).jpg"
+                class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0 grayscale brightness-75 group-hover:brightness-100"
+              />
+              <div
+                class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent"
+              >
+                <h3 class="text-[24px] leading-[32px] font-serif">
+                  Post Wedding at Rupakot
+                </h3>
+                <p class="text-[10px] uppercase tracking-[1px]">
+                  PORTRAITURE • 2023
+                </p>
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div
+              class="col-span-4 h-[500px] relative rounded overflow-hidden group"
+            >
+              <img
+                src="assets/img/portfolio/STS X meronepalpro (67).jpg"
+                class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0 grayscale brightness-75 group-hover:brightness-100"
+              />
+              <div
+                class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent"
+              >
+                <h3 class="text-[24px] leading-[32px] font-serif">
+                  Spirit of Mustang
+                </h3>
+                <p class="text-[10px] uppercase tracking-[1px]">
+                  LANDSCAPE • 2024
+                </p>
+              </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div
+              class="col-span-8 h-[500px] relative rounded overflow-hidden group"
+            >
+              <img
+                src="assets/img/portfolio/TWX_1719.jpg"
+                class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0 grayscale brightness-75 group-hover:brightness-100"
+              />
+              <div
+                class="absolute bottom-0 left-0 right-0 p-12 bg-gradient-to-t from-black/80 to-transparent"
+              >
+                <h3 class="text-[30px] leading-[36px] font-serif">
+                  Eternal Bonds
+                </h3>
+                <p class="text-[10px] uppercase tracking-[1px]">
+                  WEDDING • 2024
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TESTIMONIAL -->
+        <div class="bg-[#131313] py-32 px-12 md:px-48 flex">
+          <div class="w-full max-w-[896px] mx-auto flex flex-col gap-12 px-12">
+            <!-- Stars -->
+            <div class="flex justify-center gap-2">
+              <svg class="w-5 h-5 fill-[#E6C364]" viewBox="0 0 20 19">
+                <path
+                  d="M3.825 19L5.45 11.975L0 7.25L7.2 6.625L10 0L12.8 6.625L20 7.25L14.55 11.975L16.175 19L10 15.275L3.825 19Z"
+                />
+              </svg>
+              <svg class="w-5 h-5 fill-[#E6C364]" viewBox="0 0 20 19">
+                <path
+                  d="M3.825 19L5.45 11.975L0 7.25L7.2 6.625L10 0L12.8 6.625L20 7.25L14.55 11.975L16.175 19L10 15.275L3.825 19Z"
+                />
+              </svg>
+              <svg class="w-5 h-5 fill-[#E6C364]" viewBox="0 0 20 19">
+                <path
+                  d="M3.825 19L5.45 11.975L0 7.25L7.2 6.625L10 0L12.8 6.625L20 7.25L14.55 11.975L16.175 19L10 15.275L3.825 19Z"
+                />
+              </svg>
+              <svg class="w-5 h-5 fill-[#E6C364]" viewBox="0 0 20 19">
+                <path
+                  d="M3.825 19L5.45 11.975L0 7.25L7.2 6.625L10 0L12.8 6.625L20 7.25L14.55 11.975L16.175 19L10 15.275L3.825 19Z"
+                />
+              </svg>
+              <svg class="w-5 h-5 fill-[#E6C364]" viewBox="0 0 20 19">
+                <path
+                  d="M3.825 19L5.45 11.975L0 7.25L7.2 6.625L10 0L12.8 6.625L20 7.25L14.55 11.975L16.175 19L10 15.275L3.825 19Z"
+                />
+              </svg>
+            </div>
+
+            <!-- Quote -->
+            <div class="text-center">
+              <p
+                class="text-[32px] md:text-[48px] leading-tight md:leading-[48px] font-serif text-[#e5e2e1]"
+              >
+                "Mero Nepal doesn't just record<br />
+                events; they weave stories. Their<br />
+                lens captured emotions we didn't<br />
+                even know were visible. Absolute<br />
+                mastery."
+              </p>
+            </div>
+
+            <!-- Author -->
+            <div class="flex flex-col items-center gap-1">
+              <p class="text-[#e6c364] text-sm tracking-[2.8px] uppercase">
+                ANANYA & SAMEER
+              </p>
+              <p class="text-white/40 text-xs uppercase">
+                KATHMANDU WEDDING, OCT 2023
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- JOURNAL -->
+        <div class="flex flex-col gap-16 max-w-[1280px] py-24 px-12">
+          <!-- Header -->
+          <div class="flex items-center justify-between w-full">
+            <div class="flex flex-col">
+              <div
+                class="text-[#e5e2e1] text-[36px] leading-[40px] font-normal font-serif"
+              >
+                The Auteur's Journal
+              </div>
+            </div>
+            <div class="border-b border-[#e6c3644d] pb-1">
+              <div
+                class="text-[#e6c364] text-[12px] leading-[16px] tracking-[1.2px] uppercase"
+              >
+                READ ALL ARTICLES
+              </div>
+            </div>
+          </div>
+
+          <!-- Articles Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <!-- Article 1 -->
+            <div class="flex flex-col gap-4">
+              <a href="pages/blog/1.html">
+                <div class="rounded-lg overflow-hidden aspect-[362/287] group">
+                  <img
+                    class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-80"
+                    src="assets/img/article/article-1.jpg"
+                    alt="Lighting the Soul"
+                  />
+                </div>
+                <div
+                  class="text-[#e5e2e166] text-[10px] uppercase tracking-[1px]"
+                >
+                  MARCH 12, 2024
+                </div>
+                <div
+                  class="text-[#e5e2e1] text-[24px] leading-[32px] font-serif"
+                >
+                  Lighting the Soul: The Beauty<br />of Natural Shadows
+                </div>
+              </a>
+            </div>
+
+            <!-- Article 2 -->
+            <div class="flex flex-col gap-4">
+              <a href="pages/blog/1.html">
+                <div class="rounded-lg overflow-hidden aspect-[362/287] group">
+                  <img
+                    class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-80"
+                    src="assets/img/article/article-2.jpg"
+                    alt="5 Cinematic Techniques"
+                  />
+                </div>
+                <div
+                  class="text-[#e5e2e166] text-[10px] uppercase tracking-[1px]"
+                >
+                  FEBRUARY 28, 2024
+                </div>
+                <div
+                  class="text-[#e5e2e1] text-[24px] leading-[32px] font-serif"
+                >
+                  5 Cinematic Techniques for<br />Modern Weddings
+                </div>
+              </a>
+            </div>
+
+            <!-- Article 3 -->
+            <div class="flex flex-col gap-4">
+              <a href="pages/blog/1.html">
+                <div class="rounded-lg overflow-hidden aspect-[362/287] group">
+                  <img
+                    class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-80"
+                    src="assets/img/article/article-3.jpg"
+                    alt="Documenting Mustang"
+                  />
+                </div>
+                <div
+                  class="text-[#e5e2e166] text-[10px] uppercase tracking-[1px]"
+                >
+                  JANUARY 15, 2024
+                </div>
+                <div
+                  class="text-[#e5e2e1] text-[24px] leading-[32px] font-serif"
+                >
+                  Documenting Mustang: A<br />Visual Odyssey
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <section
+          class="py-24 md:py-40 px-6 text-center border-b border-white/10"
+        >
+          <h2
+            class="font-black mb-8 md:mb-12"
+            style="font-size: clamp(2rem, 8vw, 60px)"
+          >
+            Let's Tell <br />
+            <span class="serif italic" style="color: var(--color-gold)"
+              >Your Story</span
+            >
+          </h2>
+          <button
+            class="px-12 md:px-16 py-4 md:py-6 font-bold bg-white text-black"
+          >
+            Start Project
+          </button>
+        </section>
+
+        <!-- FOOTER -->
+        <div class="footer">
+          <div class="container">
+            <div class="container2">
+              <div class="container3">
+                <div class="mero-nepal">Mero Nepal Production</div>
+              </div>
+              <div class="container4">
+                <div class="text">
+                  <br />
+                  Cinematic photography and media production based in Nepal. We
+                  capture the moments that define your story.
+                </div>
+              </div>
+            </div>
+
+            <div class="container5">
+              <div class="container6">
+                <div class="heading-6">
+                  <div class="navigation">NAVIGATION</div>
+                </div>
+                <br />
+                <div class="list">
+                  <div class="item">
+                    <a href="index.html">
+                      <div>Home</div>
+                    </a>
+                  </div>
+                  <div class="item">
+                    <a href="pages/packages.html">
+                      <div>Packages</div>
+                    </a>
+                  </div>
+                  <div class="item">
+                    <a href="pages/about.html">
+                      <div>About</div>
+                    </a>
+                  </div>
+                  <div class="item">
+                    <a href="pages/blog.html">
+                      <div>Blog</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="container7">
+                <div class="heading-6">
+                  <div class="legal">Account</div>
+                </div>
+                <br />
+                <div class="list">
+                  <div class="item">
+                    <a href="pages/auth/login.html">
+                      <div>Login</div>
+                    </a>
+                  </div>
+                  <div class="item">
+                    <a href="pages/auth/register.html">
+                      <div>Register</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="container8">
+              <div class="heading-6">
+                <div class="stay-inspired">Contact</div>
+              </div>
+
+              <div class="horizontal-border">
+                <input
+                  class="footer-input"
+                  type="email"
+                  placeholder="Email Address"
+                />
+                <button class="footer-btn">→</button>
+              </div>
+
+              <div class="container10">
+                <!-- Email -->
+                <a
+                  href="mailto:hello@meronepal.com"
+                  class="social-link"
+                  aria-label="Email"
+                  target="_blank"
+                >
+                  <span class="material-symbols-outlined social-icon"
+                    >mail</span
+                  >
+                </a>
+
+                <!-- Website -->
+                <a
+                  href="https://meronepal.com"
+                  class="social-link"
+                  aria-label="Website"
+                  target="_blank"
+                >
+                  <span class="material-symbols-outlined social-icon"
+                    >language</span
+                  >
+                </a>
+
+                <!-- Instagram -->
+                <a
+                  href="https://instagram.com/yourpage"
+                  class="social-link"
+                  aria-label="Instagram"
+                  target="_blank"
+                >
+                  <span class="material-symbols-outlined social-icon"
+                    >photo_camera</span
+                  >
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="horizontal-border2">
+            <div class="container3">
+              <div class="_2024-mero-nepal-production-the-modern-auteur">
+                ©
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                Mero Nepal Production. The Modern Auteur.
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- RIGHT RAIL -->
+      <aside
+        class="hidden md:flex flex-col justify-between p-12 border-l border-white/10 sticky top-0 h-screen"
+      >
+        <nav class="space-y-6">
+          <a href="index.html" class="block uppercase active">Home</a>
+          <a href="pages/packages.html" class="block uppercase">Packages</a>
+          <a href="pages/about.html" class="block uppercase">About</a>
+          <a href="pages/blog.html" class="block uppercase">Blog</a>
+          <a href="pages/auth/login.html" class="uppercase btn-secondary mt-4"
+            >Login</a
+          >
+          <a href="pages/packages.html" class="uppercase btn-primary mt-4"
+            >Book Now</a
+          >
+        </nav>
+      </aside>
+    </div>
+
+    <script>
+      // Mobile nav drawer
+      const toggle = document.getElementById("nav-toggle");
+      const drawer = document.getElementById("mobile-nav");
+      const bar1 = document.getElementById("bar1");
+      const bar2 = document.getElementById("bar2");
+      const bar3 = document.getElementById("bar3");
+      let isOpen = false;
+
+      toggle.addEventListener("click", () => {
+        isOpen = !isOpen;
+        drawer.style.transform = isOpen ? "translateX(0)" : "translateX(100%)";
+        bar1.style.transform = isOpen ? "translateY(6px) rotate(45deg)" : "";
+        bar2.style.opacity = isOpen ? "0" : "1";
+        bar3.style.transform = isOpen ? "translateY(-6px) rotate(-45deg)" : "";
+        bar3.style.width = isOpen ? "24px" : "";
+      });
+
+      drawer.querySelectorAll("a").forEach((a) =>
+        a.addEventListener("click", () => {
+          isOpen = false;
+          drawer.style.transform = "translateX(100%)";
+          bar1.style.transform = bar3.style.transform = "";
+          bar2.style.opacity = "1";
+          bar3.style.width = "";
+        }),
+      );
+    </script>
+  </body>
+</html>

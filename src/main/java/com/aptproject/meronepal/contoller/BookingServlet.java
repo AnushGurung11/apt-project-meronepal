@@ -1,6 +1,7 @@
 package com.aptproject.meronepal.contoller;
 
 import java.io.IOException;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,9 +19,15 @@ public class BookingServlet extends HttpServlet {
 
 
     }
-
+    //
     @Override
     public  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        //TODO Request, User, Package Service
+        //TODO variable ma store garne
+        //TODO Print the variable
+        //TODO variable lai DAO of Object banau ne
+        //TODO Booking DAO of ko Object ma variable pass.
+        // Return value aanushar sout garne.
 
     }
 

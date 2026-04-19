@@ -8,7 +8,7 @@ public interface PackageDAOInterface {
     Package getPackage(String pack);
 
     //Get Package Service
-    PackageService getPackageService(String packageService);
+//    PackageService getPackageService(String packageService);
 
 //    int insertPackage();
 }

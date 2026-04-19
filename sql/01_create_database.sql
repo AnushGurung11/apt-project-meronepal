@@ -45,6 +45,7 @@ CREATE TABLE User (
 -- ============================================================
 CREATE TABLE Package (
     package_id    INT            PRIMARY KEY AUTO_INCREMENT,
+    service_id INT FOREIGN KEY AUTO_INCREMENT,
     package_name  VARCHAR(100)   NOT NULL,
     description   TEXT,
     price         DECIMAL(10, 2) NOT NULL,

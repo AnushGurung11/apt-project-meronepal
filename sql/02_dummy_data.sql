@@ -26,12 +26,12 @@ INSERT INTO User (first_name, last_name, middle_name, email, phone_number, passw
 INSERT INTO Services (service_name, service_type, description) VALUES
 ('Photography',     'Media',   'Professional photo coverage of your event'),
 ('Videography',     'Media',   'HD video recording with highlights reel'),
-('Cinematography',  'Media',   'Cinematic film-style full event coverage'),
-('Decoration',      'Venue',   'Full venue decoration including flowers and lights'),
-('Catering',        'Food',    'Buffet catering with diverse menu options'),
-('DJ & Music',      'Entertainment', 'Live DJ with sound system and lighting'),
-('MC / Host',       'Entertainment', 'Professional master of ceremonies'),
-('Cake & Desserts', 'Food',    'Custom cake design and dessert table');
+('Cinematography',  'Media',   'Cinematic film-style full event coverage');
+--('Decoration',      'Venue',   'Full venue decoration including flowers and lights'),
+--('Catering',        'Food',    'Buffet catering with diverse menu options'),
+--('DJ & Music',      'Entertainment', 'Live DJ with sound system and lighting'),
+--('MC / Host',       'Entertainment', 'Professional master of ceremonies'),
+--('Cake & Desserts', 'Food',    'Custom cake design and dessert table');
 
 -- ============================================================
 -- PACKAGES  (Pre-defined by Admin)

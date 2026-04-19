@@ -15,6 +15,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         //TODO get the parameter from the front end
+        // TODO variable ma store gara
     }
 
 }

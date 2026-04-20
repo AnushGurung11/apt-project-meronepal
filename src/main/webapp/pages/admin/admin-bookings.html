@@ -713,6 +713,34 @@
           bar3.style.width = "";
         }),
       );
+
+      function filterTable(status) {
+        const rows = document.querySelectorAll("#bookingBody tr");
+        rows.forEach((row) => {
+          row.style.display =
+            status === "all" || row.dataset.status === status ? "" : "none";
+        });
+      }
+      function searchTable(val) {
+        const rows = document.querySelectorAll("#bookingBody tr");
+        rows.forEach((row) => {
+          row.style.display = row.textContent
+            .toLowerCase()
+            .includes(val.toLowerCase())
+            ? ""
+            : "none";
+        });
+      }
+      function deleteRow(btn) {
+        if (confirm("Delete this booking?")) btn.closest("tr").remove();
+      }
+      function confirmBooking(btn) {
+        const row = btn.closest("tr");
+        row.querySelector(".badge-pending").className = "badge badge-confirmed";
+        row.querySelector(".badge-confirmed").textContent = "Confirmed";
+        row.dataset.status = "Confirmed";
+        btn.remove();
+      }
     </script>
   </body>
 </html>

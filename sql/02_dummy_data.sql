@@ -124,11 +124,3 @@ INSERT INTO Payment (booking_id, amount, payment_method, payment_status, payment
 (5, 50000.00, 'Card',          'Paid',    '2025-05-01'),
 (6, 0.00,     NULL,            'Unpaid',  NULL),
 (7, 0.00,     NULL,            'Unpaid',  NULL);
-
--- ============================================================
--- TESTIMONIES  (only Completed bookings can leave reviews)
--- ============================================================
-INSERT INTO Testimony (booking_id, message, rating, testimony_date) VALUES
-(1, 'Amazing decoration and great photography! My daughter loved every moment.',     5, '2025-02-20'),
-(2, 'The team was professional and the photos are stunning. Highly recommend!',      5, '2025-03-25'),
-(3, 'Good overall. Catering could have had more variety but media team was great.',  4, '2025-04-15');

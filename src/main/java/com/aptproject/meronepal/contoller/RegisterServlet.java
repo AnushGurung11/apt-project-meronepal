@@ -40,6 +40,7 @@ public class RegisterServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO get the parameter from the front end
         // TODO variable ma store gara
+        //add
     }
 =======
 // Servlet which handles registration

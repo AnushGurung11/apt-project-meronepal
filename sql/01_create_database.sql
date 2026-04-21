@@ -134,6 +134,7 @@ CREATE TABLE Testimony (
     CONSTRAINT fk_testimony_booking FOREIGN KEY (booking_id)
         REFERENCES Booking(booking_id) ON DELETE CASCADE
 );
+<<<<<<< HEAD
 
 ALTER TABLE User
     DROP COLUMN first_name,
@@ -143,3 +144,5 @@ ALTER TABLE User
 
 
 >>>>>>> 74ab3db (Filter and minor fixing of session and cookies)
+=======
+>>>>>>> dcaf6b3 (updated the database table structure by removing the testimonial part)

@@ -8,9 +8,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.util.regex.Pattern;
+
+//TODO use utils for user validation
+// After completing the register then drop to the home jsp
+// Work on the Login and also manage session
+// After finishing login and also manage the booking related using User login session
 
 // Servlet which handles registration
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})

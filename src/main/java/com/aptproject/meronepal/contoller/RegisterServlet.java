@@ -1,25 +1,22 @@
 package com.aptproject.meronepal.contoller;
 
 import com.aptproject.meronepal.dao.UserDAO;
-import com.aptproject.meronepal.model.User;
 import com.aptproject.meronepal.utility.PasswordUtil;
 import com.aptproject.meronepal.utility.ValidationUtil;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.regex.Pattern;
 
-<<<<<<< HEAD
-@WebServlet(name = "RegisterServlet", urlPatterns = { "/register" })
-=======
+<<<<<<<HEAD @WebServlet(name="RegisterServlet",urlPatterns={"/register"})=======
 //TODO use utils for user validation
 // After completing the register then drop to the home jsp
 // Work on the Login and also manage session
 // After finishing login and also manage the booking related using User login session
+// Validating Phone number field for string
 
 // Servlet which handles registration
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
@@ -32,71 +29,64 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
+        // Get data from the registration form
+        String userName = request.getParameter("username");
+        String phoneNumber = request.getParameter("phoneNumber");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 
-        if (firstName != null)
-            firstName = firstName.trim();
-        if (lastName != null)
-            lastName = lastName.trim();
-        if (email != null)
-            email = email.trim();
-        if (password != null)
-            password = password.trim();
-        if (confirmPassword != null)
-            confirmPassword = confirmPassword.trim();
 
-        if (firstName == null || firstName.isEmpty() ||
-                lastName == null || lastName.isEmpty() ||
-                email == null || email.isEmpty() ||
-                password == null || password.isEmpty() ||
-                confirmPassword == null || confirmPassword.isEmpty()) {
+        final boolean isValidName = !ValidationUtil.isNullOrEmpty(userName)
+                && ValidationUtil.isAlphanumericStartingWithLetter(userName)
+                && userName.length() > 5;
+        String errorUser = isValidName ? "" : "Name not Proper! ";
 
-            request.setAttribute("error", "All fields are required.");
-            request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
-            return;
+        final boolean isValidMail = ValidationUtil.isValidEmail(email);
+        String errorMail = isValidMail ? "" : "Mail not Proper! ";
+
+        final boolean isValidNum = ValidationUtil.isValidPhone(phoneNumber);
+        String errorNum = isValidNum ? "" : "Not a Proper Phone number !";
+
+        final boolean isValidPass = ValidationUtil.isValidPassword(password);
+        String errorPass = isValidPass ? "" : "Password not Proper! ";
+
+        final boolean isValidCon = ValidationUtil.doPasswordsMatch(password, confirmPassword);
+        String errorCon = isValidCon ? "" : "Password not matching! ";
+
+        String error_ = errorUser + errorMail + errorPass + errorCon;
+        request.setAttribute("error", error_);
+        request.setAttribute("erUser", errorUser);
+        request.setAttribute("erMail", errorMail);
+
+        //if error in user data provide feedback to same page
+        if (!error_.isBlank()) {
+            RequestDispatcher rd = request.getRequestDispatcher("/register.jsp");
+            rd.forward(request, response);
+        }else {
+            // if user details all good, hash it before storing it
+            String hashedPassword = PasswordUtil.getHashPassword(password);
+
+            //Create user entry on database users table
+            final UserDAO userDAO = new UserDAO();
+            int check = userDAO.insertUser(userName, email,  phoneNumber, hashedPassword);
+            switch (check) {
+                case 1:
+                    //After successful login we will save the user to the session and redirect to the Home page
+                    response.sendRedirect("Login.jsp");
+                    break;
+                //if check is 2 user already present display user already present error
+                //send user present message to user in register page
+                case 2:
+                    request.setAttribute("error", "User/Email already present!");
+                    RequestDispatcher rdisp = request.getRequestDispatcher("/register.jsp");
+                    rdisp.forward(request, response);
+                    break;
+                default:
+                    System.out.println("Server error: " + check + " :error code");
+                    break;
+            }
         }
 
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        if (!Pattern.matches(emailRegex, email)) {
-            request.setAttribute("error", "Invalid email format.");
-            request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
-            return;
-        }
-
-        if (!password.equals(confirmPassword)) {
-            request.setAttribute("error", "Password and confirm password do not match.");
-            request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
-            return;
-        }
-
-        if (userDAO.emailExists(email)) {
-            request.setAttribute("error", "Email already registered.");
-            request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
-            return;
-        }
-
-        User user = new User();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setUserRole("Customer");
-        user.setStatus("Active");
-
-        boolean isRegistered = userDAO.registerUser(user);
-
-        if (isRegistered) {
-            HttpSession session = request.getSession();
-            session.setAttribute("loggedInUser", user);
-            session.setAttribute("userRole", user.getUserRole());
-            response.sendRedirect(request.getContextPath() + "/Login");
-        } else {
-            request.setAttribute("error", "Registration failed. Please try again.");
-            request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
-        }
     }
 }

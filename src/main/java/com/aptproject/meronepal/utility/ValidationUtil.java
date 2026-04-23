@@ -17,7 +17,8 @@ public class ValidationUtil {
         return value != null && value.matches("^[a-zA-Z]+$");
     }
 
-    // 3. Validate if a string starts with a letter and is composed of letters and numbers
+    // 3. Validate if a string starts with a letter and is composed of letters and
+    // numbers
     public static boolean isAlphanumericStartingWithLetter(String value) {
         return value != null && value.matches("^[a-zA-Z][a-zA-Z0-9]*$");
     }
@@ -38,19 +39,22 @@ public class ValidationUtil {
         return number != null && number.matches("^98\\d{8}$");
     }
 
-    // 7. Validate if a password is composed of at least 1 capital letter, 1 number, and 1 symbol
+    // 7. Validate if a password is composed of at least 1 capital letter, 1 number,
+    // and 1 symbol
     public static boolean isValidPassword(String password) {
         String passwordRegex = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$";
         return password != null && password.matches(passwordRegex);
     }
 
-    // 8. Validate if a Part's file extension matches with image extensions (jpg, jpeg, png, gif)
+    // 8. Validate if a Part's file extension matches with image extensions (jpg,
+    // jpeg, png, gif)
     public static boolean isValidImageExtension(Part imagePart) {
         if (imagePart == null || isNullOrEmpty(imagePart.getSubmittedFileName())) {
             return false;
         }
         String fileName = imagePart.getSubmittedFileName().toLowerCase();
-        return fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png") || fileName.endsWith(".gif");
+        return fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png")
+                || fileName.endsWith(".gif");
     }
 
     // 9. Validate if password and retype password match
@@ -67,14 +71,13 @@ public class ValidationUtil {
         return Period.between(dob, today).getYears() >= 16;
     }
 
-    //11. Checking for Phone number
-    public static boolean isValidPhone(String phoneNumber){
-//        if(phoneNumber.length() == 10){
-//            if((int) phoneNumber.charAt(0) == 9){
-//                return true;
-//            }
-//        }
-        return true;
+    // 11. Checking for Phone number
+    public static boolean isValidPhone(String phoneNumber) {
+        if (phoneNumber.length() == 10) {
+            if ((int) phoneNumber.charAt(0) == 9) {
+                return true;
+            }
+        }
+        return false;
     }
 }
-

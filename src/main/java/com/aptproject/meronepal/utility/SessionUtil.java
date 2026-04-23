@@ -1,4 +1,4 @@
-package com.college.util;
+package com.aptproject.meronepal.utility;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

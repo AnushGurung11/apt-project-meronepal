@@ -70,7 +70,7 @@ public class UserDAO implements UserDAOInterface {
             if (rs.next()) {
                 final User user = new User();
                 user.setUserId(rs.getInt("id"));
-                user.setFirstName(rs.getString("user_name"));
+                user.setUserName(rs.getString("user_name"));
                 user.setPasswordHash(rs.getString("password"));
                 user.setPhoneNumber(rs.getString("phone_number"));
                 user.setEmail(rs.getString("email"));

@@ -24,7 +24,11 @@ public class RegisterServlet extends HttpServlet {
     // DAO object created to interact with database
     //Database bata data ko lagi banauna parne DAO
     private final UserDAO userDAO = new UserDAO();
-
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+        rd.forward(request, response);
+    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

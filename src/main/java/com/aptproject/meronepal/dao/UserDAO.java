@@ -25,27 +25,25 @@ public class UserDAO implements UserDAOInterface {
 
     //Insert user
     @Override
-    public int insertUser(String first_name, String last_name, String middle_name, String email, String phone_number, String password) {
+    public int insertUser(String userName, String email, String phone_number, String password) {
 //        this validation will be done in controller part
 //    if (name.isBlank() || email.isBlank() || password.isBlank()) return 0;
         try {
             //Check name and email already present
             final String CHECK_IF_USER = "select name,email from user where LOWER(name)=LOWER(?) or LOWER(email)=LOWER(?);";
             PreparedStatement pStm_ = conn.prepareStatement(CHECK_IF_USER);
-            pStm_.setString(1, first_name);
+            pStm_.setString(1, userName);
             pStm_.setString(2, email);
             ResultSet rs = pStm_.executeQuery();
             if (rs.next()) {
                 return 2;   // 2 for user or email already present
             }
-            final String INSERT_USER = "insert into user (first_name, last_name, middle_name, email, phone_number,password) values (?,?,?,?,?,?);";
+            final String INSERT_USER = "insert into user (user_name, email, phone_number,password) values (?,?,?,?,?,?);";
             PreparedStatement pStm = conn.prepareStatement(INSERT_USER);
-            pStm.setString(1, first_name);
-            pStm.setString(2, last_name);
-            pStm.setString(3, middle_name);
-            pStm.setString(4, email);
-            pStm.setString(5, phone_number);
-            pStm.setString(6, password);
+            pStm.setString(1, userName);
+            pStm.setString(2, email);
+            pStm.setString(3, phone_number);
+            pStm.setString(4, password);
 
             int result = pStm.executeUpdate();
             return result;  //0 or 1
@@ -68,9 +66,7 @@ public class UserDAO implements UserDAOInterface {
             if (rs.next()) {
                 final User user = new User();
                 user.setUserId(rs.getInt("id"));
-                user.setFirstName(rs.getString("first_name"));
-                user.setLastName(rs.getString("last_name"));
-                user.setMiddleName(rs.getString("middle_name"));
+                user.setFirstName(rs.getString("user_name"));
                 user.setPasswordHash(rs.getString("password"));
                 user.setPhoneNumber(rs.getString("phone_number"));
                 user.setEmail(rs.getString("email"));

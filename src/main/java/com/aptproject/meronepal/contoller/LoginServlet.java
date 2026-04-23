@@ -1,5 +1,10 @@
 package com.aptproject.meronepal.contoller;
 
+import com.aptproject.meronepal.dao.UserDAO;
+import com.aptproject.meronepal.model.User;
+import com.aptproject.meronepal.utility.PasswordUtil;
+import com.aptproject.meronepal.utility.SessionUtil;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,6 +16,11 @@ import java.io.IOException;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
     @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) {
+
+    }
+
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //TODO Request bata chine filed haru aaunu paryo (User name , Email, Password)
         //TODO Variable ma store garne.
@@ -19,5 +29,28 @@ public class LoginServlet extends HttpServlet {
         //TODO User xa vane, User ko Object return hunxa natra null return hunxa
         // TODO Yho User lai session ma rakhne
         // TODO Aaba login vai sake ko hunxa ra success vaye ma Redirect to dashbaord.
+        String userName = request.getParameter("username");
+        String typedPassword = request.getParameter("password");
+        UserDAO userDao = new UserDAO();
+        User user = userDao.getUser(userName);
+        //if no user found in database send error message
+        if (user == null) {
+            request.setAttribute("error", "user or password mismatch!");
+            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+            rd.forward(request, response);
+        } else {
+            String hashedPassword = user.getPasswordHash();
+            boolean matched = PasswordUtil.checkPassword(typedPassword, hashedPassword);
+            if (matched) {
+                // Adding the user in session and redirectind the user to the home servlet.
+                SessionUtil.setAttribute(request, "User", user.getUserName()) ;
+                response.sendRedirect(request.getContextPath() + "/home");
+            } else {
+                //if password is mismatched, send error message to login page
+                request.setAttribute("error", "user or password mismatch!");
+                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                rd.forward(request, response);
+            }
+        }
     }
 }

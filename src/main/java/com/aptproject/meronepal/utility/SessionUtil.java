@@ -18,6 +18,7 @@ public class SessionUtil {
      */
     public static void setAttribute(HttpServletRequest request, String key, Object value) {
         HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(30*60); // If the user is inactive for 30 min the session will close
         session.setAttribute(key, value);
     }
 

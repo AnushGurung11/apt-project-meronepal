@@ -119,3 +119,31 @@ CREATE TABLE Payment (
         REFERENCES Booking(booking_id) ON DELETE CASCADE
 );
 
+<<<<<<< HEAD
+=======
+-- ============================================================
+-- 7. TESTIMONY
+--    A customer may leave one review per booking after the event.
+--    UNIQUE on booking_id allows at most one testimony per booking.
+-- ============================================================
+CREATE TABLE Testimony (
+    testimony_id   INT     PRIMARY KEY AUTO_INCREMENT,
+    booking_id     INT     NOT NULL UNIQUE,
+    message        TEXT,
+    rating         TINYINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    testimony_date DATE    NOT NULL DEFAULT (CURRENT_DATE),
+    CONSTRAINT fk_testimony_booking FOREIGN KEY (booking_id)
+        REFERENCES Booking(booking_id) ON DELETE CASCADE
+);
+
+ALTER TABLE User
+    DROP COLUMN first_name,
+    DROP COLUMN last_name,
+    DROP COLUMN middle_name,
+    ADD COLUMN user_name VARCHAR(255) NOT NULL AFTER user_id;
+
+ALTER TABLE Package
+    DROP FOREIGN KEY IF EXISTS `fk_package_service`,  -- drop FK if exists
+    DROP COLUMN service_id;
+
+>>>>>>> 74ab3db (Filter and minor fixing of session and cookies)

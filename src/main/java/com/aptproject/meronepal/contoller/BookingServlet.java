@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import com.aptproject.meronepal.dao.BookingDAO;
 import com.aptproject.meronepal.dao.PackageServiceDAO;
-import com.aptproject.meronepal.dao.UserDAO;
 import com.aptproject.meronepal.model.PackageService;
 import com.aptproject.meronepal.model.User;
+import com.aptproject.meronepal.utility.SessionUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -40,25 +40,28 @@ public class BookingServlet extends HttpServlet {
         //TODO Booking DAO of ko Object ma variable pass.
         // Return value aanushar sout garne.
 
-        String username = request.getParameter("username");
+        // From the session getting user object
+        User user1 = (User) SessionUtil.getAttribute(request, "user");
         int packageService = Integer.parseInt(request.getParameter("packageService"));
         String eventAddress = request.getParameter("eventAddress");
         String description = request.getParameter("description");
         String eventDate = request.getParameter("eventDate");
-        //User object created using the username
-        User userBooking = new UserDAO().getUser(username);
 
         //PackageService model is created from the package Service id provided
         PackageService packageService1 = new PackageServiceDAO().getPackageService(packageService);
 
-        int bookingStatus = new BookingDAO().insertBooking(userBooking,packageService1,eventAddress,description,eventDate);
+        int bookingStatus = new BookingDAO().insertBooking(user1,packageService1,eventAddress,description,eventDate);
 
         if (bookingStatus == 0){
             System.out.println("No Booking Created");
+            SessionUtil.setAttribute(request, "message", "Booking Failed! Please try again.");
+            SessionUtil.setAttribute(request, "messageType", "error");
         } else if (bookingStatus == 1) {
             System.out.println("Booking Created");
+            SessionUtil.setAttribute(request, "message", "Booking Created Successfully!");
+            SessionUtil.setAttribute(request, "messageType", "success");
         }
-
+        response.sendRedirect(request.getContextPath() + "/dashboard");
 
     }
 

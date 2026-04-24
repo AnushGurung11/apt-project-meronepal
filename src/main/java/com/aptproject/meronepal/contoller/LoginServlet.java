@@ -18,8 +18,9 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-        rd.forward(request, response);
+        response.getWriter().println("Login page - GET working!");
+//        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+//        rd.forward(request, response);
     }
 
     @Override
@@ -38,8 +39,10 @@ public class LoginServlet extends HttpServlet {
         //if no user found in database send error message
         if (user == null) {
             request.setAttribute("error", "user or password mismatch!");
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            rd.forward(request, response);
+            response.getWriter().println("No User");
+
+//            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+//            rd.forward(request, response);
         } else {
             String hashedPassword = user.getPasswordHash();
             boolean matched = PasswordUtil.checkPassword(typedPassword, hashedPassword);
@@ -48,12 +51,16 @@ public class LoginServlet extends HttpServlet {
                 SessionUtil.setAttribute(request, "user", user) ;
                 //Also adding the user name as cookies key value, setting maximum age to 30 min
                 CookieUtil.addCookie(response, "UserName", user.getUserName(), 30*60);
-                response.sendRedirect(request.getContextPath() + "/home");
+                response.getWriter().println("Loged in");
+
+//                response.sendRedirect(request.getContextPath() + "/home");
             } else {
                 //if password is mismatched, send error message to login page
                 request.setAttribute("error", "user or password mismatch!");
-                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-                rd.forward(request, response);
+                response.getWriter().println("Password in correct");
+
+//                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+//                rd.forward(request, response);
             }
         }
     }

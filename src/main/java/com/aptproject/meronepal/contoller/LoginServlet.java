@@ -2,6 +2,7 @@ package com.aptproject.meronepal.contoller;
 
 import com.aptproject.meronepal.dao.UserDAO;
 import com.aptproject.meronepal.model.User;
+import com.aptproject.meronepal.utility.CookieUtil;
 import com.aptproject.meronepal.utility.PasswordUtil;
 import com.aptproject.meronepal.utility.SessionUtil;
 import jakarta.servlet.RequestDispatcher;
@@ -43,8 +44,10 @@ public class LoginServlet extends HttpServlet {
             String hashedPassword = user.getPasswordHash();
             boolean matched = PasswordUtil.checkPassword(typedPassword, hashedPassword);
             if (matched) {
-                // Adding the user in session and redirectind the user to the home servlet.
-                SessionUtil.setAttribute(request, "User", user.getUserName()) ;
+                // Adding the user in session and redirecting the user to the home servlet.
+                SessionUtil.setAttribute(request, "user", user) ;
+                //Also adding the user name as cookies key value, setting maximum age to 30 min
+                CookieUtil.addCookie(response, "UserName", user.getUserName(), 30*60);
                 response.sendRedirect(request.getContextPath() + "/home");
             } else {
                 //if password is mismatched, send error message to login page

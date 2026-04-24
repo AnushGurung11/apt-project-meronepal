@@ -134,3 +134,14 @@ CREATE TABLE Testimony (
     CONSTRAINT fk_testimony_booking FOREIGN KEY (booking_id)
         REFERENCES Booking(booking_id) ON DELETE CASCADE
 );
+
+ALTER TABLE User
+    DROP COLUMN first_name,
+    DROP COLUMN last_name,
+    DROP COLUMN middle_name,
+    ADD COLUMN user_name VARCHAR(255) NOT NULL AFTER user_id;
+
+ALTER TABLE Package
+    DROP FOREIGN KEY IF EXISTS `fk_package_service`,  -- drop FK if exists
+    DROP COLUMN service_id;
+

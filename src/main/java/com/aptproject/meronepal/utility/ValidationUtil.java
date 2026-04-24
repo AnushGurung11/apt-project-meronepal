@@ -68,12 +68,18 @@ public class ValidationUtil {
     }
 
     //11. Checking for Phone number
-    public static boolean isValidPhone(String phoneNumber){
-//        if(phoneNumber.length() == 10){
-//            if((int) phoneNumber.charAt(0) == 9){
-//                return true;
-//            }
-//        }
+    public static boolean isValidPhone(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.length() != 10) {
+            return false;
+        }
+        if (phoneNumber.charAt(0) != '9') {
+            return false;
+        }
+        for (char c : phoneNumber.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
         return true;
     }
 }

@@ -141,7 +141,4 @@ ALTER TABLE User
     DROP COLUMN middle_name,
     ADD COLUMN user_name VARCHAR(255) NOT NULL AFTER user_id;
 
-ALTER TABLE Package
-    DROP FOREIGN KEY IF EXISTS `fk_package_service`,  -- drop FK if exists
-    DROP COLUMN service_id;
 

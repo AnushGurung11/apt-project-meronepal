@@ -39,7 +39,7 @@ public class UserDAO implements UserDAOInterface {
             if (rs.next()) {
                 return 2; // 2 for user or email already present
             }
-            final String INSERT_USER = "insert into user (user_name, email, phone_number,password) values (?,?,?,?,?,?);";
+            final String INSERT_USER = "INSERT INTO user (user_name, email, phone_number, password) VALUES (?,?,?,?)";
             PreparedStatement pStm = conn.prepareStatement(INSERT_USER);
             pStm.setString(1, userName);
             pStm.setString(2, email);
@@ -63,13 +63,14 @@ public class UserDAO implements UserDAOInterface {
     public User getUser(String userName) {
         try {
             final String SELECT_USER = "select * from user where user_name=?;";
+            final String SELECT_USER = "select * from user where user_name=?;";
 
             PreparedStatement pStm_ = conn.prepareStatement(SELECT_USER);
             pStm_.setString(1, userName);
             ResultSet rs = pStm_.executeQuery();
             if (rs.next()) {
                 final User user = new User();
-                user.setUserId(rs.getInt("id"));
+                user.setUserId(rs.getInt("user_id"));
                 user.setUserName(rs.getString("user_name"));
                 user.setPasswordHash(rs.getString("password"));
                 user.setPhoneNumber(rs.getString("phone_number"));

@@ -45,11 +45,10 @@ CREATE TABLE User (
 -- ============================================================
 CREATE TABLE Package (
     package_id    INT            PRIMARY KEY AUTO_INCREMENT,
-    service_id INT FOREIGN KEY AUTO_INCREMENT,
     package_name  VARCHAR(100)   NOT NULL,
     description   TEXT,
     price         DECIMAL(10, 2) NOT NULL,
-    is_active     TINYINT(1)     NOT NULL DEFAULT 1   -- soft delete / hide
+    is_active     TINYINT(1)     NOT NULL DEFAULT 1
 );
 
 -- ============================================================
@@ -134,3 +133,11 @@ CREATE TABLE Testimony (
     CONSTRAINT fk_testimony_booking FOREIGN KEY (booking_id)
         REFERENCES Booking(booking_id) ON DELETE CASCADE
 );
+
+ALTER TABLE User
+    DROP COLUMN first_name,
+    DROP COLUMN last_name,
+    DROP COLUMN middle_name,
+    ADD COLUMN user_name VARCHAR(255) NOT NULL AFTER user_id;
+
+

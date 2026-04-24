@@ -24,6 +24,12 @@ public class RegisterServlet extends HttpServlet {
     // DAO object created to interact with database
     //Database bata data ko lagi banauna parne DAO
     private final UserDAO userDAO = new UserDAO();
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+//        rd.forward(request, response);
+        response.getWriter().println("Register page - GET working!");
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -61,8 +67,10 @@ public class RegisterServlet extends HttpServlet {
 
         //if error in user data provide feedback to same page
         if (!error_.isBlank()) {
-            RequestDispatcher rd = request.getRequestDispatcher("/register.jsp");
-            rd.forward(request, response);
+            response.getWriter().println("Validation Error: " + error_);
+
+//            RequestDispatcher rd = request.getRequestDispatcher("/register.jsp");
+//            rd.forward(request, response);
         }else {
             // if user details all good, hash it before storing it
             String hashedPassword = PasswordUtil.getHashPassword(password);
@@ -73,16 +81,20 @@ public class RegisterServlet extends HttpServlet {
             switch (check) {
                 case 1:
                     //After successful login we will save the user to the session and redirect to the Home page
-                    response.sendRedirect("Login.jsp");
+                    //TODO here is the redirection
+//                    response.sendRedirect("Login.jsp");
+                    response.getWriter().println("Registration Successful!");
                     break;
                 //if check is 2 user already present display user already present error
                 //send user present message to user in register page
                 case 2:
-                    request.setAttribute("error", "User/Email already present!");
-                    RequestDispatcher rdisp = request.getRequestDispatcher("/register.jsp");
-                    rdisp.forward(request, response);
+//                    request.setAttribute("error", "User/Email already present!");
+                    response.getWriter().println("Error: User/Email already present!");
+//                    RequestDispatcher rdisp = request.getRequestDispatcher("/register.jsp");
+//                    rdisp.forward(request, response);
                     break;
                 default:
+                    response.getWriter().println("Server Error: " + check);
                     System.out.println("Server error: " + check + " :error code");
                     break;
             }

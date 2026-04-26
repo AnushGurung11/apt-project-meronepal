@@ -10,11 +10,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+<<<<<<< HEAD
 @WebServlet(name = "RegisterServlet", urlPatterns = { "/register" })
+=======
+//TODO use utils for user validation
+// After completing the register then drop to the home jsp
+// Work on the Login and also manage session
+// After finishing login and also manage the booking related using User login session
+
+// Servlet which handles registration
+@WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
+>>>>>>> bcaf82d (testing)
 public class RegisterServlet extends HttpServlet {
 
     private final UserDAO userDAO = new UserDAO();

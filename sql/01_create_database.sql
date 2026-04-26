@@ -12,7 +12,6 @@ CREATE DATABASE IF NOT EXISTS apt_booking_system;
 USE apt_booking_system;
 
 -- Drop tables in reverse dependency order
-DROP TABLE IF EXISTS Testimony;
 DROP TABLE IF EXISTS Payment;
 DROP TABLE IF EXISTS Booking;
 DROP TABLE IF EXISTS Package_Service;
@@ -119,6 +118,8 @@ CREATE TABLE Payment (
         REFERENCES Booking(booking_id) ON DELETE CASCADE
 );
 
+<<<<<<< HEAD
+=======
 -- ============================================================
 -- 7. TESTIMONY
 --    A customer may leave one review per booking after the event.

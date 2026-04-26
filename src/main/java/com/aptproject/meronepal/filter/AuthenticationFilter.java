@@ -8,34 +8,26 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebFilter(filterName = "AuthenticationFilter", urlPatterns = { "/*" })
-// So web filter will run in all the paths given below
-@WebFilter(filterName = "AuthenticationFilter", urlPatterns = { "/*" })
+//So web filter will run in all the paths given below
+@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/*"})
 public class AuthenticationFilter implements Filter {
     private static final String LOGIN = "/login";
     private static final String REGISTER = "/register";
-    private static final String DASHBOARD = "/dash board";
-    private static final String BOOKING = "/Booking";
-    private static final String PAYMENT = "/payment";
     private static final String DASHBOARD = "/dashboard";
     private static final String BOOKING = "/booking";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // Initialization logic, if required
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain) throws ServletException, IOException {
                              FilterChain chain) throws ServletException, IOException {
         // Creating an obj of request and response
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         // Getting the current URL of page
         String uri = req.getRequestURI();
-        // All Static file links are also request, allow them
-
 
         //All Static file links are also request, allow them
         // The Url contains any image or css, then allow the user to see
@@ -71,7 +63,7 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void destroy() {
-        // Cleanup logic, if required
     }
 
 }
+

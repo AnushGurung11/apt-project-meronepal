@@ -26,13 +26,12 @@ public class UserDAO implements UserDAOInterface {
     // Insert user
     @Override
     public int insertUser(String userName, String email, String phone_number, String password) {
-        // this validation will be done in controller part
-        // if (name.isBlank() || email.isBlank() || password.isBlank()) return 0;
+//        this validation will be done in controller part
+//    if (name.isBlank() || email.isBlank() || password.isBlank()) return 0;
         try {
-            // Check name and email already present
+            //Check name and email already present
             final String CHECK_IF_USER = "SELECT user_name, email FROM user WHERE LOWER(user_name)=LOWER(?) OR LOWER(email)=LOWER(?)";
             PreparedStatement pStm_ = conn.prepareStatement(CHECK_IF_USER);
-            pStm_.setString(1, userName);
             pStm_.setString(1, userName);
             pStm_.setString(2, email);
             ResultSet rs = pStm_.executeQuery();
@@ -41,10 +40,6 @@ public class UserDAO implements UserDAOInterface {
             }
             final String INSERT_USER = "INSERT INTO user (user_name, email, phone_number, password) VALUES (?,?,?,?)";
             PreparedStatement pStm = conn.prepareStatement(INSERT_USER);
-            pStm.setString(1, userName);
-            pStm.setString(2, email);
-            pStm.setString(3, phone_number);
-            pStm.setString(4, password);
             pStm.setString(1, userName);
             pStm.setString(2, email);
             pStm.setString(3, phone_number);
@@ -58,11 +53,11 @@ public class UserDAO implements UserDAOInterface {
         }
     }
 
-    // TODO get user
+
+    // TODO get user    
     @Override
     public User getUser(String userName) {
         try {
-            final String SELECT_USER = "select * from user where user_name=?;";
             final String SELECT_USER = "select * from user where user_name=?;";
 
             PreparedStatement pStm_ = conn.prepareStatement(SELECT_USER);

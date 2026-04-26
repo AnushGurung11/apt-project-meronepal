@@ -15,12 +15,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "LoginServlet", urlPatterns = { "/login" })
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends HttpServle {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.getWriter().println("Login page - GET working!");
-        // RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-        // rd.forward(request, response);
+//        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+//        rd.forward(request, response);
     }
 
     @Override
@@ -36,37 +36,31 @@ public class LoginServlet extends HttpServlet {
         String typedPassword = request.getParameter("password");
         UserDAO userDao = new UserDAO();
         User user = userDao.getUser(userName);
-        // if no user found in database send error message
+        //if no user found in database send error message
         if (user == null) {
             request.setAttribute("error", "user or password mismatch!");
             response.getWriter().println("No User");
 
-            // RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            // rd.forward(request, response);
+//            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+//            rd.forward(request, response);
         } else {
             String hashedPassword = user.getPasswordHash();
             boolean matched = PasswordUtil.checkPassword(typedPassword, hashedPassword);
             if (matched) {
-                // Adding the user in session and redirectind the user to the home servlet.
-                SessionUtil.setAttribute(request, "User", user.getUserName());
                 // Adding the user in session and redirecting the user to the home servlet.
-                SessionUtil.setAttribute(request, "user", user);
-                // Also adding the user name as cookies key value, setting maximum age to 30 min
-                CookieUtil.addCookie(response, "UserName", user.getUserName(), 30 * 60);
-                response.sendRedirect(request.getContextPath() + "/home");
-                SessionUtil.setAttribute(request, "user", user);
-                // Also adding the user name as cookies key value, setting maximum age to 30 min
-                CookieUtil.addCookie(response, "UserName", user.getUserName(), 30 * 60);
+                SessionUtil.setAttribute(request, "user", user) ;
+                //Also adding the user name as cookies key value, setting maximum age to 30 min
+                CookieUtil.addCookie(response, "UserName", user.getUserName(), 30*60);
                 response.getWriter().println("Loged in");
 
-                // response.sendRedirect(request.getContextPath() + "/home");
+//                response.sendRedirect(request.getContextPath() + "/home");
             } else {
-                // if password is mismatched, send error message to login page
+                //if password is mismatched, send error message to login page
                 request.setAttribute("error", "user or password mismatch!");
                 response.getWriter().println("Password in correct");
 
-                // RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-                // rd.forward(request, response);
+//                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+//                rd.forward(request, response);
             }
         }
     }

@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-<<<<<<<HEAD @WebServlet(name="RegisterServlet",urlPatterns={"/register"})=======
 //TODO use utils for user validation
 // After completing the register then drop to the home jsp
 // Work on the Login and also manage session
@@ -20,9 +19,10 @@ import java.io.IOException;
 
 // Servlet which handles registration
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
->>>>>>> bcaf82d (testing)
 public class RegisterServlet extends HttpServlet {
 
+    // DAO object created to interact with database
+    //Database bata data ko lagi banauna parne DAO
     private final UserDAO userDAO = new UserDAO();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

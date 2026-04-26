@@ -71,6 +71,17 @@ public class ValidationUtil {
         return Period.between(dob, today).getYears() >= 16;
     }
 
+    //11. Checking for Phone number
+    public static boolean isValidPhone(String phoneNumber){
+//        if(phoneNumber.length() == 10){
+//            if((int) phoneNumber.charAt(0) == 9){
+//                return true;
+//            }
+//        }
+        return true;
+    }
+}
+
     // 11. Checking for Phone number
     public static boolean isValidPhone(String phoneNumber) {
         if (phoneNumber.length() == 10) {

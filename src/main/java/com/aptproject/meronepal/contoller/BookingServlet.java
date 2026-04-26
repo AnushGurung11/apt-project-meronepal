@@ -32,13 +32,6 @@ public class BookingServlet extends HttpServlet {
     */
     @Override
     public  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        //TODO Request, User, Package Service
-        //TODO variable ma store garne
-        // TODO Have validation for the User and Package Service
-        //TODO Print the variable
-        //TODO variable lai DAO of Object banau ne
-        //TODO Booking DAO of ko Object ma variable pass.
-        // Return value aanushar sout garne.
 
         // From the session getting user object
         User user1 = (User) SessionUtil.getAttribute(request, "user");
@@ -60,8 +53,16 @@ public class BookingServlet extends HttpServlet {
             System.out.println("Booking Created");
             SessionUtil.setAttribute(request, "message", "Booking Created Successfully!");
             SessionUtil.setAttribute(request, "messageType", "success");
+            System.out.println("Username:"+user1.getUserName());
+            System.out.println("Package Service id:"+packageService1.getPackageServiceId());
+            System.out.println("address:"+eventAddress);
+            System.out.println("Date:"+eventDate);
+            System.out.println("Description: "+description);
+
         }
-        response.sendRedirect(request.getContextPath() + "/dashboard");
+
+          response.getWriter().println("Dashboard page - GET working!");
+//        response.sendRedirect(request.getContextPath() + "/dashboard");
 
     }
 

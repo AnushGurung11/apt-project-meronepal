@@ -51,13 +51,15 @@ public class LoginServlet extends HttpServlet {
                 SessionUtil.setAttribute(request, "user", user) ;
                 //Also adding the user name as cookies key value, setting maximum age to 30 min
                 CookieUtil.addCookie(response, "UserName", user.getUserName(), 30*60);
-                response.getWriter().println("Loged in");
+                response.getWriter().println("Logged in");
+                System.out.println(user.getUserName());
+                System.out.println(user.getEmail());
 
 //                response.sendRedirect(request.getContextPath() + "/home");
             } else {
                 //if password is mismatched, send error message to login page
                 request.setAttribute("error", "user or password mismatch!");
-                response.getWriter().println("Password in correct");
+                response.getWriter().println("Password is incorrect");
 
 //                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 //                rd.forward(request, response);

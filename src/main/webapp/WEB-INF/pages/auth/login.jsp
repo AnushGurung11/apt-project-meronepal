@@ -142,6 +142,34 @@ contentType="text/html" pageEncoding="UTF-8"%>
         color: #555550;
       }
 
+      /* Password wrapper with eye icon */
+      .password-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      .password-wrapper input {
+        width: 100%;
+      }
+      .toggle-password {
+        position: absolute;
+        right: 12px;
+        cursor: pointer;
+        color: #888880;
+        font-size: 20px;
+        transition: color 0.3s ease;
+        user-select: none;
+        border: none;
+        background: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .toggle-password:hover {
+        color: #c9a84c;
+      }
+
       /* Forgot password row */
       .login-forgot {
         display: flex;
@@ -273,7 +301,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
           Please log in or register to book a package.
         </div>
 
-        <form action="/login" method="POST">
+        <form action="login" method="POST">
           <div class="form-group">
             <label class="form-label">User Name</label>
             <input
@@ -286,17 +314,20 @@ contentType="text/html" pageEncoding="UTF-8"%>
           </div>
           <div class="form-group">
             <label class="form-label">Password</label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              id="loginPassword"
-              name="password"
-              required
-            />
-            <div class="form-error" id="loginError">
-              Invalid username or password.
+            <div class="password-wrapper">
+              <input
+                type="password"
+                placeholder="••••••••"
+                id="loginPassword"
+                name="password"
+                required
+              />
+              <button type="button" class="toggle-password" onclick="togglePassword('loginPassword')">
+                <span class="material-symbols-outlined">visibility</span>
+              </button>
             </div>
           </div>
+
           <div class="login-forgot">
             <a href="#">Forgot password?</a>
           </div>
@@ -305,12 +336,26 @@ contentType="text/html" pageEncoding="UTF-8"%>
 
         <div class="form-divider">or</div>
         <p class="auth-switch">
-          Don't have an account? <a href="register.jsp">Create one →</a>
+          Don't have an account? <a href="register">Create one →</a>
         </p>
       </div>
     </div>
 
-    <script src="../../../assets/js/scripts.js"></script>
+    <script>
+      // Toggle password visibility - shows/hides password text
+      function togglePassword(fieldId) {
+        const field = document.getElementById(fieldId);
+        const icon = event.target.closest('.toggle-password').querySelector('.material-symbols-outlined');
+
+        if (field.type === 'password') {
+          field.type = 'text';  // Change to text to show password
+          icon.textContent = 'visibility_off';  // Change icon to "eye closed"
+        } else {
+          field.type = 'password';  // Change back to password (hidden)
+          icon.textContent = 'visibility';  // Change icon back to "eye open"
+        }
+      }
+    </script>
 
   </body>
 </html>

@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
-contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -23,19 +23,15 @@ contentType="text/html" pageEncoding="UTF-8"%>
     />
     <link rel="stylesheet" href="../../../assets/css/styles.css" />
     <style>
-      /* ── Register Page — Internal Styles ─────────────────────── */
       html {
         scroll-behavior: smooth;
         background-color: #111111;
       }
-      /* Split layout */
       .auth-page {
         min-height: 100vh;
         display: grid;
         grid-template-columns: 1fr 1fr;
       }
-
-      /* Left visual panel */
       .auth-visual {
         position: relative;
         background-image: url("https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=1200&q=80");
@@ -67,8 +63,6 @@ contentType="text/html" pageEncoding="UTF-8"%>
         border-left: 3px solid #c9a84c;
         padding-left: 20px;
       }
-
-      /* Right form panel */
       .auth-form-side {
         display: flex;
         flex-direction: column;
@@ -77,8 +71,6 @@ contentType="text/html" pageEncoding="UTF-8"%>
         background: #111111;
         overflow-y: auto;
       }
-
-      /* Logo */
       .auth-logo {
         font-family: "Cormorant Garamond", Georgia, serif;
         font-size: 2rem;
@@ -92,8 +84,6 @@ contentType="text/html" pageEncoding="UTF-8"%>
       .auth-logo span {
         color: #c9a84c;
       }
-
-      /* Heading block */
       .auth-title {
         font-family: "Cormorant Garamond", Georgia, serif;
         font-size: 2.2rem;
@@ -108,8 +98,6 @@ contentType="text/html" pageEncoding="UTF-8"%>
         margin-bottom: 32px;
         font-weight: 300;
       }
-
-      /* Form fields */
       .form-group {
         margin-bottom: 18px;
       }
@@ -120,13 +108,6 @@ contentType="text/html" pageEncoding="UTF-8"%>
         text-transform: uppercase;
         color: #888880;
         margin-bottom: 7px;
-      }
-      .form-label .optional {
-        font-size: 10px;
-        color: #555550;
-        text-transform: none;
-        letter-spacing: 0;
-        font-style: italic;
       }
       .form-group input[type="text"],
       .form-group input[type="email"],
@@ -153,22 +134,37 @@ contentType="text/html" pageEncoding="UTF-8"%>
       .form-group input::placeholder {
         color: #444440;
       }
-
-      /* Two-column row */
-      .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-      }
-
-      /* Password strength hint */
       .form-hint {
         font-size: 11px;
         color: #555550;
         margin-top: 5px;
       }
-
-      /* Error message */
+      .password-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      .password-wrapper input {
+        width: 100%;
+      }
+      .toggle-password {
+        position: absolute;
+        right: 12px;
+        cursor: pointer;
+        color: #888880;
+        font-size: 20px;
+        transition: color 0.3s ease;
+        user-select: none;
+        border: none;
+        background: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .toggle-password:hover {
+        color: #c9a84c;
+      }
       .form-error {
         font-size: 12px;
         color: #e74c3c;
@@ -176,8 +172,6 @@ contentType="text/html" pageEncoding="UTF-8"%>
         margin-bottom: 4px;
         display: none;
       }
-
-      /* Terms checkbox row */
       .terms-row {
         display: flex;
         align-items: flex-start;
@@ -206,8 +200,6 @@ contentType="text/html" pageEncoding="UTF-8"%>
       .terms-row label a:hover {
         text-decoration: underline;
       }
-
-      /* Submit button */
       .btn-submit {
         width: 100%;
         padding: 14px;
@@ -234,8 +226,6 @@ contentType="text/html" pageEncoding="UTF-8"%>
       .btn-submit:active {
         transform: translateY(0);
       }
-
-      /* Divider */
       .form-divider {
         display: flex;
         align-items: center;
@@ -251,8 +241,6 @@ contentType="text/html" pageEncoding="UTF-8"%>
         height: 1px;
         background: #2a2a2a;
       }
-
-      /* Sign in link button */
       .btn-signin {
         display: block;
         width: 100%;
@@ -278,8 +266,26 @@ contentType="text/html" pageEncoding="UTF-8"%>
         border-color: #c9a84c;
         color: #c9a84c;
       }
-
-      /* ── Responsive ──────────────────────────────────────── */
+      .success-msg {
+        display: none;
+        margin-top: 16px;
+        padding: 12px;
+        background: #1a3a1a;
+        color: #2ecc71;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 13px;
+      }
+      .error-msg {
+        display: none;
+        margin-top: 16px;
+        padding: 12px;
+        background: #3a1a1a;
+        color: #e74c3c;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 13px;
+      }
       @media (max-width: 900px) {
         .auth-page {
           grid-template-columns: 1fr;
@@ -292,10 +298,6 @@ contentType="text/html" pageEncoding="UTF-8"%>
         }
       }
       @media (max-width: 600px) {
-        .form-row {
-          grid-template-columns: 1fr;
-          gap: 0;
-        }
         .auth-form-side {
           padding: 36px 20px;
         }
@@ -309,80 +311,103 @@ contentType="text/html" pageEncoding="UTF-8"%>
     <div class="auth-page">
       <div class="auth-visual"></div>
       <div class="auth-form-side">
-        <a href="../../index.jsp" class="auth-logo"
-          >Mero Nepal Production<span>.</span></a
-        >
+        <a href="../../index.jsp" class="auth-logo">Mero Nepal Production<span>.</span></a>
         <h2 class="auth-title">Create Account</h2>
-        <p class="auth-sub">
-          Join Mero Nepal Production to book packages and track your sessions.
-        </p>
+        <p class="auth-sub">Join Mero Nepal Production to book packages and track your sessions.</p>
+        <form action = "register" method = "POST">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input type="text" name="username" placeholder="Enter your name" required />
+        </div>
 
-        <form onsubmit="handleRegister(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">First Name</label>
-              <input type="text" placeholder="Ram" required />
-            </div>
-            <div class="form-group">
-              <label class="form-label">Last Name</label>
-              <input type="text" placeholder="Sharma" required />
-            </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" name="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" name="phoneNumber" placeholder="+977 98XXXXXXXX" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="password-wrapper">
+            <input type="password" name="password" id="regPass" placeholder="••••••••" required />
+            <button type="button" class="toggle-password" onclick="togglePassword('regPass')">
+              <span class="material-symbols-outlined">visibility</span>
+            </button>
           </div>
-          <div class="form-group">
-            <label class="form-label"
-              >Middle Name <span class="optional">(Optional)</span></label
-            >
-            <input type="text" placeholder="Optional" />
+          <div class="form-hint">Min. 8 characters</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Confirm Password</label>
+          <div class="password-wrapper">
+            <input type="password" name="confirmPassword" id="regConfirm" placeholder="••••••••" required />
+            <button type="button" class="toggle-password" onclick="togglePassword('regConfirm')">
+              <span class="material-symbols-outlined">visibility</span>
+            </button>
           </div>
-          <div class="form-group">
-            <label class="form-label">Email Address</label>
-            <input type="email" placeholder="you@example.com" required />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Phone Number</label>
-            <input type="tel" placeholder="+977 98XXXXXXXX" required />
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Password</label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                id="regPass"
-                required
-              />
-              <div class="form-hint">Min. 8 characters</div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Confirm Password</label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                id="regConfirm"
-                required
-              />
-            </div>
-          </div>
-          <div class="form-error" id="regError">Passwords do not match.</div>
+        </div>
+
+          <div class="form-error" id="regError"></div>
+
           <div class="terms-row">
-            <input type="checkbox" id="terms" required />
-            <label for="terms"
-              >I agree to the <a href="#">Terms of Service</a> and
-              <a href="#">Privacy Policy</a>.</label
-            >
+            <input type="checkbox" id="terms" name="terms" required />
+            <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
           </div>
+
           <button type="submit" class="btn-submit">Create Account</button>
-          <div
-            id="regSuccess"
-            style="display: none; margin-top: 16px; color: #2ecc71"
-          >
-            Registration successful! Redirecting to login...
-          </div>
+          <div class="success-msg" id="successMsg">Registration successful! Redirecting...</div>
+          <div class="error-msg" id="errorMsg"></div>
         </form>
 
         <div class="form-divider">already have an account?</div>
-        <a href="login.jsp" class="btn-signin">Sign In Instead</a>
+        <a href="login" class="btn-signin">Sign In Instead</a>
       </div>
     </div>
+
+    <script>
+      // Toggle password visibility - shows/hides password text
+      function togglePassword(fieldId) {
+        const field = document.getElementById(fieldId);
+        const icon = event.target.closest('.toggle-password').querySelector('.material-symbols-outlined');
+
+        if (field.type === 'password') {
+          field.type = 'text';  // Change to text to show password
+          icon.textContent = 'visibility_off';  // Change icon to "eye closed"
+        } else {
+          field.type = 'password';  // Change back to password (hidden)
+          icon.textContent = 'visibility';  // Change icon back to "eye open"
+        }
+      }
+
+      // Form validation - runs when user clicks "Create Account" button
+      document.querySelector('form').addEventListener('submit', function(e) {
+        const pass = document.getElementById('regPass').value;
+        const confirm = document.getElementById('regConfirm').value;
+        const errorDiv = document.getElementById('regError');
+
+        // Check if both passwords match
+        if (pass !== confirm) {
+          e.preventDefault();  // Stop form from submitting
+          errorDiv.textContent = 'Passwords do not match.';
+          errorDiv.style.display = 'block';
+          return false;
+        }
+
+        // Check if password is at least 8 characters
+        if (pass.length < 8) {
+          e.preventDefault();  // Stop form from submitting
+          errorDiv.textContent = 'Password must be at least 8 characters.';
+          errorDiv.style.display = 'block';
+          return false;
+        }
+
+        // If all checks pass, hide error message
+        errorDiv.style.display = 'none';
+      });
+    </script>
   </body>
 </html>

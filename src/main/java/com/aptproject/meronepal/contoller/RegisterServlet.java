@@ -11,12 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//TODO use utils for user validation
-// After completing the register then drop to the home jsp
-// Work on the Login and also manage session
-// After finishing login and also manage the booking related using User login session
-// Validating Phone number field for string
-
 // Servlet which handles registration
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
@@ -80,8 +74,9 @@ public class RegisterServlet extends HttpServlet {
                 case 1:
                     //After successful login we will save the user to the session and redirect to the Home page
                     //TODO here is the redirection
+                    System.out.println("Registered");
                     response.sendRedirect(request.getContextPath()+"/login");
-//                    response.getWriter().println("Registration Successful!");
+                    response.getWriter().println("Registration Successful!");
                     break;
                 //if check is 2 user already present display user already present error
                 //send user present message to user in register page

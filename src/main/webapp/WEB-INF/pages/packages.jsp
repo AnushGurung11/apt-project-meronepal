@@ -17,7 +17,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
       rel="stylesheet"
     />
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico" />
-    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap");
 
@@ -318,7 +318,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
       class="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-14 bg-[#0a0a0a]"
       style="border-bottom: 1px solid var(--color-border)"
     >
-      <div class="text-xl font-black"><a href="../index.jsp">M.NP</a></div>
+      <div class="text-xl font-black"><a href="home">M.NP</a></div>
       <button
         id="nav-toggle"
         class="flex flex-col gap-[5px] p-1"
@@ -353,23 +353,23 @@ contentType="text/html" pageEncoding="UTF-8"%>
       style="transform: translateX(100%); transition: transform 0.3s ease"
     >
       <a
-        href="../index.jsp"
+        href="home"
         class="text-3xl font-black uppercase tracking-widest"
         >Home</a
       >
       <a
-        href="packages.jsp"
+        href="packages"
         class="text-3xl font-black uppercase tracking-widest active"
         >Package</a
       >
-      <a href="about.jsp" class="text-3xl font-black uppercase tracking-widest"
+      <a href="about" class="text-3xl font-black uppercase tracking-widest"
         >About</a
       >
-      <a href="blog.jsp" class="text-3xl font-black uppercase tracking-widest"
+      <a href="blog" class="text-3xl font-black uppercase tracking-widest"
         >Blog</a
       >
-      <a href="auth/login.jsp" class="uppercase btn-secondary mt-4">Login</a>
-      <a href="packages.jsp" class="uppercase btn-primary mt-4">Book Now</a>
+      <a href="login" class="uppercase btn-secondary mt-4">Login</a>
+      <a href="packages" class="uppercase btn-primary mt-4">Book Now</a>
     </nav>
 
     <!-- ── MAIN 3-COLUMN LAYOUT ── -->
@@ -380,7 +380,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
       <aside
         class="hidden md:flex flex-col justify-between items-center py-12 border-r border-white/10 sticky top-0 h-screen"
       >
-        <div class="text-2xl font-black"><a href="../index.jsp">M.NP</a></div>
+        <div class="text-2xl font-black"><a href="home">M.NP</a></div>
         <div
           class="vertical-text text-[10px] tracking-[0.4em] uppercase"
           style="color: var(--color-gold)"
@@ -549,7 +549,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                   <li>Event Coverage service</li>
                   <li>Professional Editing</li>
                 </ul>
-                <a href="auth/login.jsp" class="btn btn-outline btn-full mt-24"
+                <a href="login" class="btn btn-outline btn-full mt-24"
                   >Book This Package</a
                 >
               </div>
@@ -575,7 +575,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                   <li>Pre-Wedding &amp; Engagement Shoot</li>
                   <li>Professional Editing</li>
                 </ul>
-                <a href="auth/login.jsp" class="btn btn-gold btn-full mt-24"
+                <a href="login" class="btn btn-gold btn-full mt-24"
                   >Book This Package</a
                 >
               </div>
@@ -601,7 +601,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                   <li>Drone included</li>
                   <li>Wedding Photography &amp; Video</li>
                 </ul>
-                <a href="auth/login.jsp" class="btn btn-outline btn-full mt-24"
+                <a href="login" class="btn btn-outline btn-full mt-24"
                   >Book This Package</a
                 >
               </div>
@@ -627,7 +627,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                   <li>Premium album + drone</li>
                   <li>Pre-Wedding + Wedding + Drone + Editing</li>
                 </ul>
-                <a href="auth/login.jsp" class="btn btn-outline btn-full mt-24"
+                <a href="../login" class="btn btn-outline btn-full mt-24"
                   >Book This Package</a
                 >
               </div>
@@ -654,7 +654,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                   <li>Product Photography service</li>
                   <li>Professional Editing</li>
                 </ul>
-                <a href="auth/login.jsp" class="btn btn-outline btn-full mt-24"
+                <a href="../login" class="btn btn-outline btn-full mt-24"
                   >Book This Package</a
                 >
               </div>
@@ -682,7 +682,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                   <li>Sound design included</li>
                   <li>Drone + Editing</li>
                 </ul>
-                <a href="auth/login.jsp" class="btn btn-outline btn-full mt-24"
+                <a href="login" class="btn btn-outline btn-full mt-24"
                   >Book This Package</a
                 >
               </div>
@@ -710,7 +710,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                   <li>High-quality editing + effects</li>
                   <li>Final music video 3–6 min</li>
                 </ul>
-                <a href="auth/login.jsp" class="btn btn-gold btn-full mt-24"
+                <a href="login" class="btn btn-gold btn-full mt-24"
                   >Book This Package</a
                 >
               </div>
@@ -744,16 +744,16 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <br />
                 <div class="list">
                   <div class="item">
-                    <a href="../index.jsp"><div>Home</div></a>
+                    <a href="home"><div>Home</div></a>
                   </div>
                   <div class="item">
-                    <a href="packages.jsp"><div>Packages</div></a>
+                    <a href="packages"><div>Packages</div></a>
                   </div>
                   <div class="item">
-                    <a href="about.jsp"><div>About</div></a>
+                    <a href="about"><div>About</div></a>
                   </div>
                   <div class="item">
-                    <a href="blog.jsp"><div>Blog</div></a>
+                    <a href="blog"><div>Blog</div></a>
                   </div>
                 </div>
               </div>
@@ -765,10 +765,10 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <br />
                 <div class="list">
                   <div class="item">
-                    <a href="auth/login.jsp"><div>Login</div></a>
+                    <a href="login"><div>Login</div></a>
                   </div>
                   <div class="item">
-                    <a href="auth/register.jsp"><div>Register</div></a>
+                    <a href="register"><div>Register</div></a>
                   </div>
                 </div>
               </div>
@@ -840,14 +840,14 @@ contentType="text/html" pageEncoding="UTF-8"%>
         class="hidden md:flex flex-col justify-between p-12 border-l border-white/10 sticky top-0 h-screen"
       >
         <nav class="space-y-6">
-          <a href="../index.jsp" class="block uppercase">Home</a>
-          <a href="packages.jsp" class="block uppercase active">Packages</a>
-          <a href="about.jsp" class="block uppercase">About</a>
-          <a href="blog.jsp" class="block uppercase">Blog</a>
-          <a href="auth/login.jsp" class="uppercase btn-secondary mt-4"
+          <a href="../home" class="block uppercase">Home</a>
+          <a href="packages" class="block uppercase active">Packages</a>
+          <a href="about" class="block uppercase">About</a>
+          <a href="blog" class="block uppercase">Blog</a>
+          <a href="login" class="uppercase btn-secondary mt-4"
             >Login</a
           >
-          <a href="packages.jsp" class="uppercase btn-primary mt-4">Book Now</a>
+          <a href="packages" class="uppercase btn-primary mt-4">Book Now</a>
         </nav>
       </aside>
     </div>

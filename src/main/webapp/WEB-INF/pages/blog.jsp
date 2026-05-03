@@ -270,7 +270,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
       class="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-14 bg-[#0a0a0a]"
       style="border-bottom: 1px solid var(--color-border)"
     >
-      <div class="text-xl font-black"><a href="../index.jsp">M.NP</a></div>
+      <div class="text-xl font-black"><a href="home">M.NP</a></div>
       <button
         id="nav-toggle"
         class="flex flex-col gap-[5px] p-1"
@@ -305,25 +305,25 @@ contentType="text/html" pageEncoding="UTF-8"%>
       style="transform: translateX(100%); transition: transform 0.3s ease"
     >
       <a
-        href="../index.jsp"
+        href="home"
         class="text-3xl font-black uppercase tracking-widest"
         >Home</a
       >
       <a
-        href="packages.jsp"
+        href="packages"
         class="text-3xl font-black uppercase tracking-widest"
         >Package</a
       >
-      <a href="about.jsp" class="text-3xl font-black uppercase tracking-widest"
+      <a href="about" class="text-3xl font-black uppercase tracking-widest"
         >About</a
       >
       <a
-        href="blog.jsp"
+        href="blog"
         class="text-3xl font-black uppercase tracking-widest active"
         >Blog</a
       >
-      <a href="auth/login.jsp" class="uppercase btn-secondary mt-4">Login</a>
-      <a href="packages.jsp" class="uppercase btn-primary mt-4">Book Now</a>
+      <a href="login" class="uppercase btn-secondary mt-4">Login</a>
+      <a href="packages" class="uppercase btn-primary mt-4">Book Now</a>
     </nav>
 
     <!-- ── MAIN 3-COLUMN LAYOUT ── -->
@@ -334,7 +334,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
       <aside
         class="hidden md:flex flex-col justify-between items-center py-12 border-r border-white/10 sticky top-0 h-screen"
       >
-        <div class="text-2xl font-black"><a href="../index.jsp">M.NP</a></div>
+        <div class="text-2xl font-black"><a href="home">M.NP</a></div>
         <div
           class="vertical-text text-[10px] tracking-[0.4em] uppercase"
           style="color: var(--color-gold)"
@@ -407,7 +407,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                     line-height: 1.3;
                   "
                 >
-                  <a href="blog/1.jsp" style="color: var(--white)"
+                  <a href="blog" style="color: var(--white)"
                     >Inside Arjun &amp; Priya's Luxury Wedding — A Pokhara
                     Story</a
                   >
@@ -421,7 +421,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                   By Darshan Regmi &nbsp;·&nbsp; June 2025 &nbsp;·&nbsp; 6 min
                   read
                 </div>
-                <a href="blog/1.jsp" class="btn btn-outline">Read Story →</a>
+                <a href="blog" class="btn btn-outline">Read Story →</a>
               </div>
             </div>
 
@@ -448,7 +448,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <div class="blog-card-body">
                   <span class="blog-tag">Drone</span>
                   <h3 class="blog-title">
-                    <a href="blog/1.jsp"
+                    <a href="blog"
                       >5 Drone Shots That Changed Our Wedding Films</a
                     >
                   </h3>
@@ -482,7 +482,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <div class="blog-card-body">
                   <span class="blog-tag">Pre-Wedding</span>
                   <h3 class="blog-title">
-                    <a href="blog/1.jsp"
+                    <a href="blog"
                       >Pre-Wedding Shoots: Our Guide to the Perfect Session</a
                     >
                   </h3>
@@ -516,7 +516,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <div class="blog-card-body">
                   <span class="blog-tag">Product</span>
                   <h3 class="blog-title">
-                    <a href="blog/1.jsp"
+                    <a href="blog"
                       >Why Product Photography Makes or Breaks Your Brand</a
                     >
                   </h3>
@@ -550,7 +550,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <div class="blog-card-body">
                   <span class="blog-tag">Documentary</span>
                   <h3 class="blog-title">
-                    <a href="blog/1.jsp"
+                    <a href="blog"
                       >Documenting Heritage: Our Cultural Film in Patan</a
                     >
                   </h3>
@@ -584,7 +584,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <div class="blog-card-body">
                   <span class="blog-tag">Editing</span>
                   <h3 class="blog-title">
-                    <a href="blog/1.jsp"
+                    <a href="blog"
                       >The Art of Color Grading in Wedding Films</a
                     >
                   </h3>
@@ -625,16 +625,16 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <br />
                 <div class="list">
                   <div class="item">
-                    <a href="../index.jsp"><div>Home</div></a>
+                    <a href="home"><div>Home</div></a>
                   </div>
                   <div class="item">
-                    <a href="packages.jsp"><div>Packages</div></a>
+                    <a href="packages"><div>Packages</div></a>
                   </div>
                   <div class="item">
-                    <a href="about.jsp"><div>About</div></a>
+                    <a href="about"><div>About</div></a>
                   </div>
                   <div class="item">
-                    <a href="blog.jsp"><div>Blog</div></a>
+                    <a href="blog"><div>Blog</div></a>
                   </div>
                 </div>
               </div>
@@ -646,10 +646,10 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <br />
                 <div class="list">
                   <div class="item">
-                    <a href="auth/login.jsp"><div>Login</div></a>
+                    <a href="login"><div>Login</div></a>
                   </div>
                   <div class="item">
-                    <a href="auth/register.jsp"><div>Register</div></a>
+                    <a href="register"><div>Register</div></a>
                   </div>
                 </div>
               </div>
@@ -721,14 +721,14 @@ contentType="text/html" pageEncoding="UTF-8"%>
         class="hidden md:flex flex-col justify-between p-12 border-l border-white/10 sticky top-0 h-screen"
       >
         <nav class="space-y-6">
-          <a href="../index.jsp" class="block uppercase">Home</a>
-          <a href="packages.jsp" class="block uppercase">Packages</a>
-          <a href="about.jsp" class="block uppercase">About</a>
-          <a href="blog.jsp" class="block uppercase active">Blog</a>
-          <a href="auth/login.jsp" class="uppercase btn-secondary mt-4"
+          <a href="home" class="block uppercase">Home</a>
+          <a href="packages" class="block uppercase">Packages</a>
+          <a href="about" class="block uppercase">About</a>
+          <a href="blog" class="block uppercase active">Blog</a>
+          <a href="login" class="uppercase btn-secondary mt-4"
             >Login</a
           >
-          <a href="packages.jsp" class="uppercase btn-primary mt-4">Book Now</a>
+          <a href="packages" class="uppercase btn-primary mt-4">Book Now</a>
         </nav>
       </aside>
     </div>

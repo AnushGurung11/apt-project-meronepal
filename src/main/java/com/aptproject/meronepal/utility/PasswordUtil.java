@@ -16,6 +16,7 @@ public class PasswordUtil {
     }
 
     public static boolean checkPassword(String passwordTyped, String hashedPassword){
+        System.out.println("matchingg...");
         return BCrypt.checkpw(passwordTyped, hashedPassword);
     }
 }

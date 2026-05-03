@@ -48,20 +48,16 @@ public class AuthenticationFilter implements Filter {
         boolean isLoggedIn = SessionUtil.getAttribute(req, "user") != null;
 
         if (!isLoggedIn) {
-            // if the user is already in login or register page start again if refreshed
-            if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
+            System.out.println("Not logged in");
+            if (uri.endsWith(LOGIN)) {
                 chain.doFilter(request, response);
             } else {
-                // if is not logged in then send back to the login page
-                res.sendRedirect(req.getContextPath() + REGISTER);
+                res.sendRedirect(req.getContextPath() + LOGIN);
             }
         } else {
-
-            // If they want to access login and register jsp then throw them in dashboard
-            if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
+            if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.equals(req.getContextPath()) || uri.equals(req.getContextPath() + "/")) {
                 res.sendRedirect(req.getContextPath() + HOME);
             } else {
-                // if not then send them back to the top of filter
                 chain.doFilter(request, response);
             }
         }

@@ -273,13 +273,14 @@ contentType="text/html" pageEncoding="UTF-8"%>
           Please log in or register to book a package.
         </div>
 
-        <form onsubmit="handleLogin(event)">
+        <form action="/login" method="POST">
           <div class="form-group">
-            <label class="form-label">Email Address</label>
+            <label class="form-label">User Name</label>
             <input
-              type="email"
-              placeholder="you@example.com"
-              id="loginEmail"
+              type="text"
+              placeholder="Enter your username"
+              id="loginUsername"
+              name="username"
               required
             />
           </div>
@@ -289,10 +290,11 @@ contentType="text/html" pageEncoding="UTF-8"%>
               type="password"
               placeholder="••••••••"
               id="loginPassword"
+              name="password"
               required
             />
             <div class="form-error" id="loginError">
-              Invalid email or password.
+              Invalid username or password.
             </div>
           </div>
           <div class="login-forgot">
@@ -309,41 +311,6 @@ contentType="text/html" pageEncoding="UTF-8"%>
     </div>
 
     <script src="../../../assets/js/scripts.js"></script>
-    <script>
-      // Show booking alert if redirected from package CTA
-      if (document.referrer.includes("packages")) {
-        document.getElementById("bookingAlert").style.display = "block";
-      }
 
-      function handleLogin(e) {
-        e.preventDefault();
-        const email = document.getElementById("loginEmail").value;
-        const pass = document.getElementById("loginPassword").value;
-        const err = document.getElementById("loginError");
-
-        // Demo routing
-        if (email === "darshan.regmi@gmail.com" && pass === "darshan123") {
-          window.location.href = "../admin/admin-dashboard.jsp";
-        } else if (
-          email === "krish.shrestha@gmail.com" &&
-          pass === "krish123"
-        ) {
-          window.location.href = "../../index.jsp";
-        } else if (email === "sudip.gautam@gmail.com" && pass === "sudip123") {
-          window.location.href = "../../index.jsp";
-        } else if (
-          email === "bijaya.khanal@gmail.com" &&
-          pass === "bijaya123"
-        ) {
-          window.location.href = "../../index.jsp";
-        } else if (email === "arjun.bastola@gmail.com" && pass === "arjun123") {
-          window.location.href = "../../index.jsp";
-        } else if (email === "anush.gurung@gmail.com" && pass === "anush123") {
-          window.location.href = "../admin/admin-dashboard.jsp";
-        } else {
-          err.style.display = "block";
-        }
-      }
-    </script>
   </body>
 </html>

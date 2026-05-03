@@ -21,14 +21,12 @@ import java.io.IOException;
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
 
-    // DAO object created to interact with database
-    //Database bata data ko lagi banauna parne DAO
+
     private final UserDAO userDAO = new UserDAO();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
-//        rd.forward(request, response);
-        response.getWriter().println("Register page - GET working!");
+        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/pages/auth/register.jsp");
+        rd.forward(request, response);
     }
 
     @Override
@@ -82,16 +80,16 @@ public class RegisterServlet extends HttpServlet {
                 case 1:
                     //After successful login we will save the user to the session and redirect to the Home page
                     //TODO here is the redirection
-//                    response.sendRedirect("Login.jsp");
-                    response.getWriter().println("Registration Successful!");
+                    response.sendRedirect(request.getContextPath()+"/login");
+//                    response.getWriter().println("Registration Successful!");
                     break;
                 //if check is 2 user already present display user already present error
                 //send user present message to user in register page
                 case 2:
 //                    request.setAttribute("error", "User/Email already present!");
-                    response.getWriter().println("Error: User/Email already present!");
-//                    RequestDispatcher rdisp = request.getRequestDispatcher("/register.jsp");
-//                    rdisp.forward(request, response);
+//                    response.getWriter().println("Error: User/Email already present!");
+                    RequestDispatcher rdisp = request.getRequestDispatcher("WEB-INF/register.jsp");
+                    rdisp.forward(request, response);
                     break;
                 default:
                     response.getWriter().println("Server Error: " + check);

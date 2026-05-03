@@ -40,7 +40,6 @@ public class AuthenticationFilter implements Filter {
         boolean isLoggedIn = SessionUtil.getAttribute(req, "user") != null;
 
         if (!isLoggedIn) {
-            // ✅ Allow these pages without login
             if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith("/packages")) {
                 chain.doFilter(request, response);
             } else {

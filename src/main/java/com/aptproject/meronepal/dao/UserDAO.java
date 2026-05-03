@@ -10,20 +10,20 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class UserDAO implements UserDAOInterface {
-    //Connect to DB
+    // Connect to DB
     private Connection conn;
 
     // Constructor for getting the connection
-    public UserDAO(){
-        try{
+    public UserDAO() {
+        try {
             conn = DBConfig.getConnection();
-        }catch (SQLException | ClassNotFoundException ex){
+        } catch (SQLException | ClassNotFoundException ex) {
             System.out.println(ex.getLocalizedMessage());
         }
 
     }
 
-    //Insert user
+    // Insert user
     @Override
     public int insertUser(String userName, String email, String phone_number, String password) {
 //        this validation will be done in controller part
@@ -36,7 +36,7 @@ public class UserDAO implements UserDAOInterface {
             pStm_.setString(2, email);
             ResultSet rs = pStm_.executeQuery();
             if (rs.next()) {
-                return 2;   // 2 for user or email already present
+                return 2; // 2 for user or email already present
             }
             final String INSERT_USER = "INSERT INTO user (user_name, email, phone_number, password) VALUES (?,?,?,?)";
             PreparedStatement pStm = conn.prepareStatement(INSERT_USER);
@@ -46,10 +46,10 @@ public class UserDAO implements UserDAOInterface {
             pStm.setString(4, password);
 
             int result = pStm.executeUpdate();
-            return result;  //0 or 1
+            return result; // 0 or 1
         } catch (SQLException ex) {
             System.out.println(ex.getLocalizedMessage());
-            return 3;  // if 3 fault in query
+            return 3; // if 3 fault in query
         }
     }
 

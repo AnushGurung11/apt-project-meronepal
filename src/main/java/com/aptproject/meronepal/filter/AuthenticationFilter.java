@@ -17,11 +17,6 @@ public class AuthenticationFilter implements Filter {
     private static final String HOME = "/home";
     private static final String BOOKING = "/booking";
 
-    // Add a list of paths that don't require login
-    private static final String[] PUBLIC_PATHS = {
-            "/login", "/register", "/index.jsp", "/", "/home"  // add whatever should be public
-    };
-
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
@@ -42,14 +37,11 @@ public class AuthenticationFilter implements Filter {
             return;
         }
 
-        // Main logic for checking the actual login status of the user
-
-        // takes the status if the user is in session or not
         boolean isLoggedIn = SessionUtil.getAttribute(req, "user") != null;
 
         if (!isLoggedIn) {
-            System.out.println("Not logged in");
-            if (uri.endsWith(LOGIN)) {
+            // ✅ Allow these pages without login
+            if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith("/packages")) {
                 chain.doFilter(request, response);
             } else {
                 res.sendRedirect(req.getContextPath() + LOGIN);

@@ -325,8 +325,9 @@
                       </p>
                     </c:if>
 
-                    <a href="login" class="btn ${status.index == 1 ? 'btn-gold' : 'btn-outline'} btn-full mt-24">
-                      Book This Package
+                    <a href="booking?packageId=${pkg.packageId}"
+                       class="btn ${status.index == 1 ? 'btn-gold' : 'btn-outline'} btn-full mt-24">
+                        Book This Package
                     </a>
                   </div>
                 </c:forEach>

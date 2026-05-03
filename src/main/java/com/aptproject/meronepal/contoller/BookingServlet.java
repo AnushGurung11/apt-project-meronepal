@@ -3,8 +3,8 @@ package com.aptproject.meronepal.contoller;
 import java.io.IOException;
 
 import com.aptproject.meronepal.dao.BookingDAO;
-import com.aptproject.meronepal.dao.PackageServiceDAO;
-import com.aptproject.meronepal.model.PackageService;
+import com.aptproject.meronepal.dao.PackageDAO;
+import com.aptproject.meronepal.model.Package;
 import com.aptproject.meronepal.model.User;
 import com.aptproject.meronepal.utility.SessionUtil;
 import jakarta.servlet.ServletException;
@@ -21,49 +21,34 @@ import jakarta.servlet.http.HttpServletResponse;
 public class BookingServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int packageId = Integer.parseInt(request.getParameter("packageId"));
+        Package selectedPackage = new PackageDAO().getPackageByIdWithServices(packageId);
+
+        request.setAttribute("selectedPackage", selectedPackage);
+        request.getRequestDispatcher("/WEB-INF/pages/booking.jsp")
+                .forward(request, response);
 
     }
-    /**
-     *
-     * username
-     * packageService
-     * eventAddress
-     * eventDate
-    */
+
     @Override
     public  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
-        // From the session getting user object
-        User user1 = (User) SessionUtil.getAttribute(request, "user");
-        int packageService = Integer.parseInt(request.getParameter("packageService"));
+        User user = (User) SessionUtil.getAttribute(request,"user");
+        int packageId       = Integer.parseInt(request.getParameter("packageId"));
         String eventAddress = request.getParameter("eventAddress");
-        String description = request.getParameter("description");
-        String eventDate = request.getParameter("eventDate");
+        String description  = request.getParameter("notes");
+        String eventDate    = request.getParameter("eventDate");
 
-        //PackageService model is created from the package Service id provided
-        PackageService packageService1 = new PackageServiceDAO().getPackageService(packageService);
+        int bookingStatus = new BookingDAO().insertBooking(user, packageId, eventAddress, description, eventDate);
 
-        int bookingStatus = new BookingDAO().insertBooking(user1,packageService1,eventAddress,description,eventDate);
-
-        if (bookingStatus == 0){
-            System.out.println("No Booking Created");
-            SessionUtil.setAttribute(request, "message", "Booking Failed! Please try again.");
-            SessionUtil.setAttribute(request, "messageType", "error");
-        } else if (bookingStatus == 1) {
-            System.out.println("Booking Created");
+        if (bookingStatus == 1) {
             SessionUtil.setAttribute(request, "message", "Booking Created Successfully!");
-            SessionUtil.setAttribute(request, "messageType", "success");
-            System.out.println("Username:"+user1.getUserName());
-            System.out.println("Package Service id:"+packageService1.getPackageServiceId());
-            System.out.println("address:"+eventAddress);
-            System.out.println("Date:"+eventDate);
-            System.out.println("Description: "+description);
-
+            System.out.println("Booking Created");
+            response.sendRedirect(request.getContextPath() + "/dashboard");
+        } else {
+            SessionUtil.setAttribute(request, "message", "Booking Failed!");
+            response.sendRedirect(request.getContextPath() + "/booking?packageId=" + packageId);
         }
-
-          response.getWriter().println("Dashboard page - GET working!");
-//        response.sendRedirect(request.getContextPath() + "/dashboard");
-
     }
 
 }

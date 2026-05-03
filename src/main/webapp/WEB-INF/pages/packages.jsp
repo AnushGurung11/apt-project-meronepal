@@ -1,27 +1,21 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
-contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PAGE TITLE — Mero Nepal Production</title>
+    <title>Our Packages — Mero Nepal Production</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;900&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;900&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap");
 
-      /* ── Variables ───────────────────────────────────────────── */
       :root {
         --black: #0a0a0a;
         --dark: #111111;
@@ -33,27 +27,20 @@ contentType="text/html" pageEncoding="UTF-8"%>
         --gold-dim: #c9a84c33;
         --white: #f5f0e8;
         --muted: #888880;
-
         --font-display: "Cormorant Garamond", Georgia, serif;
         --font-body: "Outfit", sans-serif;
-
         --radius: 6px;
         --radius-lg: 12px;
         --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         --shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
       }
 
-      /* ── Reset ───────────────────────────────────────────────── */
-      *,
-      *::before,
-      *::after {
+      *, *::before, *::after {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
-      html {
-        scroll-behavior: smooth;
-      }
+      html { scroll-behavior: smooth; }
       body {
         background: var(--black);
         color: var(--white);
@@ -63,65 +50,34 @@ contentType="text/html" pageEncoding="UTF-8"%>
         -webkit-font-smoothing: antialiased;
         overflow-x: hidden;
       }
-      img {
-        max-width: 100%;
-        display: block;
-      }
-      a {
-        color: inherit;
-        text-decoration: none;
-        transition: color var(--transition);
-      }
-      ul {
-        list-style: none;
-      }
-      button {
-        cursor: pointer;
-        border: none;
-        background: none;
-        font-family: var(--font-body);
-      }
+      img { max-width: 100%; display: block; }
+      a { color: inherit; text-decoration: none; transition: color var(--transition); }
+      ul { list-style: none; }
+      button { cursor: pointer; border: none; background: none; font-family: var(--font-body); }
 
-      /* ── Typography ──────────────────────────────────────────── */
-      h1,
-      h2,
-      h3 {
+      h1, h2, h3 {
         font-family: var(--font-display);
         font-weight: 400;
         line-height: 1.15;
         letter-spacing: 0.01em;
       }
-      h1 {
-        font-size: clamp(2.8rem, 6vw, 5.5rem);
-      }
-      h2 {
-        font-size: clamp(2rem, 4vw, 3.2rem);
-      }
-      h3 {
-        font-size: clamp(1.4rem, 2.5vw, 2rem);
-      }
-      p {
-        color: #b0aa9f;
-        font-weight: 300;
-      }
+      h1 { font-size: clamp(2.8rem, 6vw, 5.5rem); }
+      h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
+      h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); }
+      p { color: #b0aa9f; font-weight: 300; }
 
-      /* ── Layout ──────────────────────────────────────────────── */
       .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 32px;
       }
-      .section {
-        padding: 100px 0;
-      }
-
+      .section { padding: 100px 0; }
       .grid-3 {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 32px;
       }
 
-      /* ── Section Label ───────────────────────────────────────── */
       .section-label {
         display: inline-flex;
         align-items: center;
@@ -141,18 +97,14 @@ contentType="text/html" pageEncoding="UTF-8"%>
         background: var(--gold);
       }
 
-      /* ── Divider ─────────────────────────────────────────────── */
       .divider {
         width: 60px;
         height: 1px;
         background: var(--gold);
         margin: 24px 0;
       }
-      .divider-center {
-        margin: 24px auto;
-      }
+      .divider-center { margin: 24px auto; }
 
-      /* ── Buttons ─────────────────────────────────────────────── */
       .btn {
         display: inline-flex;
         align-items: center;
@@ -188,24 +140,15 @@ contentType="text/html" pageEncoding="UTF-8"%>
         justify-content: center;
       }
 
-      /* ── Utility ─────────────────────────────────────────────── */
-      .mt-24 {
-        margin-top: 24px;
-      }
+      .mt-24 { margin-top: 24px; }
 
-      /* ── Page Hero ───────────────────────────────────────────── */
       .page-hero {
         padding: 160px 0 80px;
-        background: linear-gradient(
-          to bottom,
-          rgba(201, 168, 76, 0.04) 0%,
-          transparent 100%
-        );
+        background: linear-gradient(to bottom, rgba(201, 168, 76, 0.04) 0%, transparent 100%);
         border-bottom: 1px solid var(--border);
         text-align: center;
       }
 
-      /* ── Package Card ────────────────────────────────────────── */
       .package-card {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -216,11 +159,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
       }
       .package-card.featured {
         border-color: var(--gold);
-        background: linear-gradient(
-          135deg,
-          var(--surface) 0%,
-          rgba(201, 168, 76, 0.05) 100%
-        );
+        background: linear-gradient(135deg, var(--surface) 0%, rgba(201, 168, 76, 0.05) 100%);
       }
       .package-card.featured::before {
         content: "Most Popular";
@@ -264,9 +203,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
         color: #b0aa9f;
         border-bottom: 1px solid var(--border);
       }
-      .package-features li:last-child {
-        border-bottom: none;
-      }
+      .package-features li:last-child { border-bottom: none; }
       .package-features li::before {
         content: "✦";
         color: var(--gold);
@@ -275,32 +212,19 @@ contentType="text/html" pageEncoding="UTF-8"%>
         flex-shrink: 0;
       }
 
-      /* ── Responsive ──────────────────────────────────────────── */
       @media (max-width: 768px) {
-        .container {
-          padding: 0 20px;
-        }
-        .section {
-          padding: 70px 0;
-        }
-        .grid-3 {
-          grid-template-columns: 1fr;
-        }
+        .container { padding: 0 20px; }
+        .section { padding: 70px 0; }
+        .grid-3 { grid-template-columns: 1fr; }
       }
       @media (max-width: 480px) {
-        .btn {
-          padding: 12px 22px;
-          font-size: 12px;
-        }
-        h1 {
-          font-size: 2.4rem;
-        }
+        .btn { padding: 12px 22px; font-size: 12px; }
+        h1 { font-size: 2.4rem; }
       }
     </style>
   </head>
 
   <body>
-    <!-- ── BACKGROUND GRID ── -->
     <div class="fixed inset-0 opacity-20 z-0 background-grid">
       <script>
         for (let i = 0; i < 96; i++)
@@ -308,96 +232,37 @@ contentType="text/html" pageEncoding="UTF-8"%>
       </script>
     </div>
 
-    <!-- ── FILM GRAIN ── -->
-    <div
-      class="fixed inset-0 opacity-5 pointer-events-none grain-overlay"
-    ></div>
+    <div class="fixed inset-0 opacity-5 pointer-events-none grain-overlay"></div>
 
-    <!-- ── MOBILE TOP BAR ── -->
-    <div
-      class="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-14 bg-[#0a0a0a]"
-      style="border-bottom: 1px solid var(--color-border)"
-    >
+    <div class="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-14 bg-[#0a0a0a]" style="border-bottom: 1px solid var(--color-border)">
       <div class="text-xl font-black"><a href="home">M.NP</a></div>
-      <button
-        id="nav-toggle"
-        class="flex flex-col gap-[5px] p-1"
-        aria-label="Toggle menu"
-      >
-        <span
-          id="bar1"
-          class="block w-6 h-px bg-white"
-          style="
-            transition:
-              transform 0.25s,
-              opacity 0.25s;
-          "
-        ></span>
-        <span
-          id="bar2"
-          class="block w-6 h-px bg-white"
-          style="transition: opacity 0.25s"
-        ></span>
-        <span
-          id="bar3"
-          class="block w-4 h-px bg-white"
-          style="transition: transform 0.25s"
-        ></span>
+      <button id="nav-toggle" class="flex flex-col gap-[5px] p-1" aria-label="Toggle menu">
+        <span id="bar1" class="block w-6 h-px bg-white" style="transition: transform 0.25s, opacity 0.25s;"></span>
+        <span id="bar2" class="block w-6 h-px bg-white" style="transition: opacity 0.25s"></span>
+        <span id="bar3" class="block w-4 h-px bg-white" style="transition: transform 0.25s"></span>
       </button>
     </div>
 
-    <!-- ── MOBILE NAV DRAWER ── -->
-    <nav
-      id="mobile-nav"
-      class="md:hidden fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col justify-center items-center gap-10"
-      style="transform: translateX(100%); transition: transform 0.3s ease"
-    >
-      <a
-        href="home"
-        class="text-3xl font-black uppercase tracking-widest"
-        >Home</a
-      >
-      <a
-        href="packages"
-        class="text-3xl font-black uppercase tracking-widest active"
-        >Package</a
-      >
-      <a href="about" class="text-3xl font-black uppercase tracking-widest"
-        >About</a
-      >
-      <a href="blog" class="text-3xl font-black uppercase tracking-widest"
-        >Blog</a
-      >
+    <nav id="mobile-nav" class="md:hidden fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col justify-center items-center gap-10" style="transform: translateX(100%); transition: transform 0.3s ease">
+      <a href="home" class="text-3xl font-black uppercase tracking-widest">Home</a>
+      <a href="packages" class="text-3xl font-black uppercase tracking-widest active">Package</a>
+      <a href="about" class="text-3xl font-black uppercase tracking-widest">About</a>
+      <a href="blog" class="text-3xl font-black uppercase tracking-widest">Blog</a>
       <a href="login" class="uppercase btn-secondary mt-4">Login</a>
       <a href="packages" class="uppercase btn-primary mt-4">Book Now</a>
     </nav>
 
-    <!-- ── MAIN 3-COLUMN LAYOUT ── -->
-    <div
-      class="relative z-10 grid md:grid-cols-[80px_1fr_300px] min-h-screen border-b border-white/10"
-    >
-      <!-- LEFT RAIL (desktop only) -->
-      <aside
-        class="hidden md:flex flex-col justify-between items-center py-12 border-r border-white/10 sticky top-0 h-screen"
-      >
+    <div class="relative z-10 grid md:grid-cols-[80px_1fr_300px] min-h-screen border-b border-white/10">
+      <aside class="hidden md:flex flex-col justify-between items-center py-12 border-r border-white/10 sticky top-0 h-screen">
         <div class="text-2xl font-black"><a href="home">M.NP</a></div>
-        <div
-          class="vertical-text text-[10px] tracking-[0.4em] uppercase"
-          style="color: var(--color-gold)"
-        >
+        <div class="vertical-text text-[10px] tracking-[0.4em] uppercase" style="color: var(--color-gold)">
           Mero Nepal Production — EST. 2014
         </div>
-        <div
-          class="w-2 h-2 rounded-full"
-          style="background: var(--color-gold)"
-        ></div>
+        <div class="w-2 h-2 rounded-full" style="background: var(--color-gold)"></div>
       </aside>
 
-      <!-- ════════════════════════════════════════
-           CENTER — YOUR PAGE CONTENT GOES HERE
-           ════════════════════════════════════════ -->
       <main class="pt-14 md:pt-0">
-        <!-- ↓↓↓ PASTE YOUR SECTIONS HERE ↓↓↓ -->
+        <!-- PAGE HERO -->
         <section class="page-hero">
           <div class="container">
             <div class="section-label" style="justify-content: center">
@@ -412,315 +277,74 @@ contentType="text/html" pageEncoding="UTF-8"%>
           </div>
         </section>
 
+        <!-- ERROR MESSAGE -->
+        <c:if test="${not empty errorMessage}">
+          <section style="padding: 40px 0;">
+            <div class="container">
+              <div style="background: #c9a84c33; border: 1px solid #c9a84c; border-radius: 6px; padding: 16px; color: #e2c07a;">
+                <strong>⚠ Error:</strong> ${errorMessage}
+              </div>
+            </div>
+          </section>
+        </c:if>
+
+        <!-- PACKAGES SECTION -->
         <section class="section">
           <div class="container">
-            <!-- Services summary strip -->
-            <div
-              style="
-                background: var(--surface);
-                border: 1px solid var(--border);
-                border-radius: var(--radius-lg);
-                padding: 28px 32px;
-                margin-bottom: 60px;
-              "
-            >
-              <div class="section-label">Included Services</div>
-              <div
-                style="
-                  display: flex;
-                  flex-wrap: wrap;
-                  gap: 12px;
-                  margin-top: 8px;
-                "
-              >
-                <span
-                  style="
-                    background: var(--gold-dim);
-                    color: var(--gold);
-                    padding: 6px 14px;
-                    border-radius: 20px;
-                    font-size: 12px;
-                  "
-                  >📸 Wedding Photography &amp; Video</span
-                >
-                <span
-                  style="
-                    background: var(--gold-dim);
-                    color: var(--gold);
-                    padding: 6px 14px;
-                    border-radius: 20px;
-                    font-size: 12px;
-                  "
-                  >💑 Pre-Wedding Shoots</span
-                >
-                <span
-                  style="
-                    background: var(--gold-dim);
-                    color: var(--gold);
-                    padding: 6px 14px;
-                    border-radius: 20px;
-                    font-size: 12px;
-                  "
-                  >🎬 Event Coverage</span
-                >
-                <span
-                  style="
-                    background: var(--gold-dim);
-                    color: var(--gold);
-                    padding: 6px 14px;
-                    border-radius: 20px;
-                    font-size: 12px;
-                  "
-                  >🧑‍🎨 Portrait &amp; Model Shoots</span
-                >
-                <span
-                  style="
-                    background: var(--gold-dim);
-                    color: var(--gold);
-                    padding: 6px 14px;
-                    border-radius: 20px;
-                    font-size: 12px;
-                  "
-                  >📦 Product Photography</span
-                >
-                <span
-                  style="
-                    background: var(--gold-dim);
-                    color: var(--gold);
-                    padding: 6px 14px;
-                    border-radius: 20px;
-                    font-size: 12px;
-                  "
-                  >🎞️ Documentary Production</span
-                >
-                <span
-                  style="
-                    background: var(--gold-dim);
-                    color: var(--gold);
-                    padding: 6px 14px;
-                    border-radius: 20px;
-                    font-size: 12px;
-                  "
-                  >🎵 Music Video Production</span
-                >
-                <span
-                  style="
-                    background: var(--gold-dim);
-                    color: var(--gold);
-                    padding: 6px 14px;
-                    border-radius: 20px;
-                    font-size: 12px;
-                  "
-                  >🚁 Drone Cinematography</span
-                >
-                <span
-                  style="
-                    background: var(--gold-dim);
-                    color: var(--gold);
-                    padding: 6px 14px;
-                    border-radius: 20px;
-                    font-size: 12px;
-                  "
-                  >✂️ Professional Editing</span
-                >
-              </div>
-            </div>
+            <!-- PACKAGES GRID -->
+            <c:if test="${not empty packages}">
+              <div class="grid-3">
+                <c:forEach var="pkg" items="${packages}" varStatus="status">
+                  <div class="package-card ${status.index == 1 ? 'featured' : ''}">
+                    <div class="section-label">Package ${status.index + 1}</div>
+                    <h3>${pkg.getPackageName()}</h3>
+                    <div class="package-price">
+                      NPR <fmt:formatNumber value="${pkg.price}" type="number" maxFractionDigits="0" />
+                      <span>/ event</span>
+                    </div>
+                    <p style="font-size: 13px; color: var(--muted); margin-bottom: 8px;">
+                      ${pkg.description}
+                    </p>
 
-            <!-- All packages -->
-            <div class="grid-3">
-              <div class="package-card">
-                <div class="section-label">Package 1</div>
-                <h3>Basic</h3>
-                <div class="package-price">NPR 10,000 <span>/ event</span></div>
-                <p
-                  style="
-                    font-size: 13px;
-                    color: var(--muted);
-                    margin-bottom: 8px;
-                  "
-                >
-                  Best for small events.
-                </p>
-                <ul class="package-features">
-                  <li>1 Photographer</li>
-                  <li>3–4 hours coverage</li>
-                  <li>50+ edited photos</li>
-                  <li>Soft copy delivery</li>
-                  <li>Event Coverage service</li>
-                  <li>Professional Editing</li>
-                </ul>
-                <a href="login" class="btn btn-outline btn-full mt-24"
-                  >Book This Package</a
-                >
-              </div>
+                    <!-- SERVICES IN THIS PACKAGE -->
+                    <c:if test="${not empty pkg.services}">
+                      <ul class="package-features">
+                        <c:forEach var="service" items="${pkg.services}">
+                          <li>
+                            <strong>${service.serviceName}</strong>
+                            <c:if test="${not empty service.serviceType}">
+                              <br/><small style="color: var(--muted);">${service.serviceType}</small>
+                            </c:if>
+                          </li>
+                        </c:forEach>
+                      </ul>
+                    </c:if>
+                    <c:if test="${empty pkg.services}">
+                      <p style="color: var(--muted); font-size: 12px; padding: 10px 0;">
+                        <em>No services included</em>
+                      </p>
+                    </c:if>
 
-              <div class="package-card featured">
-                <div class="section-label">Package 2</div>
-                <h3>Standard</h3>
-                <div class="package-price">NPR 20,000 <span>/ event</span></div>
-                <p
-                  style="
-                    font-size: 13px;
-                    color: var(--muted);
-                    margin-bottom: 8px;
-                  "
-                >
-                  Best for engagements.
-                </p>
-                <ul class="package-features">
-                  <li>1 Photographer + 1 Videographer</li>
-                  <li>6 hours coverage</li>
-                  <li>100+ edited photos</li>
-                  <li>Highlight video 3–5 min</li>
-                  <li>Pre-Wedding &amp; Engagement Shoot</li>
-                  <li>Professional Editing</li>
-                </ul>
-                <a href="login" class="btn btn-gold btn-full mt-24"
-                  >Book This Package</a
-                >
+                    <a href="login" class="btn ${status.index == 1 ? 'btn-gold' : 'btn-outline'} btn-full mt-24">
+                      Book This Package
+                    </a>
+                  </div>
+                </c:forEach>
               </div>
+            </c:if>
 
-              <div class="package-card">
-                <div class="section-label">Package 3</div>
-                <h3>Premium</h3>
-                <div class="package-price">NPR 35,000 <span>/ event</span></div>
-                <p
-                  style="
-                    font-size: 13px;
-                    color: var(--muted);
-                    margin-bottom: 8px;
-                  "
-                >
-                  Best for weddings.
+            <!-- NO PACKAGES MESSAGE -->
+            <c:if test="${empty packages}">
+              <div style="text-align: center; padding: 60px 0;">
+                <p style="font-size: 16px; color: var(--muted); margin-bottom: 20px;">
+                  No packages available at the moment. Please check back soon!
                 </p>
-                <ul class="package-features">
-                  <li>2 Photographers + 1 Videographer</li>
-                  <li>Full-day coverage</li>
-                  <li>200+ edited photos</li>
-                  <li>Cinematic video 5–10 min</li>
-                  <li>Drone included</li>
-                  <li>Wedding Photography &amp; Video</li>
-                </ul>
-                <a href="login" class="btn btn-outline btn-full mt-24"
-                  >Book This Package</a
-                >
               </div>
-
-              <div class="package-card">
-                <div class="section-label">Package 4</div>
-                <h3>Luxury</h3>
-                <div class="package-price">NPR 60,000 <span>/ event</span></div>
-                <p
-                  style="
-                    font-size: 13px;
-                    color: var(--muted);
-                    margin-bottom: 8px;
-                  "
-                >
-                  Best for high-end events.
-                </p>
-                <ul class="package-features">
-                  <li>Full photo + video crew</li>
-                  <li>Full-day + pre-event shoot</li>
-                  <li>300+ edited photos</li>
-                  <li>Cinematic film 10–20 min</li>
-                  <li>Premium album + drone</li>
-                  <li>Pre-Wedding + Wedding + Drone + Editing</li>
-                </ul>
-                <a href="../login" class="btn btn-outline btn-full mt-24"
-                  >Book This Package</a
-                >
-              </div>
-
-              <div class="package-card">
-                <div class="section-label">Package 5</div>
-                <h3>Business / Product</h3>
-                <div class="package-price">
-                  NPR 15,000 <span>/ session</span>
-                </div>
-                <p
-                  style="
-                    font-size: 13px;
-                    color: var(--muted);
-                    margin-bottom: 8px;
-                  "
-                >
-                  Best for brands.
-                </p>
-                <ul class="package-features">
-                  <li>Product shoot session</li>
-                  <li>20–30 edited images</li>
-                  <li>Studio setup included</li>
-                  <li>Product Photography service</li>
-                  <li>Professional Editing</li>
-                </ul>
-                <a href="../login" class="btn btn-outline btn-full mt-24"
-                  >Book This Package</a
-                >
-              </div>
-
-              <div class="package-card">
-                <div class="section-label">Package 6</div>
-                <h3>Documentary</h3>
-                <div class="package-price">
-                  NPR 50,000 <span>/ project</span>
-                </div>
-                <p
-                  style="
-                    font-size: 13px;
-                    color: var(--muted);
-                    margin-bottom: 8px;
-                  "
-                >
-                  Best for storytelling projects.
-                </p>
-                <ul class="package-features">
-                  <li>Concept planning &amp; scripting</li>
-                  <li>2–3 days shooting</li>
-                  <li>Interviews + cinematic shots</li>
-                  <li>Final documentary 10–30 min</li>
-                  <li>Sound design included</li>
-                  <li>Drone + Editing</li>
-                </ul>
-                <a href="login" class="btn btn-outline btn-full mt-24"
-                  >Book This Package</a
-                >
-              </div>
-
-              <div class="package-card" style="grid-column: 2">
-                <div class="section-label">Package 7</div>
-                <h3>Music Video</h3>
-                <div class="package-price">
-                  NPR 70,000 <span>/ project</span>
-                </div>
-                <p
-                  style="
-                    font-size: 13px;
-                    color: var(--muted);
-                    margin-bottom: 8px;
-                  "
-                >
-                  Best for artists &amp; labels.
-                </p>
-                <ul class="package-features">
-                  <li>Creative direction &amp; concept</li>
-                  <li>Full production team</li>
-                  <li>1–2 days shooting</li>
-                  <li>Cinematic camera + drone</li>
-                  <li>High-quality editing + effects</li>
-                  <li>Final music video 3–6 min</li>
-                </ul>
-                <a href="login" class="btn btn-gold btn-full mt-24"
-                  >Book This Package</a
-                >
-              </div>
-            </div>
+            </c:if>
           </div>
         </section>
 
-        <!-- ↑↑↑ END OF YOUR SECTIONS ↑↑↑ -->
-
-        <!-- ── FOOTER ── -->
+        <!-- FOOTER -->
         <div class="footer">
           <div class="container">
             <div class="container2">
@@ -730,92 +354,48 @@ contentType="text/html" pageEncoding="UTF-8"%>
               <div class="container4">
                 <div class="text">
                   <br />
-                  Cinematic photography and media production based in Nepal. We
-                  capture the moments that define your story.
+                  Cinematic photography and media production based in Nepal. We capture the moments that define your story.
                 </div>
               </div>
             </div>
 
             <div class="container5">
               <div class="container6">
-                <div class="heading-6">
-                  <div class="navigation">NAVIGATION</div>
-                </div>
+                <div class="heading-6"><div class="navigation">NAVIGATION</div></div>
                 <br />
                 <div class="list">
-                  <div class="item">
-                    <a href="home"><div>Home</div></a>
-                  </div>
-                  <div class="item">
-                    <a href="packages"><div>Packages</div></a>
-                  </div>
-                  <div class="item">
-                    <a href="about"><div>About</div></a>
-                  </div>
-                  <div class="item">
-                    <a href="blog"><div>Blog</div></a>
-                  </div>
+                  <div class="item"><a href="home"><div>Home</div></a></div>
+                  <div class="item"><a href="packages"><div>Packages</div></a></div>
+                  <div class="item"><a href="about"><div>About</div></a></div>
+                  <div class="item"><a href="blog"><div>Blog</div></a></div>
                 </div>
               </div>
 
               <div class="container7">
-                <div class="heading-6">
-                  <div class="legal">Account</div>
-                </div>
+                <div class="heading-6"><div class="legal">Account</div></div>
                 <br />
                 <div class="list">
-                  <div class="item">
-                    <a href="login"><div>Login</div></a>
-                  </div>
-                  <div class="item">
-                    <a href="register"><div>Register</div></a>
-                  </div>
+                  <div class="item"><a href="login"><div>Login</div></a></div>
+                  <div class="item"><a href="register"><div>Register</div></a></div>
                 </div>
               </div>
             </div>
 
             <div class="container8">
-              <div class="heading-6">
-                <div class="stay-inspired">Contact</div>
-              </div>
+              <div class="heading-6"><div class="stay-inspired">Contact</div></div>
               <div class="horizontal-border">
-                <input
-                  class="footer-input"
-                  type="email"
-                  placeholder="Email Address"
-                />
+                <input class="footer-input" type="email" placeholder="Email Address" />
                 <button class="footer-btn">→</button>
               </div>
               <div class="container10">
-                <a
-                  href="mailto:hello@meronepal.com"
-                  class="social-link"
-                  aria-label="Email"
-                  target="_blank"
-                >
-                  <span class="material-symbols-outlined social-icon"
-                    >mail</span
-                  >
+                <a href="mailto:hello@meronepal.com" class="social-link" aria-label="Email" target="_blank">
+                  <span class="material-symbols-outlined social-icon">mail</span>
                 </a>
-                <a
-                  href="https://meronepal.com"
-                  class="social-link"
-                  aria-label="Website"
-                  target="_blank"
-                >
-                  <span class="material-symbols-outlined social-icon"
-                    >language</span
-                  >
+                <a href="https://meronepal.com" class="social-link" aria-label="Website" target="_blank">
+                  <span class="material-symbols-outlined social-icon">language</span>
                 </a>
-                <a
-                  href="https://instagram.com/yourpage"
-                  class="social-link"
-                  aria-label="Instagram"
-                  target="_blank"
-                >
-                  <span class="material-symbols-outlined social-icon"
-                    >photo_camera</span
-                  >
+                <a href="https://instagram.com/yourpage" class="social-link" aria-label="Instagram" target="_blank">
+                  <span class="material-symbols-outlined social-icon">photo_camera</span>
                 </a>
               </div>
             </div>
@@ -824,10 +404,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
           <div class="horizontal-border2">
             <div class="container3">
               <div class="_2024-mero-nepal-production-the-modern-auteur">
-                ©
-                <script>
-                  document.write(new Date().getFullYear());
-                </script>
+                © <script>document.write(new Date().getFullYear());</script>
                 Mero Nepal Production. The Modern Auteur.
               </div>
             </div>
@@ -835,25 +412,18 @@ contentType="text/html" pageEncoding="UTF-8"%>
         </div>
       </main>
 
-      <!-- RIGHT RAIL (desktop only) -->
-      <aside
-        class="hidden md:flex flex-col justify-between p-12 border-l border-white/10 sticky top-0 h-screen"
-      >
+      <aside class="hidden md:flex flex-col justify-between p-12 border-l border-white/10 sticky top-0 h-screen">
         <nav class="space-y-6">
-          <a href="../home" class="block uppercase">Home</a>
+          <a href="home" class="block uppercase">Home</a>
           <a href="packages" class="block uppercase active">Packages</a>
           <a href="about" class="block uppercase">About</a>
           <a href="blog" class="block uppercase">Blog</a>
-          <a href="login" class="uppercase btn-secondary mt-4"
-            >Login</a
-          >
+          <a href="login" class="uppercase btn-secondary mt-4">Login</a>
           <a href="packages" class="uppercase btn-primary mt-4">Book Now</a>
         </nav>
       </aside>
     </div>
-    <!-- end 3-col grid -->
 
-    <!-- ── MOBILE NAV SCRIPT ── -->
     <script>
       const toggle = document.getElementById("nav-toggle");
       const drawer = document.getElementById("mobile-nav");

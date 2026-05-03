@@ -530,29 +530,29 @@ contentType="text/html" pageEncoding="UTF-8"%>
       style="transform: translateX(100%); transition: transform 0.3s ease"
     >
       <a
-        href="../../index.jsp"
+        href="home"
         class="text-3xl font-black uppercase tracking-widest"
         >Home</a
       >
       <a
-        href="../../pages/packages.jsp"
+        href="packages"
         class="text-3xl font-black uppercase tracking-widest"
         >Package</a
       >
       <a
-        href="../../pages/about.jsp"
+        href="about"
         class="text-3xl font-black uppercase tracking-widest"
         >About</a
       >
       <a
-        href="../../pages/blog.jsp"
+        href="blog"
         class="text-3xl font-black uppercase tracking-widest"
         >Blog</a
       >
-      <a href="../../pages/login.jsp" class="uppercase btn-secondary mt-4"
+      <a href="login" class="uppercase btn-secondary mt-4"
         >Login</a
       >
-      <a href="../../pages/packages.jsp" class="uppercase btn-primary mt-4"
+      <a href="packages" class="uppercase btn-primary mt-4"
         >Book Now</a
       >
     </nav>
@@ -566,7 +566,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
         class="hidden md:flex flex-col justify-between items-center py-12 border-r border-white/10 sticky top-0 h-screen"
       >
         <div class="text-2xl font-black">
-          <a href="../../index.jsp">M.NP</a>
+          <a href="home">M.NP</a>
         </div>
         <div
           class="vertical-text text-[10px] tracking-[0.4em] uppercase"
@@ -860,16 +860,16 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <br />
                 <div class="list">
                   <div class="item">
-                    <a href="../../index.jsp"><div>Home</div></a>
+                    <a href="home"><div>Home</div></a>
                   </div>
                   <div class="item">
-                    <a href="../../pages/packages.jsp"><div>Packages</div></a>
+                    <a href="packages"><div>Packages</div></a>
                   </div>
                   <div class="item">
-                    <a href="../../pages/about.jsp"><div>About</div></a>
+                    <a href="about"><div>About</div></a>
                   </div>
                   <div class="item">
-                    <a href="../../pages/blog.jsp"><div>Blog</div></a>
+                    <a href="blog"><div>Blog</div></a>
                   </div>
                 </div>
               </div>
@@ -881,10 +881,10 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <br />
                 <div class="list">
                   <div class="item">
-                    <a href="../../pages/login.jsp"><div>Login</div></a>
+                    <a href="login"><div>Login</div></a>
                   </div>
                   <div class="item">
-                    <a href="../../pages/register.jsp"><div>Register</div></a>
+                    <a href="register"><div>Register</div></a>
                   </div>
                 </div>
               </div>
@@ -963,12 +963,12 @@ contentType="text/html" pageEncoding="UTF-8"%>
           >
           <hr class="hr" />
           <br />
-          <a href="../../pages/packages.jsp" class="block uppercase"
+          <a href="packages" class="block uppercase"
             >Packages</a
           >
-          <a href="../../pages/blog.jsp" class="block uppercase">Blog</a>
+          <a href="blog" class="block uppercase">Blog</a>
           <a
-            href="../../pages/auth/login.jsp"
+            href="login"
             class="uppercase btn-secondary mt-4"
             >Logout</a
           >

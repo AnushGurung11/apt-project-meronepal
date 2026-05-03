@@ -14,7 +14,13 @@ public class AuthenticationFilter implements Filter {
     private static final String LOGIN = "/login";
     private static final String REGISTER = "/register";
     private static final String DASHBOARD = "/dashboard";
+    private static final String HOME = "/home";
     private static final String BOOKING = "/booking";
+
+    // Add a list of paths that don't require login
+    private static final String[] PUBLIC_PATHS = {
+            "/login", "/register", "/index.jsp", "/", "/home"  // add whatever should be public
+    };
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -40,20 +46,20 @@ public class AuthenticationFilter implements Filter {
 
         // takes the status if the user is in session or not
         boolean isLoggedIn = SessionUtil.getAttribute(req, "user") != null;
+
         if (!isLoggedIn) {
             // if the user is already in login or register page start again if refreshed
             if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
                 chain.doFilter(request, response);
             } else {
                 // if is not logged in then send back to the login page
-                res.sendRedirect(req.getContextPath() + LOGIN);
+                res.sendRedirect(req.getContextPath() + REGISTER);
             }
         } else {
-            // is the session has a user
 
             // If they want to access login and register jsp then throw them in dashboard
             if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
-                res.sendRedirect(req.getContextPath() + DASHBOARD);
+                res.sendRedirect(req.getContextPath() + HOME);
             } else {
                 // if not then send them back to the top of filter
                 chain.doFilter(request, response);

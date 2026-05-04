@@ -44,7 +44,7 @@ public class BookingServlet extends HttpServlet {
         if (bookingStatus == 1) {
             SessionUtil.setAttribute(request, "message", "Booking Created Successfully!");
             System.out.println("Booking Created");
-            response.sendRedirect(request.getContextPath() + "/dashboard");
+            response.sendRedirect(request.getContextPath() + "/profile");
         } else {
             SessionUtil.setAttribute(request, "message", "Booking Failed!");
             response.sendRedirect(request.getContextPath() + "/booking?packageId=" + packageId);

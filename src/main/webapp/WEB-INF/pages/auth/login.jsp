@@ -291,7 +291,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
     <div class="auth-page">
       <div class="auth-visual"></div>
       <div class="auth-form-side">
-        <a href="../../index.jsp" class="auth-logo"
+        <a href="home" class="auth-logo"
           >Mero Nepal Production<span>.</span></a
         >
         <h2 class="auth-title">Welcome Back</h2>

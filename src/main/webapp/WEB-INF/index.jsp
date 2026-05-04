@@ -1,11 +1,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
-contentType="text/html" pageEncoding="UTF-8"%>
+contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mero Nepal Production</title>
+
+    <script>
+      tailwind.config = {
+        corePlugins: {
+          preflight: false,
+        },
+      };
+    </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link
@@ -16,8 +24,15 @@ contentType="text/html" pageEncoding="UTF-8"%>
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
     />
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="${pageContext.request.contextPath}/assets/img/favicon.ico"
+    />
+    <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/assets/css/styles.css"
+    />
     <style>
       .hero-scroll {
         --black: #0a0a0a;
@@ -129,27 +144,17 @@ contentType="text/html" pageEncoding="UTF-8"%>
         class="text-3xl font-black uppercase tracking-widest active"
         >Home</a
       >
-      <a
-        href="packages"
-        class="text-3xl font-black uppercase tracking-widest"
+      <a href="packages" class="text-3xl font-black uppercase tracking-widest"
         >Package</a
       >
-      <a
-        href="about"
-        class="text-3xl font-black uppercase tracking-widest"
+      <a href="about" class="text-3xl font-black uppercase tracking-widest"
         >About</a
       >
-      <a
-        href="blog"
-        class="text-3xl font-black uppercase tracking-widest"
+      <a href="blog" class="text-3xl font-black uppercase tracking-widest"
         >Blog</a
       >
-      <a href="login" class="uppercase btn-secondary mt-4"
-        >Login</a
-      >
-      <a href="packages" class="uppercase btn-primary mt-4"
-        >Book Now</a
-      >
+      <a href="login" class="uppercase btn-secondary mt-4">Login</a>
+      <a href="packages" class="uppercase btn-primary mt-4">Book Now</a>
     </nav>
 
     <!-- Main layout -->
@@ -211,7 +216,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
               <button
                 class="px-8 md:px-10 py-3 md:py-4 text-xs font-bold uppercase text-black"
                 style="background: var(--color-gold)"
-                onclick="window.location.href = 'pages/packages.jsp'"
+                onclick="window.location.href = 'packages'"
               >
                 View Packages
               </button>
@@ -338,7 +343,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
               class="col-span-8 h-[600px] relative rounded overflow-hidden group"
             >
               <img
-                src="../assets/img/portfolio/STS X meronepalpro (1).jpg"
+                src="${pageContext.request.contextPath}/assets/img/portfolio/STS X meronepalpro (1).jpg"
                 class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0 grayscale brightness-75 group-hover:brightness-100"
               />
               <div
@@ -358,7 +363,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
               class="col-span-4 h-[600px] relative rounded overflow-hidden group"
             >
               <img
-                src="../assets/img/portfolio/STS X meronepalpro (65).jpg"
+                src="${pageContext.request.contextPath}/assets/img/portfolio/STS X meronepalpro (65).jpg"
                 class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0 grayscale brightness-75 group-hover:brightness-100"
               />
               <div
@@ -378,7 +383,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
               class="col-span-4 h-[500px] relative rounded overflow-hidden group"
             >
               <img
-                src="../assets/img/portfolio/STS X meronepalpro (67).jpg"
+                src="${pageContext.request.contextPath}/assets/img/portfolio/STS X meronepalpro (67).jpg"
                 class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0 grayscale brightness-75 group-hover:brightness-100"
               />
               <div
@@ -398,7 +403,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
               class="col-span-8 h-[500px] relative rounded overflow-hidden group"
             >
               <img
-                src="../assets/img/portfolio/TWX_1719.jpg"
+                src="${pageContext.request.contextPath}/assets/img/portfolio/TWX_1719.jpg"
                 class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0 grayscale brightness-75 group-hover:brightness-100"
               />
               <div
@@ -500,7 +505,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <div class="rounded-lg overflow-hidden aspect-[362/287] group">
                   <img
                     class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-80"
-                    src="../assets/img/article/article-1.png"
+                    src="${pageContext.request.contextPath}/assets/img/article/article-1.png"
                     alt="Lighting the Soul"
                   />
                 </div>
@@ -523,7 +528,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <div class="rounded-lg overflow-hidden aspect-[362/287] group">
                   <img
                     class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-80"
-                    src="../assets/img/article/article-2.png"
+                    src="${pageContext.request.contextPath}/assets/img/article/article-2.png"
                     alt="5 Cinematic Techniques"
                   />
                 </div>
@@ -546,7 +551,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <div class="rounded-lg overflow-hidden aspect-[362/287] group">
                   <img
                     class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-80"
-                    src="../assets/img/article/article-3.png"
+                    src="${pageContext.request.contextPath}/assets/img/article/article-3.png"
                     alt="Documenting Mustang"
                   />
                 </div>
@@ -728,17 +733,13 @@ contentType="text/html" pageEncoding="UTF-8"%>
           <a href="packages" class="block uppercase">Packages</a>
           <a href="about" class="block uppercase">About</a>
           <a href="blog" class="block uppercase">Blog</a>
-          <a href="login" class="uppercase btn-secondary mt-4"
-            >Login</a
-          >
-          <a href="packages" class="uppercase btn-primary mt-4"
-            >Book Now</a
-          >
+          <a href="login" class="uppercase btn-secondary mt-4">Login</a>
+          <a href="packages" class="uppercase btn-primary mt-4">Book Now</a>
         </nav>
       </aside>
     </div>
 
-    <script src="../assets/js/scripts.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/scripts.js"></script>
     <script>
       // Mobile nav drawer
       const toggle = document.getElementById("nav-toggle");

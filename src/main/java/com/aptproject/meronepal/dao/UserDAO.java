@@ -84,6 +84,7 @@ public class UserDAO implements UserDAOInterface {
      */
     @Override
     public User getUser(String email) {
+<<<<<<< HEAD
         final String SELECT_USER = "SELECT * FROM user WHERE email = ?";
 
         try (PreparedStatement pStmt = conn.prepareStatement(SELECT_USER)) {
@@ -101,6 +102,23 @@ public class UserDAO implements UserDAOInterface {
                     user.setCreatedAt(rs.getObject("created_at", LocalDateTime.class));
                     return user;
                 }
+=======
+        try {
+            final String SELECT_USER = "select * from user where email=?;";
+
+            PreparedStatement pStm_ = conn.prepareStatement(SELECT_USER);
+            pStm_.setString(1, email);
+            ResultSet rs = pStm_.executeQuery();
+            if (rs.next()) {
+                final User user = new User();
+                user.setUserId(rs.getInt("user_id"));
+                user.setUserName(rs.getString("user_name"));
+                user.setPasswordHash(rs.getString("password"));
+                user.setPhoneNumber(rs.getString("phone_number"));
+                user.setEmail(rs.getString("email"));
+                user.setCreatedAt(rs.getObject("created_at", LocalDateTime.class));
+                return user;
+>>>>>>> 87f3a87 (Adding Error Handeling in Register and login)
             }
         } catch (SQLException ex) {
             System.out.println("getUser error: " + ex.getLocalizedMessage());

@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+<<<<<<< HEAD
  * Servlet for handling user registration.
  * URL Mapping: {@code /register}
  *
@@ -22,10 +23,23 @@ import java.io.IOException;
  * {@code 1} — success, redirects to {@code /login}
  * {@code 2} — duplicate username or email
  * {@code 3} or other — database error
+=======
+ * Servlet responsible for handling user registration.
+ * URL Mapping register {@code /register}
+ * doGet will redirect to the register.jsp page
+ *
+ * doPost method gets parameters form the request
+ * Validates the entered values, if all good checks for sends to the user DAO
+ * returns 1: No duplicate users and successful insertion of user
+ * returns 2: For duplicate user, which already exist and denies the user input
+ *
+ * on successful register will redirect to {@code /login}
+>>>>>>> 63b34cd (Java docs on Registeration process)
  */
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
 
+<<<<<<< HEAD
     /**
      * doGet — displays the registration form page
      *
@@ -39,11 +53,31 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Forward to registration form view
+=======
+    // Creating a USer DAO object
+    private final UserDAO userDAO = new UserDAO();
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     *
+     * @code /register
+     * redirects to register.jsp page
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //On get request, redirects to register.jsp page
+>>>>>>> 63b34cd (Java docs on Registeration process)
         RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/pages/auth/register.jsp");
         rd.forward(request, response);
     }
 
     /**
+<<<<<<< HEAD
      * doPost — validates registration input and creates new user
      *
      * @param request  {@code HttpServletRequest} containing form parameters
@@ -60,11 +94,20 @@ public class RegisterServlet extends HttpServlet {
      *
      * Sets request attributes for errors and previous input values.
      * Redirects to {@code /login} on success, forwards back to form on error.
+=======
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     *
+>>>>>>> 63b34cd (Java docs on Registeration process)
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+<<<<<<< HEAD
         // Read form parameters
         String userName        = request.getParameter("username");
         String phoneNumber     = request.getParameter("phoneNumber");
@@ -77,19 +120,39 @@ public class RegisterServlet extends HttpServlet {
                 && ValidationUtil.isAlphabetic(userName)
                 && userName.length() > 3;
         String errorUser = isValidName ? "" : "Name not proper (letters only, more than 3 chars). ";
+=======
+        // Getting parameters for the request
+        String userName = request.getParameter("username");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
 
+
+        // Validating name checking for nul, empty and length
+        final boolean isValidName = !ValidationUtil.isNullOrEmpty(userName)
+                && ValidationUtil.isAlphabetic(userName)
+                && userName.length() > 3;
+        String errorUser = isValidName ? "" : "Name not Proper! ";
+>>>>>>> 63b34cd (Java docs on Registeration process)
+
+        // Email Regex pattern checking
         final boolean isValidMail = ValidationUtil.isValidEmail(email);
         String errorMail = isValidMail ? "" : "Email address is not valid. ";
 
+        // Num format checking
         final boolean isValidNum = ValidationUtil.isValidPhone(phoneNumber);
         String errorNum = isValidNum ? "" : "Phone number is not valid. ";
 
+        // Checking for Password format, Must contain 1 capital letter, 1 special character and 1 number
         final boolean isValidPass = ValidationUtil.isValidPassword(password);
         String errorPass = isValidPass ? "" : "Password must have 1 uppercase, 1 number, 1 special character. ";
 
+        // Checking for the similarity of the password
         final boolean isValidCon = ValidationUtil.doPasswordsMatch(password, confirmPassword);
         String errorCon = isValidCon ? "" : "Passwords do not match. ";
 
+<<<<<<< HEAD
         // Combine all error messages
         String aggregatedErrors = errorUser + errorMail + errorNum + errorPass + errorCon;
 
@@ -104,6 +167,46 @@ public class RegisterServlet extends HttpServlet {
             if (!errorPass.isEmpty()) System.out.println("  [ERR] Password  : " + errorPass);
             if (!errorCon.isEmpty())  System.out.println("  [ERR] Confirm   : " + errorCon);
             System.out.println("======================================");
+=======
+
+        // Aggregating all the errors
+        String aggregatedErrors = errorUser + errorMail + errorNum + errorPass + errorCon;
+
+        // Expose individual error messages for the view layer
+        request.setAttribute("error",  aggregatedErrors);
+        request.setAttribute("erUser", errorUser);
+        request.setAttribute("erMail", errorMail);
+        request.setAttribute("erNum",  errorNum);
+        request.setAttribute("erPass", errorPass);
+        request.setAttribute("erCon",  errorCon);
+
+        // If the there are errors, then send the throw the error message and redirect to the register page
+        if (!aggregatedErrors.isBlank()) {
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/pages/auth/register.jsp");
+            rd.forward(request, response);
+        }else{
+
+            String hashedPassword = PasswordUtil.getHashPassword(password);
+            int check = userDAO.insertUser(userName, email,  phoneNumber, hashedPassword);
+            switch (check) {
+                case 1:
+                    // User successfully created — proceed to login
+                    response.sendRedirect(request.getContextPath() + "/login");
+                    break;
+                case 2:
+                    // Duplicate username or email detected — inform the view so it
+                    // can display a "Go to Login" prompt for the existing account
+                    request.setAttribute("duplicateError","An account with this username or email already exists.");
+                    RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/pages/auth/register.jsp");
+                    rd.forward(request, response);
+                default:
+                    // Unexpected DB error — forward with a generic message
+                    request.setAttribute("error", "Registration failed due to a server error. Please try again.");
+                    RequestDispatcher rdErr = request.getRequestDispatcher("WEB-INF/pages/auth/register.jsp");
+                    rdErr.forward(request, response);
+                    break;
+            }
+>>>>>>> 63b34cd (Java docs on Registeration process)
         }
 
         // Set error messages and previous input values for the view

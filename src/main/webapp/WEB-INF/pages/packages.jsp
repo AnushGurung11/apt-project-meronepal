@@ -299,7 +299,7 @@
                 <c:forEach var="pkg" items="${packages}" varStatus="status">
                   <div class="package-card ${status.index == 1 ? 'featured' : ''}">
                     <div class="section-label">Package ${status.index + 1}</div>
-                    <h3>${pkg.getPackageName()}</h3>
+                    <h3>${pkg.packageName}</h3>
                     <div class="package-price">
                       NPR <fmt:formatNumber value="${pkg.price}" type="number" maxFractionDigits="0" />
                       <span>/ event</span>

@@ -358,7 +358,7 @@
             <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
           </div>
 
-          <button type="submit" class="btn-submit">Create Account</button>
+          <button type="submit" class="btn-submit" href = "login" >Create Account</button>
           <div class="success-msg" id="successMsg">Registration successful! Redirecting...</div>
           <div class="error-msg" id="errorMsg"></div>
         </form>

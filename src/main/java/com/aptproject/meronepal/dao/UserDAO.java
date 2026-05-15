@@ -56,12 +56,12 @@ public class UserDAO implements UserDAOInterface {
 
     // TODO get user    
     @Override
-    public User getUser(String userName) {
+    public User getUser(String email) {
         try {
-            final String SELECT_USER = "select * from user where user_name=?;";
+            final String SELECT_USER = "select * from user where email=?;";
 
             PreparedStatement pStm_ = conn.prepareStatement(SELECT_USER);
-            pStm_.setString(1, userName);
+            pStm_.setString(1, email);
             ResultSet rs = pStm_.executeQuery();
             if (rs.next()) {
                 final User user = new User();

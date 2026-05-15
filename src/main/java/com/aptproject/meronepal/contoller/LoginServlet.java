@@ -11,58 +11,81 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 
+
+/**
+ * Login servlet is used for handling user login and session management
+ * URL Mapping for login {@code /login}
+ * On successful login, redirect to home page
+ */
 @WebServlet(name = "LoginServlet", urlPatterns = { "/login" })
 public class LoginServlet extends HttpServlet {
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     *
+     * do request renders the Login page
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        response.getWriter().println("Login page - GET working!");
         RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/pages/auth/login.jsp");
         rd.forward(request, response);
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     *
+     * Post request takes the parameters
+     * userName and password and check for the user data
+     * Any error is thrown on the response
+     */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Request bata chine filed haru aaunu paryo (User name , Email, Password)
-        // TODO Variable ma store garne.
-        // TODO Authentication
-        // TODO Using User DAO/getuser function bata herne.
-        // TODO User xa vane, User ko Object return hunxa natra null return hunxa
-        // TODO Yho User lai session ma rakhne
-        // TODO Aaba login vai sake ko hunxa ra success vaye ma Redirect to dashbaord.
-        String userName = request.getParameter("username");
+
+        // Taking email and password for the request object
+        String email = request.getParameter("email");
         String typedPassword = request.getParameter("password");
+
+        //Creating an empty User DAO object for creating a user object
         UserDAO userDao = new UserDAO();
-        User user = userDao.getUser(userName);
-        //if no user found in database send error message
-        if (user == null) {
-            request.setAttribute("error", "user or password mismatch!");
-            response.getWriter().println("No User");
 
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/pages/auth/login.jsp");
-            rd.forward(request, response);
-        } else {
-            String hashedPassword = user.getPasswordHash();
-            boolean matched = PasswordUtil.checkPassword(typedPassword, hashedPassword);
-            if (matched) {
-                // Adding the user in session and redirecting the user to the home servlet.
-                SessionUtil.setAttribute(request, "user", user) ;
-                //Also adding the user name as cookies key value, setting maximum age to 30 min
-                CookieUtil.addCookie(response, "UserName", user.getUserName(), 30*60);
-                response.getWriter().println("Logged in");
-                System.out.println(user.getUserName());
-                System.out.println(user.getEmail());
+        //Using email, a user is created using the email
+        User user = userDao.getUser(email);
 
-                response.sendRedirect(request.getContextPath() + "/home");
-            } else {
-                //if password is mismatched, send error message to login page
+        try{
+            if (user == null) {
                 request.setAttribute("error", "user or password mismatch!");
-                response.getWriter().println("Password is incorrect");
                 RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/pages/auth/login.jsp");
                 rd.forward(request, response);
+            } else {
+                String hashedPassword = user.getPasswordHash();
+                boolean matched = PasswordUtil.checkPassword(typedPassword, hashedPassword);
+                if (matched) {
+                    SessionUtil.setAttribute(request, "user", user) ;
+                    CookieUtil.addCookie(response, "UserName", user.getUserName(), 30*60);
+
+                    System.out.println(user.getUserName());
+                    System.out.println(user.getEmail());
+
+                    response.sendRedirect(request.getContextPath() + "/home");
+                } else {
+                    request.setAttribute("error", "email or password mismatch!");
+                    RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/pages/auth/login.jsp");
+                    rd.forward(request, response);
+                }
             }
+        } catch (Exception e){
+            System.out.println(e.getLocalizedMessage());
         }
+
     }
 }

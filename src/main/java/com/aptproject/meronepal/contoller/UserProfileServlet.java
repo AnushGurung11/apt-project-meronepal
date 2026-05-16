@@ -1,12 +1,16 @@
 package com.aptproject.meronepal.contoller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.aptproject.meronepal.model.User;
 =======
 import com.aptproject.meronepal.dao.UserDAO;
 import com.aptproject.meronepal.model.User;
 import com.aptproject.meronepal.utility.PasswordUtil;
 >>>>>>> 176d58a (User Profile Servlet Update user DAO)
+=======
+import com.aptproject.meronepal.model.User;
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
 import com.aptproject.meronepal.utility.SessionUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -20,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Servlet for displaying user profile page.
  * URL Mapping: {@code /profile}
  *
@@ -29,10 +34,22 @@ import java.time.format.DateTimeFormatter;
  * {@code UserProfileServlet} is responsible for handling the profile view of the user
  *
 >>>>>>> 176d58a (User Profile Servlet Update user DAO)
+=======
+ * Servlet responsible for the read-only user profile view.
+ *
+ * <p>Maps to {@code /profile}. Retrieves the authenticated {@link User}
+ * from the HTTP session and forwards all display attributes to the
+ * profile JSP. No DAO calls are made here — the session object is the
+ * single source of truth for the currently logged-in user.</p>
+ *
+ * <p>Unauthenticated requests (no session or null user) are redirected
+ * to {@code /login} rather than returning a 500 error.</p>
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
  */
 @WebServlet(name = "UserProfileServlet", urlPatterns = {"/profile"})
 public class UserProfileServlet extends HttpServlet {
 
+<<<<<<< HEAD
     // Path to profile view JSP
     private static final String PROFILE_JSP = "WEB-INF/pages/profile/profile.jsp";
 
@@ -60,11 +77,37 @@ public class UserProfileServlet extends HttpServlet {
         if (user == null) {
 =======
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+=======
+    /** Path to the profile view JSP, relative to the web-app root. */
+    private static final String PROFILE_JSP = "WEB-INF/pages/profile/profile.jsp";
 
-        try{
-            // Taking the user object from the session
-            User user = (User) SessionUtil.getAttribute(request, "user");
+    /**
+     * Handles GET requests to {@code /profile}.
+     *
+     * <p>Reads the {@link User} stored under the key {@code "user"} in the
+     * current session and exposes each field as a request attribute so the
+     * JSP can render them via EL (e.g. {@code ${userName}}) without calling
+     * bean getters directly.</p>
+     *
+     * <p>Also consumes any one-shot flash message placed in the session by
+     * other servlets (e.g. {@code BookingServlet} stores {@code "message"}
+     * after a successful or failed booking). The message is removed from the
+     * session after being forwarded so it only shows once.</p>
+     *
+     * @param request  the incoming {@link HttpServletRequest}
+     * @param response the outgoing {@link HttpServletResponse}
+     * @throws ServletException if the RequestDispatcher fails
+     * @throws IOException      if an I/O error occurs during forwarding
+     */
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
 
+        // Retrieve the authenticated user — getSession(false) avoids creating a new session
+        User user = (User) SessionUtil.getAttribute(request, "user");
+
+<<<<<<< HEAD
             // Checking for null
             if(user == null){
                 System.out.println("NO User in Session");
@@ -93,16 +136,25 @@ public class UserProfileServlet extends HttpServlet {
         // 🔐 Authentication check
         if (currentUser == null) {
 >>>>>>> 176d58a (User Profile Servlet Update user DAO)
+=======
+        // Guard: no active session or user not logged in → redirect to login
+        if (user == null) {
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Set user fields as request attributes for JSP
+=======
+        // Expose individual fields as request attributes for the JSP
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         request.setAttribute("user",        user);
         request.setAttribute("userName",    user.getUserName());
         request.setAttribute("email",       user.getEmail());
         request.setAttribute("phoneNumber", user.getPhoneNumber());
+<<<<<<< HEAD
         request.setAttribute("userRole",
                 user.getUserRole() != null ? user.getUserRole() : "Customer");
 
@@ -135,97 +187,34 @@ public class UserProfileServlet extends HttpServlet {
             String newPhone = request.getParameter("phoneNumber");
             String newPassword = request.getParameter("newPassword"); // Optional
             String confirmPassword = request.getParameter("confirmPassword"); // Optional
+=======
+        // Defensive null-check: role may be null if old session pre-dates the getUser() fix
+        request.setAttribute("userRole",
+                user.getUserRole() != null ? user.getUserRole() : "Customer");
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
 
-            // Basic validation
-            if (newUsername == null || newUsername.trim().isEmpty() ||
-                    newEmail == null || newEmail.trim().isEmpty()) {
-                request.setAttribute("error", "Username and email are required");
-                forwardWithError(request, response);
-                return;
-            }
 
-            // Password validation (only if user is changing it)
-            if (newPassword != null && !newPassword.isEmpty()) {
-                if (newPassword.length() < 8) {
-                    request.setAttribute("error", "New password must be at least 8 characters");
-                    forwardWithError(request, response);
-                    return;
-                }
-                if (!newPassword.equals(confirmPassword)) {
-                    request.setAttribute("error", "New passwords do not match");
-                    forwardWithError(request, response);
-                    return;
-                }
-                // Optional: require current password for confirmation
-                String currentPassword = request.getParameter("currentPassword");
-                if (currentPassword == null || !PasswordUtil.checkPassword(currentPassword, currentUser.getPasswordHash())) {
-                    request.setAttribute("error", "Current password is incorrect");
-                    forwardWithError(request, response);
-                    return;
-                }
-            }
-
-            // Prepare updated user object
-            User updatedUser = new User();
-            updatedUser.setUserId(currentUser.getUserId()); // Critical: keep same ID
-            updatedUser.setUserName(newUsername.trim());
-            updatedUser.setEmail(newEmail.trim().toLowerCase());
-            updatedUser.setPhoneNumber(newPhone);
-            updatedUser.setUserRole(currentUser.getUserRole()); // Preserve role
-
-            // Only set password if it's being changed
-            if (newPassword != null && !newPassword.isEmpty()) {
-                updatedUser.setPasswordHash(newPassword); // DAO will hash it
-            } else {
-                updatedUser.setPasswordHash(currentUser.getPasswordHash()); // Keep existing hash
-            }
-
-            // Execute update
-            int result = userdao.updateUser(updatedUser);
-
-            switch (result) {
-                case 1 -> {
-                    //  Success: update session and redirect
-                    currentUser.setUserName(newUsername.trim());
-                    currentUser.setEmail(newEmail.trim().toLowerCase());
-                    currentUser.setPhoneNumber(newPhone);
-                    // Don't update session password hash unless changed
-                    if (newPassword != null && !newPassword.isEmpty()) {
-                        currentUser.setPasswordHash(PasswordUtil.getHashPassword(newPassword));
-                    }
-                    SessionUtil.setAttribute(request, "user", currentUser);
-
-                    request.setAttribute("success", "Profile updated successfully!");
-                    request.getRequestDispatcher("WEB-INF/pages/profile/profile.jsp")
-                            .forward(request, response);
-                }
-                case 2 -> {
-                    request.setAttribute("error", "Username or email already exists");
-                    forwardWithError(request, response);
-                }
-                case 4 -> {
-                    // User not found - session invalid?
-                    SessionUtil.removeAttribute(request, "user");
-                    response.sendRedirect(request.getContextPath() + "/login");
-                }
-                default -> {
-                    request.setAttribute("error", "Failed to update profile. Please try again.");
-                    forwardWithError(request, response);
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("error", "System error: " + e.getMessage());
-            forwardWithError(request, response);
+        if (user.getCreatedAt() != null) {
+            String formattedDate = user.getCreatedAt()
+                    .format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+            request.setAttribute("formattedCreatedAt", formattedDate);
+        } else {
+            request.setAttribute("formattedCreatedAt", "N/A");
         }
-    }
 
-    private void forwardWithError(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/pages/profile/edit-profile.jsp")
-                .forward(request, response);
+        // Consume one-shot flash message from session (set by BookingServlet on redirect)
+        Object flashMessage = SessionUtil.getAttribute(request, "message");
+        if (flashMessage != null) {
+            request.setAttribute("success", flashMessage.toString());
+            SessionUtil.removeAttribute(request, "message"); // show once, then discard
+        }
+
+        RequestDispatcher rd = request.getRequestDispatcher(PROFILE_JSP);
+        rd.forward(request, response);
     }
 }
+<<<<<<< HEAD
 
 >>>>>>> 176d58a (User Profile Servlet Update user DAO)
+=======
+>>>>>>> 2ea22dc (completion of User password and Editing User details)

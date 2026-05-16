@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
 /**
  * Servlet for handling booking flow.
  * URL Mapping: {@code /booking}
@@ -41,6 +42,14 @@ public class BookingServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Move flash messages from session to request scope for display
+=======
+@WebServlet(name = "BookingServlet", urlPatterns = {"/booking"})
+public class BookingServlet extends HttpServlet {
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Pull flash messages from session into request scope
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         String message     = (String) SessionUtil.getAttribute(request, "message");
         String messageType = (String) SessionUtil.getAttribute(request, "messageType");
         if (message != null) {
@@ -50,7 +59,10 @@ public class BookingServlet extends HttpServlet {
             SessionUtil.removeAttribute(request, "messageType");
         }
 
+<<<<<<< HEAD
         // Load package details with associated services
+=======
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         int packageId = Integer.parseInt(request.getParameter("packageId"));
         Package selectedPackage = new PackageDAO().getPackageByIdWithServices(packageId);
 
@@ -76,20 +88,31 @@ public class BookingServlet extends HttpServlet {
      * Redirects to {@code /profile} on success, back to form on error.
      */
     @Override
+<<<<<<< HEAD
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         // Get logged-in user from session
+=======
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         User user           = (User) SessionUtil.getAttribute(request, "user");
         int packageId       = Integer.parseInt(request.getParameter("packageId"));
         String eventAddress = request.getParameter("eventAddress");
         String description  = request.getParameter("notes");
         String eventDate    = request.getParameter("eventDate");
 
+<<<<<<< HEAD
         // Validate event date format and value
         LocalDate parsedDate;
         try {
             parsedDate = LocalDate.parse(eventDate);
+=======
+        // ── Date validation ──────────────────────────────────────────
+        LocalDate parsedDate;
+        try {
+            parsedDate = LocalDate.parse(eventDate); // expects "yyyy-MM-dd" from <input type="date">
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         } catch (DateTimeParseException | NullPointerException e) {
             SessionUtil.setAttribute(request, "message", "Invalid date format. Please select a valid date.");
             SessionUtil.setAttribute(request, "messageType", "error");
@@ -97,8 +120,12 @@ public class BookingServlet extends HttpServlet {
             return;
         }
 
+<<<<<<< HEAD
         // Ensure date is at least 4 days in the future
         LocalDate minimumAllowedDate = LocalDate.now().plusDays(4);
+=======
+        LocalDate minimumAllowedDate = LocalDate.now().plusDays(4); // strictly more than 3 days from today
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         if (parsedDate.isBefore(minimumAllowedDate)) {
             SessionUtil.setAttribute(request, "message",
                     "Event date must be at least 4 days from today (earliest: " + minimumAllowedDate + ").");
@@ -106,8 +133,13 @@ public class BookingServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/booking?packageId=" + packageId);
             return;
         }
+<<<<<<< HEAD
 
         // Insert booking record via DAO
+=======
+        // ────────────────────────────────────────────────────────────
+
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         int bookingStatus = new BookingDAO().insertBooking(user, packageId, eventAddress, description, eventDate);
 
         // Redirect based on result

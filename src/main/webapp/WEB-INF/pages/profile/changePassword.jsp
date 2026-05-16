@@ -9,6 +9,7 @@
     <title>Change Password — Mero Nepal Production</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+<<<<<<< HEAD
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap"
       rel="stylesheet"
@@ -26,6 +27,12 @@
       rel="stylesheet"
       href="${pageContext.request.contextPath}/assets/css/styles.css"
     />
+=======
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" />
+    <link rel="stylesheet"              href="${pageContext.request.contextPath}/assets/css/styles.css" />
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
 
     <style>
       :root {
@@ -59,7 +66,13 @@
         -webkit-font-smoothing: antialiased;
         overflow-x: hidden;
       }
+<<<<<<< HEAD
       a { color: inherit; text-decoration: none; transition: color var(--transition); }
+=======
+      img { max-width: 100%; display: block; }
+      a   { color: inherit; text-decoration: none; transition: color var(--transition); }
+      ul  { list-style: none; }
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
       button { cursor: pointer; border: none; background: none; font-family: var(--font-body); }
 
       h2, h3, h4 {
@@ -72,10 +85,18 @@
       h3 { font-size: 1.3rem; }
       h4 { font-size: 1.25rem; }
 
+<<<<<<< HEAD
+=======
+      /* ── Layout helpers ── */
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
       .profile-wrapper { padding: 48px 40px; }
       .page-header     { margin-bottom: 40px; }
       .page-header p   { color: #b0aa9f; font-size: 14px; font-weight: 300; }
 
+<<<<<<< HEAD
+=======
+      /* ── Card ── */
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
       .profile-card {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -83,6 +104,10 @@
         padding: 36px;
       }
 
+<<<<<<< HEAD
+=======
+      /* ── Section label ── */
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
       .section-label {
         display: inline-flex;
         align-items: center;
@@ -102,8 +127,16 @@
         background: var(--gold);
       }
 
+<<<<<<< HEAD
       .form-group { margin-bottom: 24px; }
       .form-label {
+=======
+      .divider { width: 60px; height: 1px; background: var(--gold); margin: 28px 0; }
+
+      /* ── Form ── */
+      .form-group   { margin-bottom: 24px; }
+      .form-label   {
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         display: block;
         font-size: 11px; font-weight: 500;
         letter-spacing: 0.14em; text-transform: uppercase;
@@ -126,7 +159,11 @@
         box-shadow: 0 0 0 3px var(--gold-dim);
       }
       .form-input::placeholder { color: var(--muted); }
+<<<<<<< HEAD
       .form-input.input-error {
+=======
+      .form-input.input-error  {
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         border-color: var(--red);
         box-shadow: 0 0 0 3px var(--red-dim);
       }
@@ -135,6 +172,7 @@
         font-size: 11px; color: var(--muted);
         margin-top: 6px; letter-spacing: 0.03em;
       }
+<<<<<<< HEAD
       .form-hint.hint-error { color: #e57373; }
 
       .form-divider { height: 1px; background: var(--border); margin: 32px 0; }
@@ -153,6 +191,40 @@
         font-size: 18px; user-select: none;
       }
 
+=======
+      .form-hint.hint-error {
+        color: #e57373;
+      }
+
+      .form-divider { height: 1px; background: var(--border); margin: 32px 0; }
+
+      /* ── Password wrapper / toggle ── */
+      .password-wrap {
+        position: relative;
+      }
+      .toggle-btn {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        padding: 0;
+        transition: color var(--transition);
+        line-height: 1;
+      }
+      .toggle-btn:hover { color: var(--gold); }
+      .toggle-btn .material-symbols-outlined {
+        font-size: 18px;
+        user-select: none;
+      }
+
+      /* ── Buttons ── */
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
       .btn {
         display: inline-flex; align-items: center; gap: 8px;
         padding: 14px 32px; border-radius: var(--radius);
@@ -161,7 +233,11 @@
         white-space: nowrap; cursor: pointer; text-decoration: none;
         border: none; font-family: var(--font-body);
       }
+<<<<<<< HEAD
       .btn-gold { background: var(--gold); color: #0a0a0a; }
+=======
+      .btn-gold  { background: var(--gold); color: #0a0a0a; }
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
       .btn-gold:hover {
         background: var(--gold-light);
         transform: translateY(-1px);
@@ -174,13 +250,24 @@
       }
       .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
+<<<<<<< HEAD
+=======
+      /* ── Alerts ── */
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
       .alert {
         padding: 14px 20px; border-radius: var(--radius);
         font-size: 13px; border-left: 3px solid; margin-bottom: 28px;
       }
+<<<<<<< HEAD
       .alert-error   { background: var(--red-dim);       border-color: var(--red);  color: #e57373; }
       .alert-success { background: rgba(52,199,89,0.08); border-color: #34c759;     color: #34c759; }
 
+=======
+      .alert-error   { background: var(--red-dim);         border-color: var(--red);  color: #e57373; }
+      .alert-success { background: rgba(52,199,89,0.08);   border-color: #34c759;     color: #34c759; }
+
+      /* ── Back link ── */
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
       .btn-back {
         display: inline-flex; align-items: center; gap: 8px;
         font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
@@ -189,6 +276,7 @@
       }
       .btn-back:hover { color: var(--gold); }
 
+<<<<<<< HEAD
       .strength-track {
         height: 3px; background: var(--border);
         border-radius: 2px; margin-top: 10px; overflow: hidden;
@@ -202,6 +290,31 @@
         color: var(--muted); margin-top: 5px;
       }
 
+=======
+      /* ── Password strength bar ── */
+      .strength-track {
+        height: 3px;
+        background: var(--border);
+        border-radius: 2px;
+        margin-top: 10px;
+        overflow: hidden;
+      }
+      .strength-fill {
+        height: 100%;
+        border-radius: 2px;
+        width: 0%;
+        transition: width 0.35s ease, background 0.35s ease;
+      }
+      .strength-label {
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 5px;
+      }
+
+      /* ── Info box ── */
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
       .info-box {
         background: var(--gold-dim);
         border: 1px solid rgba(201,168,76,0.25);
@@ -214,6 +327,7 @@
       }
       .info-box strong { color: var(--gold); }
 
+<<<<<<< HEAD
       .req-list {
         list-style: none;
         display: flex; flex-direction: column; gap: 6px;
@@ -227,16 +341,51 @@
       .req-list li .dot {
         width: 6px; height: 6px; border-radius: 50%;
         background: var(--border); flex-shrink: 0;
+=======
+      /* ── Requirement checklist ── */
+      .req-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 16px;
+      }
+      .req-list li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--muted);
+        transition: color 0.25s;
+      }
+      .req-list li .dot {
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: var(--border);
+        flex-shrink: 0;
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         transition: background 0.25s;
       }
       .req-list li.met { color: #34c759; }
       .req-list li.met .dot { background: #34c759; }
 
+<<<<<<< HEAD
       .modal-overlay {
         display: none; position: fixed; inset: 0;
         background: rgba(0,0,0,0.72);
         z-index: 200;
         align-items: center; justify-content: center;
+=======
+      /* ── Confirm Modal ── */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.72);
+        z-index: 200;
+        align-items: center;
+        justify-content: center;
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         backdrop-filter: blur(4px);
       }
       .modal-overlay.active { display: flex; }
@@ -245,15 +394,26 @@
         border: 1px solid var(--border);
         border-radius: var(--radius-lg);
         padding: 40px 36px;
+<<<<<<< HEAD
         max-width: 400px; width: calc(100% - 40px);
         text-align: center;
       }
       .modal-icon {
         width: 48px; height: 48px; border-radius: 50%;
+=======
+        max-width: 400px;
+        width: calc(100% - 40px);
+        text-align: center;
+      }
+      .modal-icon {
+        width: 48px; height: 48px;
+        border-radius: 50%;
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         background: var(--gold-dim);
         border: 1px solid rgba(201,168,76,0.3);
         display: flex; align-items: center; justify-content: center;
         margin: 0 auto 20px;
+<<<<<<< HEAD
         color: var(--gold); font-size: 22px;
       }
       .modal-title {
@@ -268,6 +428,35 @@
       .modal-actions { display: flex; gap: 12px; }
       .modal-actions .btn { flex: 1; justify-content: center; }
 
+=======
+        color: var(--gold);
+        font-size: 22px;
+      }
+      .modal-title {
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 400;
+        margin-bottom: 10px;
+      }
+      .modal-body {
+        font-size: 13px;
+        color: #b0aa9f;
+        margin-bottom: 28px;
+        line-height: 1.6;
+      }
+      .modal-actions {
+        display: flex;
+        gap: 12px;
+      }
+      .modal-actions .btn { flex: 1; justify-content: center; }
+
+      /* ── HR divider ── */
+      .hr {
+        border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 2rem 0;
+      }
+
+      /* ── Responsive ── */
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
       @media (max-width: 768px) {
         .profile-wrapper { padding: 24px 20px; }
         .modal-box { padding: 28px 20px; }
@@ -276,6 +465,7 @@
   </head>
 
   <body>
+<<<<<<< HEAD
     <!-- ── BACKGROUND GRID ── -->
     <div class="fixed inset-0 opacity-20 z-0 background-grid">
       <script>for (let i = 0; i < 96; i++) document.write('<div class="grid-cell"></div>');</script>
@@ -288,6 +478,35 @@
     <%@ include file="/WEB-INF/pages/components/mobile-nav-drawer-profile.jsp" %>
 
     <!-- ── CONFIRM MODAL ── -->
+=======
+    <!-- BACKGROUND GRID -->
+    <div class="fixed inset-0 opacity-20 z-0 background-grid">
+      <script>for(let i=0;i<96;i++)document.write('<div class="grid-cell"></div>');</script>
+    </div>
+    <div class="fixed inset-0 opacity-5 pointer-events-none grain-overlay"></div>
+
+    <!-- MOBILE TOP BAR -->
+    <div class="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-14 bg-[#0a0a0a]"
+         style="border-bottom:1px solid rgba(255,255,255,0.08)">
+      <div class="text-xl font-black"><a href="${pageContext.request.contextPath}/home">M.NP</a></div>
+      <button id="nav-toggle" class="flex flex-col gap-[5px] p-1" aria-label="Toggle menu">
+        <span id="bar1" class="block w-6 h-px bg-white" style="transition:transform 0.25s,opacity 0.25s;"></span>
+        <span id="bar2" class="block w-6 h-px bg-white" style="transition:opacity 0.25s"></span>
+        <span id="bar3" class="block w-4 h-px bg-white" style="transition:transform 0.25s"></span>
+      </button>
+    </div>
+
+    <!-- MOBILE NAV DRAWER -->
+    <nav id="mobile-nav" class="md:hidden fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col justify-center items-center gap-10"
+         style="transform:translateX(100%);transition:transform 0.3s ease">
+      <a href="${pageContext.request.contextPath}/home"     class="text-3xl font-black uppercase tracking-widest">Home</a>
+      <a href="${pageContext.request.contextPath}/packages" class="text-3xl font-black uppercase tracking-widest">Bookings</a>
+      <a href="${pageContext.request.contextPath}/about"    class="text-3xl font-black uppercase tracking-widest">About</a>
+      <a href="${pageContext.request.contextPath}/blog"     class="text-3xl font-black uppercase tracking-widest">Blog</a>
+    </nav>
+
+    <!-- CONFIRM MODAL -->
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
     <div id="confirmModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-box">
         <div class="modal-icon">
@@ -305,6 +524,7 @@
       </div>
     </div>
 
+<<<<<<< HEAD
     <!-- ── MAIN 3-COLUMN LAYOUT ── -->
     <div class="relative z-10 grid md:grid-cols-[80px_1fr_300px] min-h-screen border-b border-white/10">
       <%@ include file="/WEB-INF/pages/components/left-rail-auth.jsp" %>
@@ -314,12 +534,38 @@
 
           <a href="${pageContext.request.contextPath}/profile" class="btn-back">← Back to Profile</a>
 
+=======
+    <!-- MAIN 3-COLUMN LAYOUT -->
+    <div class="relative z-10 grid md:grid-cols-[80px_1fr_300px] min-h-screen border-b border-white/10">
+
+      <!-- LEFT RAIL -->
+      <aside class="hidden md:flex flex-col justify-between items-center py-12 border-r border-white/10 sticky top-0 h-screen">
+        <div class="text-2xl font-black"><a href="${pageContext.request.contextPath}/home">M.NP</a></div>
+        <div class="vertical-text text-[10px] tracking-[0.4em] uppercase" style="color:var(--gold)">
+          Mero Nepal Production — EST. 2014
+        </div>
+        <div class="w-2 h-2 rounded-full" style="background:var(--gold)"></div>
+      </aside>
+
+      <!-- CENTER CONTENT -->
+      <main class="pt-14 md:pt-0">
+        <div class="profile-wrapper">
+
+          <!-- Back link -->
+          <a href="${pageContext.request.contextPath}/profile" class="btn-back">← Back to Profile</a>
+
+          <!-- Page header -->
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
           <div class="page-header">
             <div class="section-label">Account Security</div>
             <h2>Change Password</h2>
             <p style="margin-top:8px;">Enter a new password below. Make it strong and keep it safe.</p>
           </div>
 
+<<<<<<< HEAD
+=======
+          <%-- ── Flash messages ── --%>
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
           <c:if test="${not empty erPass or not empty erCon}">
             <div class="alert alert-error">
               <c:if test="${not empty erPass}"><c:out value="${erPass}"/></c:if>
@@ -329,6 +575,7 @@
           <c:if test="${not empty errorMessage}">
             <div class="alert alert-error"><c:out value="${errorMessage}"/></div>
           </c:if>
+<<<<<<< HEAD
           <c:if test="${not empty success}">
             <div class="alert alert-success"><c:out value="${success}"/></div>
           </c:if>
@@ -336,6 +583,13 @@
           <div class="grid md:grid-cols-[1fr_300px] gap-8 items-start">
 
             <!-- LEFT: FORM CARD -->
+=======
+
+          <!-- Two-column: form left, hints right -->
+          <div class="grid md:grid-cols-[1fr_300px] gap-8 items-start">
+
+            <%-- ─── LEFT: FORM CARD ─── --%>
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
             <div class="profile-card">
               <div class="section-label">New Password</div>
               <h3 style="margin-bottom:8px;">Set a New Password</h3>
@@ -346,6 +600,10 @@
               <form action="${pageContext.request.contextPath}/profile/changePassword"
                     method="post" id="changePasswordForm" novalidate>
 
+<<<<<<< HEAD
+=======
+                <%-- New Password --%>
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
                 <div class="form-group">
                   <label class="form-label" for="password">New Password</label>
                   <div class="password-wrap">
@@ -356,11 +614,20 @@
                       name="password"
                       placeholder="Enter new password"
                       required
+<<<<<<< HEAD
                       autocomplete="new-password" />
+=======
+                      autocomplete="new-password"
+                    />
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
                     <button type="button" class="toggle-btn" data-target="password" aria-label="Toggle password visibility">
                       <span class="material-symbols-outlined">visibility</span>
                     </button>
                   </div>
+<<<<<<< HEAD
+=======
+                  <!-- Strength bar -->
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
                   <div class="strength-track">
                     <div class="strength-fill" id="strengthFill"></div>
                   </div>
@@ -370,6 +637,10 @@
                   </c:if>
                 </div>
 
+<<<<<<< HEAD
+=======
+                <%-- Confirm Password --%>
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
                 <div class="form-group">
                   <label class="form-label" for="confirmPassword">Confirm Password</label>
                   <div class="password-wrap">
@@ -380,7 +651,12 @@
                       name="confirmPassword"
                       placeholder="Re-enter new password"
                       required
+<<<<<<< HEAD
                       autocomplete="new-password" />
+=======
+                      autocomplete="new-password"
+                    />
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
                     <button type="button" class="toggle-btn" data-target="confirmPassword" aria-label="Toggle confirm password visibility">
                       <span class="material-symbols-outlined">visibility</span>
                     </button>
@@ -393,6 +669,10 @@
 
                 <div class="form-divider"></div>
 
+<<<<<<< HEAD
+=======
+                <%-- Action buttons --%>
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
                 <div style="display:flex;gap:12px;flex-wrap:wrap;">
                   <button type="submit" class="btn btn-gold" style="flex:1;justify-content:center;">
                     Update Password ✦
@@ -404,6 +684,7 @@
                 </div>
 
                 <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:16px;letter-spacing:0.04em;">
+<<<<<<< HEAD
                   Other profile details are managed on the
                   <a href="${pageContext.request.contextPath}/profile/update" style="color:var(--gold);">Edit Profile</a> page.
                 </p>
@@ -412,6 +693,19 @@
 
             <!-- RIGHT: REQUIREMENTS CARD -->
             <div class="profile-card" style="position:sticky;top:32px;">
+=======
+                  Other profile details are managed on the <a href="${pageContext.request.contextPath}/profile/edit"
+                  style="color:var(--gold);">Edit Profile</a> page.
+                </p>
+
+              </form>
+            </div>
+            <%-- /form card --%>
+
+            <%-- ─── RIGHT: REQUIREMENTS CARD ─── --%>
+            <div class="profile-card" style="position:sticky;top:32px;">
+
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
               <div class="section-label" style="margin-bottom:14px;">Requirements</div>
               <h3 style="margin-bottom:8px;">Password Rules</h3>
               <p style="font-size:13px;color:#b0aa9f;margin-bottom:4px;">
@@ -419,20 +713,104 @@
               </p>
 
               <ul class="req-list" id="reqList">
+<<<<<<< HEAD
                 <li id="req-length"  data-rule="length"><span class="dot"></span> At least 8 characters</li>
                 <li id="req-upper"   data-rule="upper"><span class="dot"></span> One uppercase letter</li>
                 <li id="req-number"  data-rule="number"><span class="dot"></span> One number</li>
                 <li id="req-special" data-rule="special"><span class="dot"></span> One special character</li>
                 <li id="req-match"   data-rule="match"><span class="dot"></span> Passwords match</li>
+=======
+                <li id="req-length" data-rule="length">
+                  <span class="dot"></span> At least 8 characters
+                </li>
+                <li id="req-upper" data-rule="upper">
+                  <span class="dot"></span> One uppercase letter
+                </li>
+                <li id="req-number" data-rule="number">
+                  <span class="dot"></span> One number
+                </li>
+                <li id="req-special" data-rule="special">
+                  <span class="dot"></span> One special character
+                </li>
+                <li id="req-match" data-rule="match">
+                  <span class="dot"></span> Passwords match
+                </li>
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
               </ul>
 
               <div class="info-box">
                 <strong>Tip:</strong> Never reuse old passwords, and avoid personal info like your name or birthday.
               </div>
+<<<<<<< HEAD
+=======
+
+            </div>
+            <%-- /requirements card --%>
+
+          </div>
+          <%-- /two-column grid --%>
+
+        </div>
+        <%-- /profile-wrapper --%>
+
+        <!-- FOOTER -->
+        <div class="footer">
+          <div class="container">
+            <div class="container2">
+              <div class="container3"><div class="mero-nepal">Mero Nepal Production</div></div>
+              <div class="container4">
+                <div class="text"><br />Cinematic photography and media production based in Nepal. We capture the moments that define your story.</div>
+              </div>
+            </div>
+            <div class="container5">
+              <div class="container6">
+                <div class="heading-6"><div class="navigation">NAVIGATION</div></div><br />
+                <div class="list">
+                  <div class="item"><a href="${pageContext.request.contextPath}/home"><div>Home</div></a></div>
+                  <div class="item"><a href="${pageContext.request.contextPath}/packages"><div>Packages</div></a></div>
+                  <div class="item"><a href="${pageContext.request.contextPath}/about"><div>About</div></a></div>
+                  <div class="item"><a href="${pageContext.request.contextPath}/blog"><div>Blog</div></a></div>
+                </div>
+              </div>
+              <div class="container7">
+                <div class="heading-6"><div class="legal">Account</div></div><br />
+                <div class="list">
+                  <div class="item"><a href="${pageContext.request.contextPath}/profile"><div>My Profile</div></a></div>
+                  <div class="item"><a href="${pageContext.request.contextPath}/logout"><div>Logout</div></a></div>
+                </div>
+              </div>
+            </div>
+            <div class="container8">
+              <div class="heading-6"><div class="stay-inspired">Contact</div></div>
+              <div class="horizontal-border">
+                <input class="footer-input" type="email" placeholder="Email Address" />
+                <button class="footer-btn">→</button>
+              </div>
+              <div class="container10">
+                <a href="mailto:hello@meronepal.com" class="social-link" aria-label="Email" target="_blank">
+                  <span class="material-symbols-outlined social-icon">mail</span>
+                </a>
+                <a href="https://meronepal.com" class="social-link" aria-label="Website" target="_blank">
+                  <span class="material-symbols-outlined social-icon">language</span>
+                </a>
+                <a href="https://instagram.com/yourpage" class="social-link" aria-label="Instagram" target="_blank">
+                  <span class="material-symbols-outlined social-icon">photo_camera</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="horizontal-border2">
+            <div class="container3">
+              <div class="_2024-mero-nepal-production-the-modern-auteur">
+                © <script>document.write(new Date().getFullYear());</script>
+                Mero Nepal Production. The Modern Auteur.
+              </div>
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
             </div>
           </div>
         </div>
 
+<<<<<<< HEAD
         <%@ include file="/WEB-INF/pages/components/footer.jsp" %>
       </main>
 
@@ -442,6 +820,52 @@
     <%@ include file="/WEB-INF/pages/components/mobile-nav-script.jsp" %>
 
     <script>
+=======
+      </main>
+
+      <!-- RIGHT RAIL -->
+      <aside class="hidden md:flex flex-col justify-between p-12 border-l border-white/10 sticky top-0 h-screen">
+        <nav class="space-y-6">
+          <a href="${pageContext.request.contextPath}/profile"          class="block uppercase active">My Profile</a>
+          <a href="${pageContext.request.contextPath}/packages"         class="block uppercase">Bookings</a>
+          <hr class="hr" />
+          <a href="${pageContext.request.contextPath}/about"            class="block uppercase">About</a>
+          <a href="${pageContext.request.contextPath}/blog"             class="block uppercase">Blog</a>
+          <a href="${pageContext.request.contextPath}/logout"           class="uppercase btn-secondary mt-4">Logout</a>
+        </nav>
+      </aside>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+      /* ── Mobile nav toggle ── */
+      const toggle = document.getElementById("nav-toggle");
+      const drawer = document.getElementById("mobile-nav");
+      const bar1   = document.getElementById("bar1");
+      const bar2   = document.getElementById("bar2");
+      const bar3   = document.getElementById("bar3");
+      let isOpen   = false;
+
+      toggle.addEventListener("click", () => {
+        isOpen = !isOpen;
+        drawer.style.transform = isOpen ? "translateX(0)" : "translateX(100%)";
+        bar1.style.transform   = isOpen ? "translateY(6px) rotate(45deg)" : "";
+        bar2.style.opacity     = isOpen ? "0" : "1";
+        bar3.style.transform   = isOpen ? "translateY(-6px) rotate(-45deg)" : "";
+        bar3.style.width       = isOpen ? "24px" : "";
+      });
+      drawer.querySelectorAll("a").forEach(a =>
+        a.addEventListener("click", () => {
+          isOpen = false;
+          drawer.style.transform     = "translateX(100%)";
+          bar1.style.transform = bar3.style.transform = "";
+          bar2.style.opacity   = "1";
+          bar3.style.width     = "";
+        })
+      );
+
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
       /* ── Password visibility toggles ── */
       document.querySelectorAll(".toggle-btn").forEach(btn => {
         btn.addEventListener("click", function () {
@@ -458,11 +882,19 @@
       });
 
       /* ── Live requirement checklist + strength bar ── */
+<<<<<<< HEAD
       const passwordInput = document.getElementById("password");
       const confirmInput  = document.getElementById("confirmPassword");
       const strengthFill  = document.getElementById("strengthFill");
       const strengthLabel = document.getElementById("strengthLabel");
       const matchHint     = document.getElementById("matchHint");
+=======
+      const passwordInput  = document.getElementById("password");
+      const confirmInput   = document.getElementById("confirmPassword");
+      const strengthFill   = document.getElementById("strengthFill");
+      const strengthLabel  = document.getElementById("strengthLabel");
+      const matchHint      = document.getElementById("matchHint");
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
 
       const rules = {
         length:  v => v.length >= 8,
@@ -472,11 +904,19 @@
       };
 
       const strengthConfig = [
+<<<<<<< HEAD
         { label: "—",      color: "transparent", pct: 0   },
         { label: "Weak",   color: "#c0392b",      pct: 25  },
         { label: "Fair",   color: "#e67e22",      pct: 50  },
         { label: "Good",   color: "#f1c40f",      pct: 75  },
         { label: "Strong", color: "#34c759",      pct: 100 },
+=======
+        { label: "—",        color: "transparent", pct: 0   },
+        { label: "Weak",     color: "#c0392b",      pct: 25  },
+        { label: "Fair",     color: "#e67e22",      pct: 50  },
+        { label: "Good",     color: "#f1c40f",      pct: 75  },
+        { label: "Strong",   color: "#34c759",      pct: 100 },
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
       ];
 
       function updateRequirements() {
@@ -491,15 +931,28 @@
           if (met) score++;
         });
 
+<<<<<<< HEAD
         const matchLi = document.getElementById("req-match");
         const matched = val.length > 0 && val === confVal;
         matchLi.classList.toggle("met", matched);
 
+=======
+        /* Match requirement */
+        const matchLi  = document.getElementById("req-match");
+        const matched  = val.length > 0 && val === confVal;
+        matchLi.classList.toggle("met", matched);
+
+        /* Strength bar */
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         const cfg = strengthConfig[score] || strengthConfig[0];
         strengthFill.style.width      = cfg.pct + "%";
         strengthFill.style.background = cfg.color;
         strengthLabel.textContent     = val.length === 0 ? "—" : cfg.label;
 
+<<<<<<< HEAD
+=======
+        /* Inline match hint on confirm field */
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         if (confVal.length === 0) {
           matchHint.textContent  = "";
           matchHint.style.color  = "";
@@ -512,8 +965,13 @@
         }
       }
 
+<<<<<<< HEAD
       passwordInput.addEventListener("input", updateRequirements);
       confirmInput.addEventListener("input",  updateRequirements);
+=======
+      passwordInput.addEventListener("input",  updateRequirements);
+      confirmInput.addEventListener("input",   updateRequirements);
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
 
       /* ── Client-side validation ── */
       function clientValidate() {
@@ -524,11 +982,19 @@
         passwordInput.classList.remove("input-error");
         confirmInput.classList.remove("input-error");
 
+<<<<<<< HEAD
+=======
+        /* Check all password rules */
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         const allRulesMet = Object.values(rules).every(fn => fn(val));
         if (!val || !allRulesMet) {
           passwordInput.classList.add("input-error");
           firstError = passwordInput;
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         if (!confVal || val !== confVal) {
           confirmInput.classList.add("input-error");
           firstError = firstError || confirmInput;
@@ -536,6 +1002,10 @@
 
         if (firstError) {
           firstError.focus();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
           let banner = document.querySelector(".client-error-banner");
           if (!banner) {
             banner = document.createElement("div");
@@ -546,6 +1016,10 @@
           banner.scrollIntoView({ behavior: "smooth", block: "center" });
           return false;
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
         return true;
       }
 
@@ -557,16 +1031,38 @@
 
       form.addEventListener("submit", function (e) {
         e.preventDefault();
+<<<<<<< HEAD
         if (clientValidate()) modal.classList.add("active");
       });
       modalCancel.addEventListener("click", () => modal.classList.remove("active"));
+=======
+        if (clientValidate()) {
+          modal.classList.add("active");
+        }
+      });
+
+      modalCancel.addEventListener("click", () => {
+        modal.classList.remove("active");
+      });
+
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
       modalConfirm.addEventListener("click", () => {
         modal.classList.remove("active");
         form.submit();
       });
+<<<<<<< HEAD
       modal.addEventListener("click", function (e) {
         if (e.target === this) this.classList.remove("active");
       });
+=======
+
+      /* Close modal on overlay click */
+      modal.addEventListener("click", function (e) {
+        if (e.target === this) this.classList.remove("active");
+      });
+
+      /* Close modal on Escape */
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
       document.addEventListener("keydown", e => {
         if (e.key === "Escape") modal.classList.remove("active");
       });

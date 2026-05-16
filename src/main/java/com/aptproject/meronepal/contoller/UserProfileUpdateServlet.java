@@ -61,10 +61,10 @@ public class UserProfileUpdateServlet extends HttpServlet {
      * @throws IOException      if forward operation fails
 =======
     /** Path to the edit-profile JSP, relative to the web application root. */
-    private static final String EDIT_PROFILE_JSP = "WEB-INF/pages/profile/edit-profile.jsp";
+    private static final String EDIT_PROFILE_JSP = "/WEB-INF/pages/profile/edit-profile.jsp";
 
     /** Path to the read-only profile view JSP. */
-    private static final String PROFILE_JSP = "WEB-INF/pages/profile/profile.jsp";
+    private static final String PROFILE_JSP = "/WEB-INF/pages/profile/profile.jsp";
 
     // -------------------------------------------------------------------------
     // GET — Render the edit-profile form
@@ -280,9 +280,12 @@ public class UserProfileUpdateServlet extends HttpServlet {
                 request.setAttribute("phoneNumber", currentUser.getPhoneNumber());
                 request.setAttribute("userRole",    currentUser.getUserRole());
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                 request.setAttribute("createdAt",   currentUser.getCreatedAt());
 >>>>>>> 176d58a (User Profile Servlet Update user DAO)
+=======
+>>>>>>> 2ea22dc (completion of User password and Editing User details)
                 request.setAttribute("success",     "Profile updated successfully!");
 
                 request.getRequestDispatcher(PROFILE_JSP).forward(request, response);

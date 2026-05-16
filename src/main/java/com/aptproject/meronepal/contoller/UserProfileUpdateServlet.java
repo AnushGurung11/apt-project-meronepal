@@ -38,10 +38,10 @@ import java.io.IOException;
 public class UserProfileUpdateServlet extends HttpServlet {
 
     /** Path to the edit-profile JSP, relative to the web application root. */
-    private static final String EDIT_PROFILE_JSP = "WEB-INF/pages/profile/edit-profile.jsp";
+    private static final String EDIT_PROFILE_JSP = "/WEB-INF/pages/profile/edit-profile.jsp";
 
     /** Path to the read-only profile view JSP. */
-    private static final String PROFILE_JSP = "WEB-INF/pages/profile/profile.jsp";
+    private static final String PROFILE_JSP = "/WEB-INF/pages/profile/profile.jsp";
 
     // -------------------------------------------------------------------------
     // GET — Render the edit-profile form
@@ -177,7 +177,6 @@ public class UserProfileUpdateServlet extends HttpServlet {
                 request.setAttribute("email",       currentUser.getEmail());
                 request.setAttribute("phoneNumber", currentUser.getPhoneNumber());
                 request.setAttribute("userRole",    currentUser.getUserRole());
-                request.setAttribute("createdAt",   currentUser.getCreatedAt());
                 request.setAttribute("success",     "Profile updated successfully!");
 
                 request.getRequestDispatcher(PROFILE_JSP).forward(request, response);

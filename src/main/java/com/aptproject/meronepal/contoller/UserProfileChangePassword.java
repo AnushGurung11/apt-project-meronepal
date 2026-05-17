@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "UserProfileUpdateServlet", urlPatterns = {"/profile/changePassword"})
+@WebServlet(name = "UserProfileChangePassword", urlPatterns = {"/profile/changePassword"})
 public class UserProfileChangePassword extends HttpServlet {
 
     private static final String PASSWORD_WINDOW_JSP = "/WEB-INF/pages/profile/changePassword.jsp";

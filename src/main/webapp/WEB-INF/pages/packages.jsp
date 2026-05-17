@@ -226,7 +226,8 @@
     </style>
   </head>
 
-  <body>
+    <body>
+    <!-- Background Grid -->
     <div class="fixed inset-0 opacity-20 z-0 background-grid">
       <script>
         for (let i = 0; i < 96; i++)
@@ -234,33 +235,87 @@
       </script>
     </div>
 
-    <div class="fixed inset-0 opacity-5 pointer-events-none grain-overlay"></div>
+    <!-- Film grain -->
+    <div
+      class="fixed inset-0 opacity-5 pointer-events-none grain-overlay"
+    ></div>
 
-    <div class="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-14 bg-[#0a0a0a]" style="border-bottom: 1px solid var(--color-border)">
+    <!-- ── MOBILE TOP BAR (hidden on md+) ── -->
+    <div
+      class="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-14 bg-[#0a0a0a]"
+      style="border-bottom: 1px solid var(--color-border)"
+    >
       <div class="text-xl font-black"><a href="home">M.NP</a></div>
-      <button id="nav-toggle" class="flex flex-col gap-[5px] p-1" aria-label="Toggle menu">
-        <span id="bar1" class="block w-6 h-px bg-white" style="transition: transform 0.25s, opacity 0.25s;"></span>
-        <span id="bar2" class="block w-6 h-px bg-white" style="transition: opacity 0.25s"></span>
-        <span id="bar3" class="block w-4 h-px bg-white" style="transition: transform 0.25s"></span>
+      <button
+        id="nav-toggle"
+        class="flex flex-col gap-[5px] p-1"
+        aria-label="Toggle menu"
+      >
+        <span
+          id="bar1"
+          class="block w-6 h-px bg-white"
+          style="
+            transition:
+              transform 0.25s,
+              opacity 0.25s;
+          "
+        ></span>
+        <span
+          id="bar2"
+          class="block w-6 h-px bg-white"
+          style="transition: opacity 0.25s"
+        ></span>
+        <span
+          id="bar3"
+          class="block w-4 h-px bg-white"
+          style="transition: transform 0.25s"
+        ></span>
       </button>
     </div>
 
-    <nav id="mobile-nav" class="md:hidden fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col justify-center items-center gap-10" style="transform: translateX(100%); transition: transform 0.3s ease">
-      <a href="home" class="text-3xl font-black uppercase tracking-widest">Home</a>
-      <a href="packages" class="text-3xl font-black uppercase tracking-widest active">Package</a>
-      <a href="about" class="text-3xl font-black uppercase tracking-widest">About</a>
-      <a href="blog" class="text-3xl font-black uppercase tracking-widest">Blog</a>
+    <!-- Mobile nav drawer -->
+    <nav
+      id="mobile-nav"
+      class="md:hidden fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col justify-center items-center gap-10"
+      style="transform: translateX(100%); transition: transform 0.3s ease"
+    >
+      <a
+        href="home"
+        class="text-3xl font-black uppercase tracking-widest active"
+        >Home</a
+      >
+      <a href="packages" class="text-3xl font-black uppercase tracking-widest"
+        >Package</a
+      >
+      <a href="about" class="text-3xl font-black uppercase tracking-widest"
+        >About</a
+      >
+      <a href="blog" class="text-3xl font-black uppercase tracking-widest"
+        >Blog</a
+      >
       <a href="login" class="uppercase btn-secondary mt-4">Login</a>
       <a href="packages" class="uppercase btn-primary mt-4">Book Now</a>
     </nav>
 
-    <div class="relative z-10 grid md:grid-cols-[80px_1fr_300px] min-h-screen border-b border-white/10">
-      <aside class="hidden md:flex flex-col justify-between items-center py-12 border-r border-white/10 sticky top-0 h-screen">
+    <!-- Main layout -->
+    <div
+      class="relative z-10 grid md:grid-cols-[80px_1fr_300px] min-h-screen border-b border-white/10"
+    >
+      <!-- ── LEFT RAIL (desktop only) ── -->
+      <aside
+        class="hidden md:flex flex-col justify-between items-center py-12 border-r border-white/10 sticky top-0 h-screen"
+      >
         <div class="text-2xl font-black"><a href="home">M.NP</a></div>
-        <div class="vertical-text text-[10px] tracking-[0.4em] uppercase" style="color: var(--color-gold)">
+        <div
+          class="vertical-text text-[10px] tracking-[0.4em] uppercase"
+          style="color: var(--color-gold)"
+        >
           Mero Nepal Production — EST. 2014
         </div>
-        <div class="w-2 h-2 rounded-full" style="background: var(--color-gold)"></div>
+        <div
+          class="w-2 h-2 rounded-full"
+          style="background: var(--color-gold)"
+        ></div>
       </aside>
 
       <main class="pt-14 md:pt-0">

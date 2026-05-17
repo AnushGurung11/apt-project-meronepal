@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
-contentType="text/html" pageEncoding="UTF-8"%>
+contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -16,8 +16,15 @@ contentType="text/html" pageEncoding="UTF-8"%>
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
     />
-    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico" />
-    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="${pageContext.request.contextPath}/assets/img/favicon.ico"
+    />
+    <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/assets/css/styles.css"
+    />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap");
 
@@ -473,14 +480,10 @@ contentType="text/html" pageEncoding="UTF-8"%>
       class="md:hidden fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col justify-center items-center gap-10"
       style="transform: translateX(100%); transition: transform 0.3s ease"
     >
-      <a
-        href="home"
-        class="text-3xl font-black uppercase tracking-widest"
+      <a href="home" class="text-3xl font-black uppercase tracking-widest"
         >Home</a
       >
-      <a
-        href="packages"
-        class="text-3xl font-black uppercase tracking-widest"
+      <a href="packages" class="text-3xl font-black uppercase tracking-widest"
         >Package</a
       >
       <a
@@ -1045,9 +1048,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
           <a href="packages" class="block uppercase">Packages</a>
           <a href="about" class="block uppercase active">About</a>
           <a href="blog" class="block uppercase">Blog</a>
-          <a href="login" class="uppercase btn-secondary mt-4"
-            >Login</a
-          >
+          <a href="login" class="uppercase btn-secondary mt-4">Login</a>
           <a href="packages" class="uppercase btn-primary mt-4">Book Now</a>
         </nav>
       </aside>

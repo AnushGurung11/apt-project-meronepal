@@ -11,10 +11,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
+=======
+import javax.imageio.metadata.IIOInvalidTreeException;
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+<<<<<<< HEAD
 /**
  * Servlet for displaying and managing user's own bookings.
  * URL Mapping: {@code /my-booking}
@@ -41,11 +46,23 @@ public class UserBookingDetailServlet extends HttpServlet {
      * {@code userBookings} — list of {@code Booking} for the user
      * {@code infoMessage} — optional message when no bookings exist
      */
+=======
+@WebServlet(name = "UserBookingDetailServlet", urlPatterns = {"/my-booking"})
+public class UserBookingDetailServlet extends HttpServlet {
+
+    // Instantiate once, reused across requests
+    private final BookingDAO bookingDAO = new BookingDAO();
+
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+<<<<<<< HEAD
         // Check if user is logged in via session
+=======
+        // 1. Session guard — redirect to login if no user
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
         User currentUser = (User) SessionUtil.getAttribute(request, "user");
         if (currentUser == null) {
             response.sendRedirect(request.getContextPath() + "/login");
@@ -53,6 +70,7 @@ public class UserBookingDetailServlet extends HttpServlet {
         }
 
         try {
+<<<<<<< HEAD
             // Fetch bookings for the logged-in user
             int userId = currentUser.getUserId();
             List<Booking> userBookings = bookingDAO.getBookingsByUserId(userId);
@@ -61,31 +79,54 @@ public class UserBookingDetailServlet extends HttpServlet {
             request.setAttribute("userBookings", userBookings);
 
             // Set optional info message when no bookings found
+=======
+            // 2. Fetch bookings for this user
+            int userId = currentUser.getUserId();
+            List<Booking> userBookings = bookingDAO.getBookingsByUserId(userId);
+
+            // 3. Always set the attribute — JSP handles empty list with <c:if>
+            request.setAttribute("userBookings", userBookings);
+
+            // 4. Optional: set a message when list is empty
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
             if (userBookings.isEmpty()) {
                 request.setAttribute("infoMessage", "You have no bookings yet.");
                 System.out.println("No bookings found for userId: " + userId);
             } else {
+<<<<<<< HEAD
                 // Log booking IDs for debugging
+=======
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
                 System.out.println("Bookings fetched for userId: " + userId);
                 userBookings.forEach(b ->
                         System.out.println("  - bookingId: " + b.getBookingId())
                 );
             }
 
+<<<<<<< HEAD
             // Forward to user bookings view
             RequestDispatcher rd = request.getRequestDispatcher(
                     "/WEB-INF/pages/profile/my-bookings.jsp"
+=======
+            // 5. Forward to JSP
+            RequestDispatcher rd = request.getRequestDispatcher(
+                    "/WEB-INF/pages/profile/my-bookings.jsp"   // note leading /
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
             );
             rd.forward(request, response);
 
         } catch (Exception e) {
+<<<<<<< HEAD
             // Handle unexpected errors gracefully
+=======
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
             System.err.println("UserBookingDetailServlet error: " + e.getMessage());
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
                     "Something went wrong loading your bookings.");
         }
     }
 
+<<<<<<< HEAD
     /**
      * doPost — handles booking actions like cancellation
      *
@@ -102,29 +143,47 @@ public class UserBookingDetailServlet extends HttpServlet {
      * Sets session attribute {@code statusMsg} for user feedback.
      * Always redirects back to {@code /my-booking}.
      */
+=======
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+<<<<<<< HEAD
         // Check if user is logged in via session
+=======
+        // Session guard
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
         User currentUser = (User) SessionUtil.getAttribute(request, "user");
         if (currentUser == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
+<<<<<<< HEAD
         // Get action parameter from request
         String action = request.getParameter("action");
 
         // Route based on action type
+=======
+        String action = request.getParameter("action");
+
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
         switch (action != null ? action : "") {
 
             case "cancel" -> {
                 try {
+<<<<<<< HEAD
                     // Parse booking ID from request
                     int bookingId = Integer.parseInt(request.getParameter("bookingId"));
 
                     // Security check: verify booking belongs to logged-in user
+=======
+                    int bookingId = Integer.parseInt(request.getParameter("bookingId"));
+
+                    // Security check — make sure this booking belongs to the logged-in user
+                    // so a user can't cancel someone else's booking by changing the form value
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
                     List<Booking> userBookings = bookingDAO.getBookingsByUserId(currentUser.getUserId());
                     boolean ownsBooking = userBookings.stream()
                             .anyMatch(b -> b.getBookingId() == bookingId);
@@ -136,10 +195,15 @@ public class UserBookingDetailServlet extends HttpServlet {
                         return;
                     }
 
+<<<<<<< HEAD
                     // Attempt to cancel the booking
                     boolean success = bookingDAO.updateBookingStatus(bookingId, "Cancelled");
 
                     // Set feedback message in session
+=======
+                    boolean success = bookingDAO.updateBookingStatus(bookingId, "Cancelled");
+
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
                     if (success) {
                         request.getSession().setAttribute("statusMsg",
                                 "Booking #APT-" + bookingId + " has been cancelled.");
@@ -149,16 +213,26 @@ public class UserBookingDetailServlet extends HttpServlet {
                     }
 
                 } catch (NumberFormatException e) {
+<<<<<<< HEAD
                     // Handle invalid booking ID format
                     System.err.println("Invalid bookingId in cancel request: " + e.getMessage());
                 }
 
                 // Redirect back to bookings page
+=======
+                    System.err.println("Invalid bookingId in cancel request: " + e.getMessage());
+                }
+
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
                 response.sendRedirect(request.getContextPath() + "/my-booking");
             }
 
             default -> {
+<<<<<<< HEAD
                 // Unknown action: just redirect back
+=======
+                // Unknown action — just send back to the bookings page
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
                 response.sendRedirect(request.getContextPath() + "/my-booking");
             }
         }

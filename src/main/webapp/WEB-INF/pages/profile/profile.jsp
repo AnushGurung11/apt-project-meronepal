@@ -414,7 +414,7 @@
 
               <div class="summary-row">
                 <span class="label">View your bookings</span>
-                <a href="${pageContext.request.contextPath}/packages"
+                <a href="${pageContext.request.contextPath}/my-booking"
                    class="btn btn-gold btn-sm">My Bookings</a>
               </div>
 

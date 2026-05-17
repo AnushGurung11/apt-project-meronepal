@@ -63,6 +63,7 @@ public class BookingDAO implements BookingDAOInterface {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Fetches all bookings with joined user, package, service, and payment data.
      *
@@ -71,6 +72,13 @@ public class BookingDAO implements BookingDAOInterface {
     public List<Booking> getAllBooking() {
         List<Booking> bookings = new ArrayList<>();
 
+=======
+    public List<Booking> getAllBooking() {
+        List<Booking> bookings = new ArrayList<>();
+
+        // One query pulls everything needed via JOINs.
+        // GROUP_CONCAT aggregates multiple service names per booking into one row.
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
         final String SQL = """
         SELECT
             b.booking_id,
@@ -84,19 +92,27 @@ public class BookingDAO implements BookingDAOInterface {
             u.phone_number,
 
             p.package_name,
+<<<<<<< HEAD
             p.price             AS package_price,
+=======
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
 
             GROUP_CONCAT(s.service_name ORDER BY s.service_name SEPARATOR ', ')
                                 AS services,
 
             pay.payment_status,
+<<<<<<< HEAD
             pay.amount          AS paid_amount,
+=======
+            pay.amount,
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
             pay.payment_method
         FROM Booking b
         JOIN User    u   ON b.user_id    = u.user_id
         JOIN Package p   ON b.package_id = p.package_id
         LEFT JOIN Package_Service ps ON p.package_id  = ps.package_id
         LEFT JOIN Services        s  ON ps.service_id = s.service_id
+<<<<<<< HEAD
         LEFT JOIN Payment        pay ON b.booking_id  = pay.booking_id
         GROUP BY
             b.booking_id, b.event_date, b.event_address, b.notes, b.status,
@@ -104,6 +120,15 @@ public class BookingDAO implements BookingDAOInterface {
             p.package_name, p.price,
             pay.payment_status, pay.amount, pay.payment_method
         ORDER BY b.booking_id DESC
+=======
+        LEFT JOIN Payment         pay ON b.booking_id = pay.booking_id
+        GROUP BY
+            b.booking_id, b.event_date, b.event_address, b.notes, b.status,
+            u.user_name, u.email, u.phone_number,
+            p.package_name,
+            pay.payment_status, pay.amount, pay.payment_method
+        ORDER BY b.booking_id DESC;
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
     """;
 
         try (PreparedStatement pStm = conn.prepareStatement(SQL);
@@ -112,24 +137,49 @@ public class BookingDAO implements BookingDAOInterface {
             while (rs.next()) {
                 Booking booking = new Booking();
 
+<<<<<<< HEAD
                 booking.setBookingId(rs.getInt("booking_id"));
+=======
+                // Core
+                booking.setBookingId(rs.getInt("booking_id"));
+                booking.setUserId(rs.getInt("user_id"));
+                booking.setPackageId(rs.getInt("package_id"));
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
                 booking.setStatus(rs.getString("booking_status"));
                 booking.setEventAddress(rs.getString("event_address"));
                 booking.setNotes(rs.getString("notes"));
 
+<<<<<<< HEAD
                 java.sql.Date eventDate = rs.getDate("event_date");
                 if (eventDate != null) booking.setEventDate(eventDate.toLocalDate());
 
+=======
+                // Dates — rs.getDate() returns java.sql.Date, .toLocalDate() converts it
+                java.sql.Date eventDate = rs.getDate("event_date");
+                if (eventDate != null) booking.setEventDate(eventDate.toLocalDate());
+
+                // User
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
                 booking.setUserName(rs.getString("user_name"));
                 booking.setEmail(rs.getString("email"));
                 booking.setPhoneNumber(rs.getString("phone_number"));
 
+<<<<<<< HEAD
                 booking.setPackageName(rs.getString("package_name"));
                 booking.setPackagePrice(rs.getBigDecimal("package_price"));
                 booking.setServices(rs.getString("services"));
 
                 booking.setPaymentStatus(rs.getString("payment_status"));
                 booking.setAmount(rs.getBigDecimal("paid_amount"));
+=======
+                // Package
+                booking.setPackageName(rs.getString("package_name"));
+                booking.setServices(rs.getString("services"));   // "Photography, Catering, DJ"
+
+                // Payment (LEFT JOIN — could be null if no payment record yet)
+                booking.setPaymentStatus(rs.getString("payment_status"));
+                booking.setAmount(rs.getBigDecimal("amount"));
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
                 booking.setPaymentMethod(rs.getString("payment_method"));
 
                 bookings.add(booking);
@@ -141,12 +191,18 @@ public class BookingDAO implements BookingDAOInterface {
         return bookings;
     }
 
+<<<<<<< HEAD
     /**
      * Fetches all bookings for a specific user with joined data.
      *
      * @param userId {@code int}: ID of the user whose bookings to fetch
      * @return {@code List<Booking>}: list of bookings for the user, empty list on error
      */
+=======
+    // ----------------------------------------------------------------
+// GET BOOKINGS BY USER ID
+// ----------------------------------------------------------------
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
     public List<Booking> getBookingsByUserId(int userId) {
         List<Booking> bookings = new ArrayList<>();
 
@@ -192,7 +248,11 @@ public class BookingDAO implements BookingDAOInterface {
 
         try (PreparedStatement pStm = conn.prepareStatement(SQL)) {
 
+<<<<<<< HEAD
             pStm.setInt(1, userId);
+=======
+            pStm.setInt(1, userId);                 // bind the user_id safely
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
 
             try (ResultSet rs = pStm.executeQuery()) {
                 while (rs.next()) {
@@ -233,6 +293,7 @@ public class BookingDAO implements BookingDAOInterface {
         return bookings;
     }
 
+<<<<<<< HEAD
     /**
      * Updates the status of an existing booking.
      *
@@ -242,6 +303,17 @@ public class BookingDAO implements BookingDAOInterface {
      */
     public boolean updateBookingStatus(int bookingId, String newStatus) {
 
+=======
+
+    // ----------------------------------------------------------------
+// UPDATE BOOKING STATUS
+// Valid values (enforced by DB CHECK): Pending, Confirmed, Completed, Cancelled
+// ----------------------------------------------------------------
+    public boolean updateBookingStatus(int bookingId, String newStatus) {
+
+        // Whitelist valid statuses — never trust raw input from servlet/JSP
+        // This mirrors the CHECK constraint in your DB schema exactly
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
         final List<String> ALLOWED_STATUSES = List.of(
                 "Pending", "Confirmed", "Completed", "Cancelled"
         );
@@ -259,7 +331,11 @@ public class BookingDAO implements BookingDAOInterface {
             pStm.setInt(2, bookingId);
 
             int rowsAffected = pStm.executeUpdate();
+<<<<<<< HEAD
             return rowsAffected > 0;
+=======
+            return rowsAffected > 0;        // true = row found and updated
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
 
         } catch (SQLException e) {
             System.err.println("updateBookingStatus failed: " + e.getMessage());
@@ -267,6 +343,7 @@ public class BookingDAO implements BookingDAOInterface {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Counts total number of bookings in the system.
      *
@@ -380,3 +457,7 @@ public class BookingDAO implements BookingDAOInterface {
     }
 
 }
+=======
+
+}
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)

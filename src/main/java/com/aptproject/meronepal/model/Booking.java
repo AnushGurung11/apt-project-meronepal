@@ -9,7 +9,11 @@ import java.time.LocalDate;
  */
 public class Booking {
 
+<<<<<<< HEAD
     // Core fields mapped to booking table columns
+=======
+    // --- existing core fields ---
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
     private int bookingId;
     private int userId;
     private int packageId;
@@ -20,11 +24,16 @@ public class Booking {
     private String notes;
     private String status;
 
+<<<<<<< HEAD
     // Joined fields from user, package, services, payment tables
+=======
+    // --- joined fields (populated by getAllBooking) ---
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
     private String userName;
     private String email;
     private String phoneNumber;
     private String packageName;
+<<<<<<< HEAD
     private BigDecimal packagePrice;
     private String services;
     private String paymentStatus;
@@ -39,10 +48,22 @@ public class Booking {
     /**
      * Default constructor — initializes status to {@code "Pending"}.
      */
+=======
+    private String services;        // e.g. "Photography, Catering, DJ"
+    private String paymentStatus;   // Unpaid / Partial / Paid / Refunded
+    private BigDecimal amount;
+    private String paymentMethod;
+
+    // ----------------------------------------------------------------
+    // Constructors
+    // ----------------------------------------------------------------
+
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
     public Booking() {
         this.status = "Pending";
     }
 
+<<<<<<< HEAD
     /**
      * Constructor for core DB fields only.
      *
@@ -60,12 +81,22 @@ public class Booking {
         this.bookingId = bookingId;
         this.userId = userId;
         this.packageId = packageId;
+=======
+    // All-arg constructor for core DB fields only
+    public Booking(int bookingId, int userId, int packageId,
+                   LocalDate bookingDate, LocalDate payDate,
+                   LocalDate eventDate, String status) {
+        this.bookingId   = bookingId;
+        this.userId      = userId;
+        this.packageId   = packageId;
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
         this.bookingDate = bookingDate;
-        this.payDate = payDate;
-        this.eventDate = eventDate;
-        this.status = status;
+        this.payDate     = payDate;
+        this.eventDate   = eventDate;
+        this.status      = status;
     }
 
+<<<<<<< HEAD
     /**
      * Convenience constructor for new bookings before DB insert.
      * Status defaults to {@code "Pending"}.
@@ -80,12 +111,20 @@ public class Booking {
             LocalDate payDate, LocalDate eventDate) {
         this.userId = userId;
         this.packageId = packageId;
+=======
+    // Convenience constructor (new record before DB insert)
+    public Booking(int userId, int packageId, LocalDate bookingDate,
+                   LocalDate payDate, LocalDate eventDate) {
+        this.userId      = userId;
+        this.packageId   = packageId;
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
         this.bookingDate = bookingDate;
-        this.payDate = payDate;
-        this.eventDate = eventDate;
-        this.status = "Pending";
+        this.payDate     = payDate;
+        this.eventDate   = eventDate;
+        this.status      = "Pending";
     }
 
+<<<<<<< HEAD
     // Getters for core fields
 
     public int getBookingId() {
@@ -251,10 +290,61 @@ public class Booking {
     }
 
     // toString for debugging and logging
+=======
+    // ----------------------------------------------------------------
+    // Getters — core
+    // ----------------------------------------------------------------
+    public int getBookingId()         { return bookingId; }
+    public int getUserId()            { return userId; }
+    public int getPackageId()         { return packageId; }
+    public LocalDate getBookingDate() { return bookingDate; }
+    public LocalDate getPayDate()     { return payDate; }
+    public LocalDate getEventDate()   { return eventDate; }
+    public String getEventAddress()   { return eventAddress; }
+    public String getNotes()          { return notes; }
+    public String getStatus()         { return status; }
 
+    // Getters — joined
+    public String getUserName()       { return userName; }
+    public String getEmail()          { return email; }
+    public String getPhoneNumber()    { return phoneNumber; }
+    public String getPackageName()    { return packageName; }
+    public String getServices()       { return services; }
+    public String getPaymentStatus()  { return paymentStatus; }
+    public BigDecimal getAmount()     { return amount; }
+    public String getPaymentMethod()  { return paymentMethod; }
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
+
+    // ----------------------------------------------------------------
+    // Setters — core
+    // ----------------------------------------------------------------
+    public void setBookingId(int bookingId)             { this.bookingId = bookingId; }
+    public void setUserId(int userId)                   { this.userId = userId; }
+    public void setPackageId(int packageId)             { this.packageId = packageId; }
+    public void setBookingDate(LocalDate bookingDate)   { this.bookingDate = bookingDate; }
+    public void setPayDate(LocalDate payDate)           { this.payDate = payDate; }
+    public void setEventDate(LocalDate eventDate)       { this.eventDate = eventDate; }
+    public void setEventAddress(String eventAddress)    { this.eventAddress = eventAddress; }
+    public void setNotes(String notes)                  { this.notes = notes; }
+    public void setStatus(String status)                { this.status = status; }
+
+    // Setters — joined
+    public void setUserName(String userName)            { this.userName = userName; }
+    public void setEmail(String email)                  { this.email = email; }
+    public void setPhoneNumber(String phoneNumber)      { this.phoneNumber = phoneNumber; }
+    public void setPackageName(String packageName)      { this.packageName = packageName; }
+    public void setServices(String services)            { this.services = services; }
+    public void setPaymentStatus(String paymentStatus)  { this.paymentStatus = paymentStatus; }
+    public void setAmount(BigDecimal amount)            { this.amount = amount; }
+    public void setPaymentMethod(String paymentMethod)  { this.paymentMethod = paymentMethod; }
+
+    // ----------------------------------------------------------------
+    // toString
+    // ----------------------------------------------------------------
     @Override
     public String toString() {
         return "Booking{" +
+<<<<<<< HEAD
                 "bookingId=" + bookingId +
                 ", userId=" + userId +
                 ", packageId=" + packageId +
@@ -266,6 +356,17 @@ public class Booking {
                 ", userName='" + userName + '\'' +
                 ", packageName='" + packageName + '\'' +
                 ", services='" + services + '\'' +
+=======
+                "bookingId="     + bookingId     +
+                ", userId="      + userId        +
+                ", packageId="   + packageId     +
+                ", bookingDate=" + bookingDate   +
+                ", eventDate="   + eventDate     +
+                ", status='"     + status        + '\'' +
+                ", userName='"   + userName      + '\'' +
+                ", packageName='"+ packageName   + '\'' +
+                ", services='"   + services      + '\'' +
+>>>>>>> 0ab4b98 (User my booking view and Cancelling)
                 ", paymentStatus='" + paymentStatus + '\'' +
                 '}';
     }

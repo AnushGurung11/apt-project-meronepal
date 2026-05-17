@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 /**
  * Servlet for admin dashboard page.
  * URL Mapping: {@code /dashboard}
@@ -21,6 +22,14 @@ import java.util.ArrayList;
  * doGet: fetches stats like total users, total bookings,
  * bookings by package, and recent bookings for display.
  */
+=======
+// User DAO bata User count
+// Booking Dao Bata Total Booking
+// Booking DAO Bata Total Booking count grouped by Package id
+// Request ma set attribute
+// JSP ma Load
+// Filter Ma filter garne
+>>>>>>> e3c7318 (Admin redirect to dashboard)
 @WebServlet(name = "AdminDashboardServlet", urlPatterns = {"/dashboard"})
 public class AdminDashboardServlet extends HttpServlet {
 
@@ -41,6 +50,7 @@ public class AdminDashboardServlet extends HttpServlet {
      * On SQL error, sets empty/zero values and prints stack trace.
      */
     @Override
+<<<<<<< HEAD
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -75,6 +85,11 @@ public class AdminDashboardServlet extends HttpServlet {
         }
 
         // Forward to admin dashboard view
+=======
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+>>>>>>> e3c7318 (Admin redirect to dashboard)
         RequestDispatcher rd = request.getRequestDispatcher(
                 "/WEB-INF/pages/admin/admin-dashboard.jsp");
         rd.forward(request, response);

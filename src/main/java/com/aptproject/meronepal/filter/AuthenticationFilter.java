@@ -25,6 +25,7 @@ public class AuthenticationFilter implements Filter {
     private static final String LOGIN = "/login";
     private static final String REGISTER = "/register";
     private static final String HOME = "/home";
+<<<<<<< HEAD
 
     // Admin-only paths (exact matches for non-/admin/* paths)
     private static final List<String> ADMIN_PATHS = List.of(
@@ -34,6 +35,8 @@ public class AuthenticationFilter implements Filter {
             "/dashboard",
             "/admin/package-services"
     );
+=======
+>>>>>>> e3c7318 (Admin redirect to dashboard)
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -43,19 +46,27 @@ public class AuthenticationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws ServletException, IOException {
+<<<<<<< HEAD
 
+=======
+>>>>>>> e3c7318 (Admin redirect to dashboard)
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         String uri = req.getRequestURI();
         String contextPath = req.getContextPath();
 
+<<<<<<< HEAD
         // Allow static assets without authentication
         if (uri.endsWith(".png") || uri.endsWith(".jpg") || uri.endsWith(".css")
                 || uri.endsWith(".js") || uri.endsWith(".gif")) {
+=======
+        if (uri.endsWith(".png") || uri.endsWith(".jpg") || uri.endsWith(".css")) {
+>>>>>>> e3c7318 (Admin redirect to dashboard)
             chain.doFilter(request, response);
             return;
         }
 
+<<<<<<< HEAD
         // Safe path extraction for matching
         String path = uri;
         if (uri.startsWith(contextPath)) {
@@ -63,6 +74,8 @@ public class AuthenticationFilter implements Filter {
         }
 
         // Check if user is logged in
+=======
+>>>>>>> e3c7318 (Admin redirect to dashboard)
         Object userObj = SessionUtil.getAttribute(req, "user");
         boolean isLoggedIn = userObj != null;
 
@@ -73,6 +86,7 @@ public class AuthenticationFilter implements Filter {
             } else {
                 res.sendRedirect(contextPath + LOGIN);
             }
+<<<<<<< HEAD
             return;
         }
 
@@ -92,6 +106,24 @@ public class AuthenticationFilter implements Filter {
         if (path.equals(LOGIN) || path.equals(REGISTER) || path.equals("/") || path.isEmpty()) {
             if (isAdmin) {
                 res.sendRedirect(contextPath + "/dashboard");
+=======
+        } else {
+            // Check if the logged-in user is an Admin
+            boolean isAdmin = "ADMIN".equalsIgnoreCase(
+                    (String) SessionUtil.getAttribute(req, "role")
+            );
+
+            boolean isRootPath = uri.equals(req.getContextPath())
+                    || uri.equals(req.getContextPath() + "/");
+
+            if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || isRootPath) {
+                // Redirect based on role
+                if (isAdmin) {
+                    res.sendRedirect(req.getContextPath() + DASHBOARD);
+                } else {
+                    res.sendRedirect(req.getContextPath() + HOME);
+                }
+>>>>>>> e3c7318 (Admin redirect to dashboard)
             } else {
                 res.sendRedirect(contextPath + HOME);
             }

@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /**
  * Servlet for handling user password change in profile.
  * URL Mapping: {@code /profile/changePassword}
@@ -109,6 +110,9 @@ public class UserProfileChangePassword extends HttpServlet {
                 // Handle unexpected errors
 =======
 @WebServlet(name = "UserProfileUpdateServlet", urlPatterns = {"/profile/changePassword"})
+=======
+@WebServlet(name = "UserProfileChangePassword", urlPatterns = {"/profile/changePassword"})
+>>>>>>> 8b6421f (debugging edit profile)
 public class UserProfileChangePassword extends HttpServlet {
 
     private static final String PASSWORD_WINDOW_JSP = "/WEB-INF/pages/profile/changePassword.jsp";

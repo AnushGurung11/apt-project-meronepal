@@ -5,6 +5,7 @@
   version="5.0"
   metadata-complete="false">
 
+<<<<<<< HEAD
   <display-name>Mero Nepal Production</display-name>
 
   <!-- Welcome file (optional) -->
@@ -32,3 +33,15 @@
 
 
 </web-app>
+=======
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                             https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0"
+         metadata-complete="false">
+
+  <display-name>Mero Nepal Production</display-name>
+
+</web-app>
+>>>>>>> 8b6421f (debugging edit profile)

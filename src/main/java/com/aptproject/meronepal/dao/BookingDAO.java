@@ -1,11 +1,15 @@
 package com.aptproject.meronepal.dao;
 
 import com.aptproject.meronepal.dao.interfaces.BookingDAOInterface;
+import com.aptproject.meronepal.model.Booking;
 import com.aptproject.meronepal.model.User;
 import com.aptproject.meronepal.utility.DBConfig;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookingDAO implements BookingDAOInterface {
 
@@ -38,5 +42,209 @@ public class BookingDAO implements BookingDAOInterface {
             return 0;
         }
     }
+
+    public List<Booking> getAllBooking() {
+        List<Booking> bookings = new ArrayList<>();
+
+        // One query pulls everything needed via JOINs.
+        // GROUP_CONCAT aggregates multiple service names per booking into one row.
+        final String SQL = """
+        SELECT
+            b.booking_id,
+            b.event_date,
+            b.event_address,
+            b.notes,
+            b.status            AS booking_status,
+
+            u.user_name,
+            u.email,
+            u.phone_number,
+
+            p.package_name,
+
+            GROUP_CONCAT(s.service_name ORDER BY s.service_name SEPARATOR ', ')
+                                AS services,
+
+            pay.payment_status,
+            pay.amount,
+            pay.payment_method
+        FROM Booking b
+        JOIN User    u   ON b.user_id    = u.user_id
+        JOIN Package p   ON b.package_id = p.package_id
+        LEFT JOIN Package_Service ps ON p.package_id  = ps.package_id
+        LEFT JOIN Services        s  ON ps.service_id = s.service_id
+        LEFT JOIN Payment         pay ON b.booking_id = pay.booking_id
+        GROUP BY
+            b.booking_id, b.event_date, b.event_address, b.notes, b.status,
+            u.user_name, u.email, u.phone_number,
+            p.package_name,
+            pay.payment_status, pay.amount, pay.payment_method
+        ORDER BY b.booking_id DESC;
+    """;
+
+        try (PreparedStatement pStm = conn.prepareStatement(SQL);
+             ResultSet rs = pStm.executeQuery()) {
+
+            while (rs.next()) {
+                Booking booking = new Booking();
+
+                // Core
+                booking.setBookingId(rs.getInt("booking_id"));
+                booking.setUserId(rs.getInt("user_id"));
+                booking.setPackageId(rs.getInt("package_id"));
+                booking.setStatus(rs.getString("booking_status"));
+                booking.setEventAddress(rs.getString("event_address"));
+                booking.setNotes(rs.getString("notes"));
+
+                // Dates — rs.getDate() returns java.sql.Date, .toLocalDate() converts it
+                java.sql.Date eventDate = rs.getDate("event_date");
+                if (eventDate != null) booking.setEventDate(eventDate.toLocalDate());
+
+                // User
+                booking.setUserName(rs.getString("user_name"));
+                booking.setEmail(rs.getString("email"));
+                booking.setPhoneNumber(rs.getString("phone_number"));
+
+                // Package
+                booking.setPackageName(rs.getString("package_name"));
+                booking.setServices(rs.getString("services"));   // "Photography, Catering, DJ"
+
+                // Payment (LEFT JOIN — could be null if no payment record yet)
+                booking.setPaymentStatus(rs.getString("payment_status"));
+                booking.setAmount(rs.getBigDecimal("amount"));
+                booking.setPaymentMethod(rs.getString("payment_method"));
+
+                bookings.add(booking);
+            }
+        } catch (SQLException e) {
+            System.err.println("getAllBooking failed: " + e.getMessage());
+        }
+
+        return bookings;
+    }
+
+    // ----------------------------------------------------------------
+// GET BOOKINGS BY USER ID
+// ----------------------------------------------------------------
+    public List<Booking> getBookingsByUserId(int userId) {
+        List<Booking> bookings = new ArrayList<>();
+
+        final String SQL = """
+    SELECT
+        b.booking_id,
+        b.user_id,
+        b.package_id,
+        b.booking_date,
+        b.event_date,
+        b.event_address,
+        b.notes,
+        b.status            AS booking_status,
+
+        u.user_name,
+        u.email,
+        u.phone_number,
+
+        p.package_name,
+        p.price             AS package_price,
+
+        GROUP_CONCAT(s.service_name ORDER BY s.service_name SEPARATOR ', ')
+                            AS services,
+
+        pay.payment_status,
+        pay.amount,
+        pay.payment_method
+    FROM Booking b
+    JOIN User    u   ON b.user_id    = u.user_id
+    JOIN Package p   ON b.package_id = p.package_id
+    LEFT JOIN Package_Service ps ON p.package_id  = ps.package_id
+    LEFT JOIN Services        s  ON ps.service_id = s.service_id
+    LEFT JOIN Payment        pay ON b.booking_id  = pay.booking_id
+    WHERE b.user_id = ?
+    GROUP BY
+        b.booking_id, b.user_id, b.package_id, b.booking_date,
+        b.event_date, b.event_address, b.notes, b.status,
+        u.user_name, u.email, u.phone_number,
+        p.package_name, p.price,
+        pay.payment_status, pay.amount, pay.payment_method
+    ORDER BY b.booking_id DESC;
+""";
+
+        try (PreparedStatement pStm = conn.prepareStatement(SQL)) {
+
+            pStm.setInt(1, userId);                 // bind the user_id safely
+
+            try (ResultSet rs = pStm.executeQuery()) {
+                while (rs.next()) {
+                    Booking booking = new Booking();
+
+                    booking.setBookingId(rs.getInt("booking_id"));
+                    booking.setUserId(rs.getInt("user_id"));
+                    booking.setPackageId(rs.getInt("package_id"));
+                    booking.setStatus(rs.getString("booking_status"));
+                    booking.setEventAddress(rs.getString("event_address"));
+                    booking.setNotes(rs.getString("notes"));
+
+                    java.sql.Date bookingDate = rs.getDate("booking_date");
+                    if (bookingDate != null) booking.setBookingDate(bookingDate.toLocalDate());
+
+                    java.sql.Date eventDate = rs.getDate("event_date");
+                    if (eventDate != null) booking.setEventDate(eventDate.toLocalDate());
+
+                    booking.setUserName(rs.getString("user_name"));
+                    booking.setEmail(rs.getString("email"));
+                    booking.setPhoneNumber(rs.getString("phone_number"));
+
+                    booking.setPackageName(rs.getString("package_name"));
+                    booking.setServices(rs.getString("services"));
+
+                    booking.setPaymentStatus(rs.getString("payment_status"));
+                    booking.setAmount(rs.getBigDecimal("package_price"));
+                    booking.setPaymentMethod(rs.getString("payment_method"));
+
+                    bookings.add(booking);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("getBookingsByUserId failed: " + e.getMessage());
+        }
+
+        return bookings;
+    }
+
+
+    // ----------------------------------------------------------------
+// UPDATE BOOKING STATUS
+// Valid values (enforced by DB CHECK): Pending, Confirmed, Completed, Cancelled
+// ----------------------------------------------------------------
+    public boolean updateBookingStatus(int bookingId, String newStatus) {
+
+        // Whitelist valid statuses — never trust raw input from servlet/JSP
+        // This mirrors the CHECK constraint in your DB schema exactly
+        final List<String> ALLOWED_STATUSES = List.of(
+                "Pending", "Confirmed", "Completed", "Cancelled"
+        );
+
+        if (!ALLOWED_STATUSES.contains(newStatus)) {
+            System.err.println("updateBookingStatus: rejected invalid status '" + newStatus + "'");
+            return false;
+        }
+
+        final String SQL = "UPDATE Booking SET status = ? WHERE booking_id = ?";
+
+        try (PreparedStatement pStm = conn.prepareStatement(SQL)) {
+
+            pStm.setString(1, newStatus);
+            pStm.setInt(2, bookingId);
+
+            int rowsAffected = pStm.executeUpdate();
+            return rowsAffected > 0;        // true = row found and updated
+
+        } catch (SQLException e) {
+            System.err.println("updateBookingStatus failed: " + e.getMessage());
+            return false;
+        }
+    }
+
 
 }

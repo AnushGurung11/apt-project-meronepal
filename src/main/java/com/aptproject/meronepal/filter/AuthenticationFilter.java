@@ -15,7 +15,6 @@ public class AuthenticationFilter implements Filter {
     private static final String REGISTER = "/register";
     private static final String DASHBOARD = "/dashboard";
     private static final String HOME = "/home";
-    private static final String BOOKING = "/booking";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -23,21 +22,18 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-                             FilterChain chain) throws ServletException, IOException {
-        // Creating an obj of request and response
+                         FilterChain chain) throws ServletException, IOException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        // Getting the current URL of page
         String uri = req.getRequestURI();
 
-        //All Static file links are also request, allow them
-        // The Url contains any image or css, then allow the user to see
         if (uri.endsWith(".png") || uri.endsWith(".jpg") || uri.endsWith(".css")) {
             chain.doFilter(request, response);
             return;
         }
 
-        boolean isLoggedIn = SessionUtil.getAttribute(req, "user") != null;
+        Object userObj = SessionUtil.getAttribute(req, "user");
+        boolean isLoggedIn = userObj != null;
 
         if (!isLoggedIn) {
             if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith("/packages")) {
@@ -46,8 +42,21 @@ public class AuthenticationFilter implements Filter {
                 res.sendRedirect(req.getContextPath() + LOGIN);
             }
         } else {
-            if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.equals(req.getContextPath()) || uri.equals(req.getContextPath() + "/")) {
-                res.sendRedirect(req.getContextPath() + HOME);
+            // Check if the logged-in user is an Admin
+            boolean isAdmin = "ADMIN".equalsIgnoreCase(
+                    (String) SessionUtil.getAttribute(req, "role")
+            );
+
+            boolean isRootPath = uri.equals(req.getContextPath())
+                    || uri.equals(req.getContextPath() + "/");
+
+            if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || isRootPath) {
+                // Redirect based on role
+                if (isAdmin) {
+                    res.sendRedirect(req.getContextPath() + DASHBOARD);
+                } else {
+                    res.sendRedirect(req.getContextPath() + HOME);
+                }
             } else {
                 chain.doFilter(request, response);
             }

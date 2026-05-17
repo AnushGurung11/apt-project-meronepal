@@ -19,9 +19,9 @@ contentType="text/html" pageEncoding="UTF-8"%>
     <link
       rel="icon"
       type="image/x-icon"
-      href="../../../assets/img/favicon.ico"
+      href="${pageContext.request.contextPath}/assets/img/favicon.ico"
     />
-    <link rel="stylesheet" href="../../../assets/css/styles.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css" />
     <style>
       /* ── Login Page — Internal Styles ───────────────────────── */
       html {
@@ -291,7 +291,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
     <div class="auth-page">
       <div class="auth-visual"></div>
       <div class="auth-form-side">
-        <a href="home" class="auth-logo"
+        <a href="${pageContext.request.contextPath}/home" class="auth-logo"
           >Mero Nepal Production<span>.</span></a
         >
         <h2 class="auth-title">Welcome Back</h2>
@@ -336,7 +336,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
 
         <div class="form-divider">or</div>
         <p class="auth-switch">
-          Don't have an account? <a href="register">Create one →</a>
+          Don't have an account? <a href="${pageContext.request.contextPath}/register">Create one →</a>
         </p>
       </div>
     </div>

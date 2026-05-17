@@ -19,9 +19,9 @@
     <link
       rel="icon"
       type="image/x-icon"
-      href="../../../assets/img/favicon.ico"
+      href="${pageContext.request.contextPath}/assets/img/favicon.ico"
     />
-    <link rel="stylesheet" href="../../../assets/css/styles.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css" />
     <style>
       html {
         scroll-behavior: smooth;
@@ -311,7 +311,7 @@
     <div class="auth-page">
       <div class="auth-visual"></div>
       <div class="auth-form-side">
-        <a href="../../index.jsp" class="auth-logo">Mero Nepal Production<span>.</span></a>
+        <a href="${pageContext.request.contextPath}/home" class="auth-logo">Mero Nepal Production<span>.</span></a>
         <h2 class="auth-title">Create Account</h2>
         <p class="auth-sub">Join Mero Nepal Production to book packages and track your sessions.</p>
         <form action = "register" method = "POST">
@@ -364,7 +364,7 @@
         </form>
 
         <div class="form-divider">already have an account?</div>
-        <a href="login" class="btn-signin">Sign In Instead</a>
+        <a href="${pageContext.request.contextPath}/login" class="btn-signin">Sign In Instead</a>
       </div>
     </div>
 

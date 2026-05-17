@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
-contentType="text/html" pageEncoding="UTF-8"%>
+contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -304,14 +304,10 @@ contentType="text/html" pageEncoding="UTF-8"%>
       class="md:hidden fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col justify-center items-center gap-10"
       style="transform: translateX(100%); transition: transform 0.3s ease"
     >
-      <a
-        href="home"
-        class="text-3xl font-black uppercase tracking-widest"
+      <a href="home" class="text-3xl font-black uppercase tracking-widest"
         >Home</a
       >
-      <a
-        href="packages"
-        class="text-3xl font-black uppercase tracking-widest"
+      <a href="packages" class="text-3xl font-black uppercase tracking-widest"
         >Package</a
       >
       <a href="about" class="text-3xl font-black uppercase tracking-widest"
@@ -584,9 +580,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 <div class="blog-card-body">
                   <span class="blog-tag">Editing</span>
                   <h3 class="blog-title">
-                    <a href="blog"
-                      >The Art of Color Grading in Wedding Films</a
-                    >
+                    <a href="blog">The Art of Color Grading in Wedding Films</a>
                   </h3>
                   <p style="font-size: 13px; margin-bottom: 16px">
                     How subtle color grading choices shape mood, memory, and
@@ -725,9 +719,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
           <a href="packages" class="block uppercase">Packages</a>
           <a href="about" class="block uppercase">About</a>
           <a href="blog" class="block uppercase active">Blog</a>
-          <a href="login" class="uppercase btn-secondary mt-4"
-            >Login</a
-          >
+          <a href="login" class="uppercase btn-secondary mt-4">Login</a>
           <a href="packages" class="uppercase btn-primary mt-4">Book Now</a>
         </nav>
       </aside>

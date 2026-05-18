@@ -4,9 +4,7 @@ import com.aptproject.meronepal.dao.interfaces.UserDAOInterface;
 import com.aptproject.meronepal.model.User;
 import com.aptproject.meronepal.utility.DBConfig;
 import com.aptproject.meronepal.utility.PasswordUtil;
-import jakarta.servlet.jsp.tagext.JspTag;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,6 +21,7 @@ import java.time.LocalDateTime;
 =======
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
 /**
+<<<<<<< HEAD
  * Data Access Object (DAO) for the {@code User} table.
  *
  * <p>Provides CRUD operations against the {@code apt_booking_system.User} table.
@@ -79,23 +78,27 @@ public class UserDAO implements UserDAOInterface {
  *   <li>{@code 3} — Database / SQL error.</li>
  *   <li>{@code 4} — Invalid input supplied by the caller (null object, invalid ID).</li>
  * </ul>
+=======
+ * DAO for managing user data in the database.
+ * Handles CRUD operations for the {@code user} table.
+>>>>>>> 108eb2e (backend-completion)
  */
 public class UserDAO implements UserDAOInterface {
 
-    /** Active JDBC connection. Opened once in the constructor. */
     private final Connection conn;
 
-    // -------------------------------------------------------------------------
-    // Constructor
-    // -------------------------------------------------------------------------
-
     /**
+<<<<<<< HEAD
      * Constructs a new {@code UserDAO} and opens a database connection.
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
      *
      * <p>If the connection cannot be established, {@code conn} is {@code null}
      * and all subsequent calls will fall through to their {@code catch} blocks,
      * returning error code {@code 3}.</p>
+=======
+     * Constructor — initializes database connection via {@code DBConfig}.
+     * Catches and logs {@code SQLException} or {@code ClassNotFoundException}.
+>>>>>>> 108eb2e (backend-completion)
      */
     public UserDAO() {
         Connection tempConn = null;
@@ -107,23 +110,14 @@ public class UserDAO implements UserDAOInterface {
         this.conn = tempConn;
     }
 
-    // -------------------------------------------------------------------------
-    // INSERT
-    // -------------------------------------------------------------------------
-
     /**
-     * Inserts a new user record into the {@code User} table.
+     * Inserts a new user record with duplicate check.
      *
-     * <p>Performs a case-insensitive duplicate check on both username and email
-     * before inserting. The {@code password} parameter must already be a BCrypt
-     * hash — hashing is the caller's responsibility.</p>
-     *
-     * @param userName     the desired username
-     * @param email        the user's email address
-     * @param phone_number the user's phone number
-     * @param password     the <em>already-hashed</em> BCrypt password string
-     * @return {@code 1} on success, {@code 2} if username/email already taken,
-     *         {@code 3} on SQL error
+     * @param userName {@code String}: desired username
+     * @param email {@code String}: user's email address
+     * @param phone_number {@code String}: user's phone number
+     * @param password {@code String}: already-hashed BCrypt password
+     * @return {@code int}: 1=success, 2=duplicate username/email, 3=SQL error
      */
     @Override
     public int insertUser(String userName, String email, String phone_number, String password) {
@@ -167,7 +161,7 @@ public class UserDAO implements UserDAOInterface {
 >>>>>>> 176d58a (User Profile Servlet Update user DAO)
 =======
         try {
-            // Duplicate check (case-insensitive)
+            // Check for duplicate username or email (case-insensitive)
             final String CHECK_IF_USER =
                     "SELECT user_name FROM user " +
                             "WHERE LOWER(user_name) = LOWER(?) OR LOWER(email) = LOWER(?)";
@@ -176,7 +170,7 @@ public class UserDAO implements UserDAOInterface {
                 checkStmt.setString(1, userName);
                 checkStmt.setString(2, email);
                 try (ResultSet rs = checkStmt.executeQuery()) {
-                    if (rs.next()) return 2; // username or email already registered
+                    if (rs.next()) return 2;
                 }
             }
 
@@ -189,7 +183,7 @@ public class UserDAO implements UserDAOInterface {
                 insertStmt.setString(2, email);
                 insertStmt.setString(3, phone_number);
                 insertStmt.setString(4, password);
-                return insertStmt.executeUpdate(); // 1 on success
+                return insertStmt.executeUpdate();
             }
 
         } catch (SQLException ex) {
@@ -199,6 +193,7 @@ public class UserDAO implements UserDAOInterface {
         }
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     /**
@@ -213,9 +208,12 @@ public class UserDAO implements UserDAOInterface {
     // -------------------------------------------------------------------------
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
 
+=======
+>>>>>>> 108eb2e (backend-completion)
     /**
-     * Retrieves a single {@link User} by email address.
+     * Fetches a user by email address.
      *
+<<<<<<< HEAD
 <<<<<<< HEAD
      * @param email string
      * @return {@code null} on no user, {@code user} object if the email matches
@@ -275,6 +273,10 @@ public class UserDAO implements UserDAOInterface {
      *
      * @param email the email address to look up (exact match as stored)
      * @return the matching {@link User}, or {@code null} if not found or on error
+=======
+     * @param email {@code String}: email to look up
+     * @return {@code User}: user object if found, {@code null} otherwise
+>>>>>>> 108eb2e (backend-completion)
      */
     @Override
     public User getUser(String email) {
@@ -291,7 +293,6 @@ public class UserDAO implements UserDAOInterface {
                     user.setPasswordHash(rs.getString("password"));
                     user.setPhoneNumber(rs.getString("phone_number"));
                     user.setEmail(rs.getString("email"));
-                    // FIX: this line was missing in the original — role was always null in session
                     user.setUserRole(rs.getString("user_role"));
                     user.setCreatedAt(rs.getObject("created_at", LocalDateTime.class));
                     return user;
@@ -304,11 +305,8 @@ public class UserDAO implements UserDAOInterface {
         return null;
     }
 
-    // -------------------------------------------------------------------------
-    // UPDATE
-    // -------------------------------------------------------------------------
-
     /**
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
      * Updates user profile fields with conflict check and password handling.
@@ -322,42 +320,24 @@ public class UserDAO implements UserDAOInterface {
 =======
      * Updates the non-sensitive profile fields of an existing user.
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
+=======
+     * Updates user profile fields with conflict check and password handling.
+>>>>>>> 108eb2e (backend-completion)
      *
-     * <h3>Fields updated:</h3>
-     * <ul>
-     *   <li>Username</li>
-     *   <li>Email</li>
-     *   <li>Phone number</li>
-     *   <li>Password — handled intelligently:
-     *     <ul>
-     *       <li>Already a BCrypt hash (starts with {@code $2a$}) → stored as-is.</li>
-     *       <li>Plain text → hashed via {@link PasswordUtil#getHashPassword(String)}.</li>
-     *       <li>{@code null} or empty → current hash is fetched from DB and preserved
-     *           via {@link #getCurrentPasswordHash(int)}.</li>
-     *     </ul>
-     *   </li>
-     *   <li>User role — copied from the caller; not editable by the user.</li>
-     * </ul>
-     *
-     * <p><strong>Bug fixed:</strong> the original code called
-     * {@code updatedUser.getPasswordHash(updatedUser.getUserId())} which does not
-     * exist — {@code getPasswordHash()} takes no arguments. Replaced with a call
-     * to the private {@link #getCurrentPasswordHash(int)} helper.</p>
-     *
-     * @param updatedUser a {@link User} carrying the new values;
-     *                    {@code userId} must be a positive integer
-     * @return {@code 1} on success, {@code 0} if no row matched,
-     *         {@code 2} on username/email conflict, {@code 3} on SQL error,
-     *         {@code 4} if input is invalid or the user ID is not found in the DB
+     * @param updatedUser {@code User}: user object with new values, {@code userId} required
+     * @return {@code int}: 1=success, 0=no row matched, 2=conflict, 3=SQL error, 4=invalid input
      */
     public int updateUser(User updatedUser) {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         // checking for any empty or null inputs
 >>>>>>> 176d58a (User Profile Servlet Update user DAO)
 =======
         // Guard: validate input
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
+=======
+>>>>>>> 108eb2e (backend-completion)
         if (updatedUser == null || updatedUser.getUserId() <= 0) {
             return 4;
         }
@@ -365,10 +345,14 @@ public class UserDAO implements UserDAOInterface {
         try {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             // Check for username/email conflict excluding current user
 =======
             // STEP 1: Conflict check — exclude the current user from the uniqueness test
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
+=======
+            // Check for username/email conflict excluding current user
+>>>>>>> 108eb2e (backend-completion)
             final String CHECK_CONFLICT =
                     "SELECT user_id FROM user " +
                             "WHERE (LOWER(user_name) = LOWER(?) OR LOWER(email) = LOWER(?)) " +
@@ -416,34 +400,39 @@ public class UserDAO implements UserDAOInterface {
 =======
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
                 try (ResultSet rs = checkStmt.executeQuery()) {
-                    if (rs.next()) return 2; // another user already owns this username/email
+                    if (rs.next()) return 2;
                 }
             }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 176d58a (User Profile Servlet Update user DAO)
 =======
             // STEP 2: Resolve the password to store
             // FIX: original called updatedUser.getPasswordHash(userId) — method takes no args.
             //      Now correctly calls the private getCurrentPasswordHash(int) helper instead.
+=======
+            // Resolve password: hash if plain text, preserve if null/empty
+>>>>>>> 108eb2e (backend-completion)
             String passwordToStore = updatedUser.getPasswordHash();
 
             if (passwordToStore != null && !passwordToStore.isEmpty()) {
                 if (!passwordToStore.startsWith("$2a$")) {
-                    // Plain-text supplied → hash it before storing
                     passwordToStore = PasswordUtil.getHashPassword(passwordToStore);
                 }
-                // else: already a BCrypt hash → store as-is
             } else {
-                // No new password provided → preserve whatever is currently in the DB
                 passwordToStore = getCurrentPasswordHash(updatedUser.getUserId());
                 if (passwordToStore == null) {
-                    return 4; // user ID not found in DB
+                    return 4;
                 }
             }
 
+<<<<<<< HEAD
             // STEP 3: Execute the update
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
+=======
+            // Execute update
+>>>>>>> 108eb2e (backend-completion)
             final String UPDATE_USER =
                     "UPDATE user " +
                             "SET user_name    = ?, " +
@@ -500,6 +489,7 @@ public class UserDAO implements UserDAOInterface {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Helper to fetch current password hash for a user.
      *
@@ -521,16 +511,13 @@ public class UserDAO implements UserDAOInterface {
 <<<<<<< HEAD
 >>>>>>> 176d58a (User Profile Servlet Update user DAO)
 =======
+=======
+>>>>>>> 108eb2e (backend-completion)
     /**
-     * Fetches the current BCrypt password hash for a given user ID directly
-     * from the database.
+     * Helper to fetch current password hash for a user.
      *
-     * <p>Used by {@link #updateUser(User)} when no new password is provided,
-     * so the existing hash is preserved rather than overwritten with {@code null}.</p>
-     *
-     * @param userId the primary key of the user whose hash to retrieve
-     * @return the stored BCrypt hash, or {@code null} if the user is not found
-     *         or a SQL error occurs
+     * @param userId {@code int}: ID of user whose hash to retrieve
+     * @return {@code String}: stored BCrypt hash, or {@code null} if not found or error
      */
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
     private String getCurrentPasswordHash(int userId) {
@@ -560,8 +547,8 @@ public class UserDAO implements UserDAOInterface {
         return null;
     }
 
-
     /**
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
      * Updates only the password for a user.
@@ -636,13 +623,21 @@ public class UserDAO implements UserDAOInterface {
      * @return {@code 1 } for single row affected with successful execution, {@code 0} meaning user id is incorrect and no row affected, {@code 3 } sql error
      * @throws SQLException
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
+=======
+     * Updates only the password for a user.
+     *
+     * @param userID {@code int}: ID of user whose password to update
+     * @param updatedPassword {@code String}: new password (should be pre-hashed)
+     * @return {@code int}: 1=success, 0=user not found, 3=SQL error
+     * @throws SQLException if database query fails
+>>>>>>> 108eb2e (backend-completion)
      */
     public int updateUserPassword(int userID, String updatedPassword) throws SQLException {
 
         final String PASS_UPDATE_QUERY = "UPDATE user SET password = ? WHERE user_id = ?;";
 
         try(PreparedStatement statement = conn.prepareStatement(PASS_UPDATE_QUERY)){
-            statement.setString(1,updatedPassword);
+            statement.setString(1, updatedPassword);
             statement.setInt(2, userID);
 
             int rowsAffected = statement.executeUpdate();
@@ -660,17 +655,15 @@ public class UserDAO implements UserDAOInterface {
 
         }catch (SQLException e) {
             e.printStackTrace();
-            // SQL Error
             return 3;
-    }
-
+        }
     }
 
     /**
-     * Retrieves the total number of users registered in the system.
+     * Counts total number of registered users.
      *
-     * @return the total user count as an {@code int}, or {@code -1} on SQL error
-     * @throws SQLException
+     * @return {@code int}: total user count, or {@code -1} on SQL error
+     * @throws SQLException if database query fails
      */
     public int getUserCount() throws SQLException {
         final String GET_USER_COUNT = "SELECT COUNT(*) FROM user;";
@@ -688,9 +681,12 @@ public class UserDAO implements UserDAOInterface {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            // SQL Error
             return -1;
         }
     }
+<<<<<<< HEAD
 }
 >>>>>>> 176d58a (User Profile Servlet Update user DAO)
+=======
+}
+>>>>>>> 108eb2e (backend-completion)

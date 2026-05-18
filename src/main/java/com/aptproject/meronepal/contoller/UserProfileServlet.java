@@ -25,6 +25,7 @@ import java.time.format.DateTimeFormatter;
 /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Servlet for displaying user profile page.
  * URL Mapping: {@code /profile}
  *
@@ -45,10 +46,18 @@ import java.time.format.DateTimeFormatter;
  * <p>Unauthenticated requests (no session or null user) are redirected
  * to {@code /login} rather than returning a 500 error.</p>
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
+=======
+ * Servlet for displaying user profile page.
+ * URL Mapping: {@code /profile}
+ *
+ * GET: checks session, sets user attributes, forwards to {@code profile.jsp}
+ * Redirects to {@code /login} if user not authenticated.
+>>>>>>> 108eb2e (backend-completion)
  */
 @WebServlet(name = "UserProfileServlet", urlPatterns = {"/profile"})
 public class UserProfileServlet extends HttpServlet {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     // Path to profile view JSP
     private static final String PROFILE_JSP = "WEB-INF/pages/profile/profile.jsp";
@@ -79,34 +88,32 @@ public class UserProfileServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 =======
     /** Path to the profile view JSP, relative to the web-app root. */
+=======
+    // Path to profile view JSP
+>>>>>>> 108eb2e (backend-completion)
     private static final String PROFILE_JSP = "WEB-INF/pages/profile/profile.jsp";
 
     /**
-     * Handles GET requests to {@code /profile}.
+     * doGet — displays profile page for logged-in user
      *
-     * <p>Reads the {@link User} stored under the key {@code "user"} in the
-     * current session and exposes each field as a request attribute so the
-     * JSP can render them via EL (e.g. {@code ${userName}}) without calling
-     * bean getters directly.</p>
+     * @param request  {@code HttpServletRequest} from client
+     * @param response {@code HttpServletResponse} to forward to JSP
+     * @throws ServletException if servlet processing fails
+     * @throws IOException      if forward operation fails
      *
-     * <p>Also consumes any one-shot flash message placed in the session by
-     * other servlets (e.g. {@code BookingServlet} stores {@code "message"}
-     * after a successful or failed booking). The message is removed from the
-     * session after being forwarded so it only shows once.</p>
-     *
-     * @param request  the incoming {@link HttpServletRequest}
-     * @param response the outgoing {@link HttpServletResponse}
-     * @throws ServletException if the RequestDispatcher fails
-     * @throws IOException      if an I/O error occurs during forwarding
+     * Sets request attributes: {@code user}, {@code userName}, {@code email},
+     * {@code phoneNumber}, {@code userRole}, {@code formattedCreatedAt}
+     * Also handles one-time flash messages from session.
      */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
 
-        // Retrieve the authenticated user — getSession(false) avoids creating a new session
+        // Get user from session
         User user = (User) SessionUtil.getAttribute(request, "user");
 
+<<<<<<< HEAD
 <<<<<<< HEAD
             // Checking for null
             if(user == null){
@@ -138,6 +145,9 @@ public class UserProfileServlet extends HttpServlet {
 >>>>>>> 176d58a (User Profile Servlet Update user DAO)
 =======
         // Guard: no active session or user not logged in → redirect to login
+=======
+        // Redirect to login if not authenticated
+>>>>>>> 108eb2e (backend-completion)
         if (user == null) {
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
             response.sendRedirect(request.getContextPath() + "/login");
@@ -146,14 +156,19 @@ public class UserProfileServlet extends HttpServlet {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Set user fields as request attributes for JSP
 =======
         // Expose individual fields as request attributes for the JSP
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
+=======
+        // Set user fields as request attributes for JSP
+>>>>>>> 108eb2e (backend-completion)
         request.setAttribute("user",        user);
         request.setAttribute("userName",    user.getUserName());
         request.setAttribute("email",       user.getEmail());
         request.setAttribute("phoneNumber", user.getPhoneNumber());
+<<<<<<< HEAD
 <<<<<<< HEAD
         request.setAttribute("userRole",
                 user.getUserRole() != null ? user.getUserRole() : "Customer");
@@ -189,11 +204,13 @@ public class UserProfileServlet extends HttpServlet {
             String confirmPassword = request.getParameter("confirmPassword"); // Optional
 =======
         // Defensive null-check: role may be null if old session pre-dates the getUser() fix
+=======
+>>>>>>> 108eb2e (backend-completion)
         request.setAttribute("userRole",
                 user.getUserRole() != null ? user.getUserRole() : "Customer");
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
 
-
+        // Format creation date for display
         if (user.getCreatedAt() != null) {
             String formattedDate = user.getCreatedAt()
                     .format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
@@ -202,19 +219,24 @@ public class UserProfileServlet extends HttpServlet {
             request.setAttribute("formattedCreatedAt", "N/A");
         }
 
-        // Consume one-shot flash message from session (set by BookingServlet on redirect)
+        // Handle one-time flash message from session
         Object flashMessage = SessionUtil.getAttribute(request, "message");
         if (flashMessage != null) {
             request.setAttribute("success", flashMessage.toString());
-            SessionUtil.removeAttribute(request, "message"); // show once, then discard
+            SessionUtil.removeAttribute(request, "message");
         }
 
+        // Forward to profile view
         RequestDispatcher rd = request.getRequestDispatcher(PROFILE_JSP);
         rd.forward(request, response);
     }
+<<<<<<< HEAD
 }
 <<<<<<< HEAD
 
 >>>>>>> 176d58a (User Profile Servlet Update user DAO)
 =======
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
+=======
+}
+>>>>>>> 108eb2e (backend-completion)

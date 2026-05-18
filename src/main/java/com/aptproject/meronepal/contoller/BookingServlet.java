@@ -16,6 +16,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 108eb2e (backend-completion)
 /**
  * Servlet for handling booking flow.
  * URL Mapping: {@code /booking}
@@ -23,6 +26,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * GET: shows booking form for a selected package with flash messages
  * POST: validates event date, creates booking, redirects with success/error
  */
+<<<<<<< HEAD
 @WebServlet(name = "BookingServlet", urlPatterns = {"/booking"})
 public class BookingServlet extends HttpServlet {
 
@@ -43,13 +47,33 @@ public class BookingServlet extends HttpServlet {
 
         // Move flash messages from session to request scope for display
 =======
+=======
+>>>>>>> 108eb2e (backend-completion)
 @WebServlet(name = "BookingServlet", urlPatterns = {"/booking"})
 public class BookingServlet extends HttpServlet {
 
+    /**
+     * doGet — displays booking form for a package
+     *
+     * @param request  {@code HttpServletRequest} from client
+     * @param response {@code HttpServletResponse} to forward to JSP
+     * @throws ServletException if servlet processing fails
+     * @throws IOException      if forward operation fails
+     *
+     * Expects {@code packageId} param. Loads package details and any
+     * flash messages from session, then forwards to {@code booking.jsp}.
+     */
     @Override
+<<<<<<< HEAD
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Pull flash messages from session into request scope
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
+=======
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        // Move flash messages from session to request scope for display
+>>>>>>> 108eb2e (backend-completion)
         String message     = (String) SessionUtil.getAttribute(request, "message");
         String messageType = (String) SessionUtil.getAttribute(request, "messageType");
         if (message != null) {
@@ -60,9 +84,13 @@ public class BookingServlet extends HttpServlet {
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Load package details with associated services
 =======
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
+=======
+        // Load package details with associated services
+>>>>>>> 108eb2e (backend-completion)
         int packageId = Integer.parseInt(request.getParameter("packageId"));
         Package selectedPackage = new PackageDAO().getPackageByIdWithServices(packageId);
 
@@ -89,19 +117,26 @@ public class BookingServlet extends HttpServlet {
      */
     @Override
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 108eb2e (backend-completion)
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         // Get logged-in user from session
+<<<<<<< HEAD
 =======
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
+=======
+>>>>>>> 108eb2e (backend-completion)
         User user           = (User) SessionUtil.getAttribute(request, "user");
         int packageId       = Integer.parseInt(request.getParameter("packageId"));
         String eventAddress = request.getParameter("eventAddress");
         String description  = request.getParameter("notes");
         String eventDate    = request.getParameter("eventDate");
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         // Validate event date format and value
         LocalDate parsedDate;
@@ -113,6 +148,12 @@ public class BookingServlet extends HttpServlet {
         try {
             parsedDate = LocalDate.parse(eventDate); // expects "yyyy-MM-dd" from <input type="date">
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
+=======
+        // Validate event date format and value
+        LocalDate parsedDate;
+        try {
+            parsedDate = LocalDate.parse(eventDate);
+>>>>>>> 108eb2e (backend-completion)
         } catch (DateTimeParseException | NullPointerException e) {
             SessionUtil.setAttribute(request, "message", "Invalid date format. Please select a valid date.");
             SessionUtil.setAttribute(request, "messageType", "error");
@@ -121,11 +162,16 @@ public class BookingServlet extends HttpServlet {
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Ensure date is at least 4 days in the future
         LocalDate minimumAllowedDate = LocalDate.now().plusDays(4);
 =======
         LocalDate minimumAllowedDate = LocalDate.now().plusDays(4); // strictly more than 3 days from today
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
+=======
+        // Ensure date is at least 4 days in the future
+        LocalDate minimumAllowedDate = LocalDate.now().plusDays(4);
+>>>>>>> 108eb2e (backend-completion)
         if (parsedDate.isBefore(minimumAllowedDate)) {
             SessionUtil.setAttribute(request, "message",
                     "Event date must be at least 4 days from today (earliest: " + minimumAllowedDate + ").");
@@ -134,12 +180,17 @@ public class BookingServlet extends HttpServlet {
             return;
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         // Insert booking record via DAO
 =======
         // ────────────────────────────────────────────────────────────
 
 >>>>>>> 2ea22dc (completion of User password and Editing User details)
+=======
+
+        // Insert booking record via DAO
+>>>>>>> 108eb2e (backend-completion)
         int bookingStatus = new BookingDAO().insertBooking(user, packageId, eventAddress, description, eventDate);
 
         // Redirect based on result

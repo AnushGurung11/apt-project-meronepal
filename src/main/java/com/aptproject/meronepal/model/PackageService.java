@@ -1,12 +1,18 @@
 package com.aptproject.meronepal.model;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 108eb2e (backend-completion)
 /**
  * Model class representing a package-service relationship.
  * Holds junction table fields plus display-only names from JOIN queries.
  */
+<<<<<<< HEAD
 =======
 >>>>>>> a37e247 (admin service and packages view)
+=======
+>>>>>>> 108eb2e (backend-completion)
 public class PackageService {
 
     // Core fields mapped to Package_Service table columns
@@ -20,10 +26,15 @@ public class PackageService {
 <<<<<<< HEAD
 =======
 
-    // No-arg constructor
+    // Constructors
+
+    /**
+     * Default constructor.
+     */
     public PackageService() {}
 >>>>>>> a37e247 (admin service and packages view)
 
+<<<<<<< HEAD
     // Constructors
 
     /**
@@ -85,18 +96,34 @@ public class PackageService {
 =======
     // Getters
     public int getPackageServiceId() { return packageServiceId; }
+=======
+
+
+
+
+    // Getters for core fields
+
+>>>>>>> 108eb2e (backend-completion)
     public int getPackageId()        { return packageId; }
-    public int getServiceId()        { return serviceId; }
+
+    // Getters for display-only fields
+
     public String getPackageName()   { return packageName; }
     public String getServiceName()   { return serviceName; }
 
-    // Setters
+    // Setters for core fields
+
     public void setPackageServiceId(int packageServiceId) { this.packageServiceId = packageServiceId; }
     public void setPackageId(int packageId)               { this.packageId = packageId; }
     public void setServiceId(int serviceId)               { this.serviceId = serviceId; }
+
+    // Setters for display-only fields
+
     public void setPackageName(String packageName)        { this.packageName = packageName; }
     public void setServiceName(String serviceName)        { this.serviceName = serviceName; }
 >>>>>>> a37e247 (admin service and packages view)
+
+    // toString for debugging and logging
 
     @Override
     public String toString() {

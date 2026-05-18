@@ -13,6 +13,7 @@ import java.io.IOException;
 
 /**
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Servlet for handling user registration.
  * URL Mapping: {@code /register}
  *
@@ -27,19 +28,27 @@ import java.io.IOException;
  * Servlet responsible for handling user registration.
  * URL Mapping register {@code /register}
  * doGet will redirect to the register.jsp page
+=======
+ * Servlet for handling user registration.
+ * URL Mapping: {@code /register}
+>>>>>>> 108eb2e (backend-completion)
  *
- * doPost method gets parameters from the request,
- * validates them, and delegates to UserDAO.
- * returns 1: successful insertion
- * returns 2: duplicate user/email
- * returns 3: DB/query error
+ * GET: forwards to {@code register.jsp} to display registration form
+ * POST: validates input, inserts user via {@code UserDAO}, handles errors
  *
+<<<<<<< HEAD
 <<<<<<< HEAD
  * on successful register will redirect to {@code /login}
 >>>>>>> 63b34cd (Java docs on Registeration process)
 =======
  * On successful register, redirects to {@code /login}
 >>>>>>> 87f3a87 (Adding Error Handeling in Register and login)
+=======
+ * Return codes from {@code insertUser}:
+ * {@code 1} — success, redirects to {@code /login}
+ * {@code 2} — duplicate username or email
+ * {@code 3} or other — database error
+>>>>>>> 108eb2e (backend-completion)
  */
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
@@ -59,6 +68,7 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Forward to registration form view
+<<<<<<< HEAD
 =======
     // Creating a USer DAO object
     private final UserDAO userDAO = new UserDAO();
@@ -78,6 +88,8 @@ public class RegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 >>>>>>> 87f3a87 (Adding Error Handeling in Register and login)
+=======
+>>>>>>> 108eb2e (backend-completion)
         RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/pages/auth/register.jsp");
         rd.forward(request, response);
     }
@@ -85,6 +97,9 @@ public class RegisterServlet extends HttpServlet {
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 108eb2e (backend-completion)
      * doPost — validates registration input and creates new user
      *
      * @param request  {@code HttpServletRequest} containing form parameters
@@ -101,6 +116,7 @@ public class RegisterServlet extends HttpServlet {
      *
      * Sets request attributes for errors and previous input values.
      * Redirects to {@code /login} on success, forwards back to form on error.
+<<<<<<< HEAD
 =======
      *
      * @param request
@@ -112,6 +128,8 @@ public class RegisterServlet extends HttpServlet {
 =======
      * doPost — validates input, inserts user, handles all error cases
 >>>>>>> 87f3a87 (Adding Error Handeling in Register and login)
+=======
+>>>>>>> 108eb2e (backend-completion)
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -119,10 +137,14 @@ public class RegisterServlet extends HttpServlet {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Read form parameters
 =======
         // ── Read parameters ───────────────────────────────────────
 >>>>>>> 87f3a87 (Adding Error Handeling in Register and login)
+=======
+        // Read form parameters
+>>>>>>> 108eb2e (backend-completion)
         String userName        = request.getParameter("username");
         String phoneNumber     = request.getParameter("phoneNumber");
         String email           = request.getParameter("email");
@@ -145,7 +167,7 @@ public class RegisterServlet extends HttpServlet {
 >>>>>>> 87f3a87 (Adding Error Handeling in Register and login)
         String confirmPassword = request.getParameter("confirmPassword");
 
-        // ── Validate each field ───────────────────────────────────
+        // Validate each field using ValidationUtil
         final boolean isValidName = !ValidationUtil.isNullOrEmpty(userName)
                 && ValidationUtil.isAlphabetic(userName)
                 && userName.length() > 3;
@@ -170,6 +192,7 @@ public class RegisterServlet extends HttpServlet {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Combine all error messages
         String aggregatedErrors = errorUser + errorMail + errorNum + errorPass + errorCon;
 
@@ -190,9 +213,12 @@ public class RegisterServlet extends HttpServlet {
 =======
         // ── Aggregate errors ──────────────────────────────────────
 >>>>>>> 87f3a87 (Adding Error Handeling in Register and login)
+=======
+        // Combine all error messages
+>>>>>>> 108eb2e (backend-completion)
         String aggregatedErrors = errorUser + errorMail + errorNum + errorPass + errorCon;
 
-        // ── Log validation result to console ─────────────────────
+        // Log validation failures to console for debugging
         if (!aggregatedErrors.isBlank()) {
             System.out.println("=== Registration Validation Failed ===");
             System.out.println("User    : " + userName);
@@ -205,7 +231,7 @@ public class RegisterServlet extends HttpServlet {
             System.out.println("======================================");
         }
 
-        // ── Expose individual errors to the view ─────────────────
+        // Set error messages and previous input values for the view
         request.setAttribute("error",  aggregatedErrors);
         request.setAttribute("erUser", errorUser);
         request.setAttribute("erMail", errorMail);
@@ -213,20 +239,19 @@ public class RegisterServlet extends HttpServlet {
         request.setAttribute("erPass", errorPass);
         request.setAttribute("erCon",  errorCon);
 
-        // Also re-populate fields so the user doesn't lose their input
+        // Re-populate form fields so user doesn't lose input
         request.setAttribute("prevUserName", userName);
         request.setAttribute("prevEmail",    email);
         request.setAttribute("prevPhone",    phoneNumber);
 
-        // ── Forward back if validation failed ─────────────────────
+        // If validation failed, forward back to form
         if (!aggregatedErrors.isBlank()) {
             RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/pages/auth/register.jsp");
             rd.forward(request, response);
             return;
         }
 
-        // ── Attempt DB insertion ───────────────────────────────────
-        // FIX: create UserDAO per-request so the connection is always fresh
+        // Validation passed: attempt to insert user into database
         UserDAO userDAO = new UserDAO();
         try {
             String hashedPassword = PasswordUtil.getHashPassword(password);
@@ -234,9 +259,10 @@ public class RegisterServlet extends HttpServlet {
 
             System.out.println("=== Registration DB Result: " + check + " (user: " + userName + ") ===");
 
+            // Handle result based on return code
             switch (check) {
                 case 1:
-                    // Success — redirect to login
+                    // Success: redirect to login page
                     System.out.println("[OK] User registered successfully: " + email);
                     response.sendRedirect(request.getContextPath() + "/login");
                     break;
@@ -251,7 +277,7 @@ public class RegisterServlet extends HttpServlet {
                     break;
 
                 default:
-                    // Unexpected DB error
+                    // Unexpected database error
                     System.out.println("[ERR] DB insert returned unexpected code: " + check);
                     request.setAttribute("error",
                             "Registration failed due to a server error. Please try again.");
@@ -259,6 +285,7 @@ public class RegisterServlet extends HttpServlet {
                     rdErr.forward(request, response);
                     break;
             }
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 63b34cd (Java docs on Registeration process)
         }
@@ -323,6 +350,10 @@ public class RegisterServlet extends HttpServlet {
         }
 =======
         } catch (Exception e){
+=======
+        } catch (Exception e) {
+            // Log any unexpected exceptions
+>>>>>>> 108eb2e (backend-completion)
             System.out.println(e.getLocalizedMessage());
         }
 >>>>>>> 87f3a87 (Adding Error Handeling in Register and login)

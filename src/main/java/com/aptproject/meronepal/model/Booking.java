@@ -10,10 +10,14 @@ import java.time.LocalDate;
 public class Booking {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Core fields mapped to booking table columns
 =======
     // --- existing core fields ---
 >>>>>>> 0ab4b98 (User my booking view and Cancelling)
+=======
+    // Core fields mapped to booking table columns
+>>>>>>> 108eb2e (backend-completion)
     private int bookingId;
     private int userId;
     private int packageId;
@@ -25,14 +29,19 @@ public class Booking {
     private String status;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Joined fields from user, package, services, payment tables
 =======
     // --- joined fields (populated by getAllBooking) ---
 >>>>>>> 0ab4b98 (User my booking view and Cancelling)
+=======
+    // Joined fields from user, package, services, payment tables
+>>>>>>> 108eb2e (backend-completion)
     private String userName;
     private String email;
     private String phoneNumber;
     private String packageName;
+<<<<<<< HEAD
 <<<<<<< HEAD
     private BigDecimal packagePrice;
     private String services;
@@ -51,24 +60,34 @@ public class Booking {
 =======
     private String services;        // e.g. "Photography, Catering, DJ"
     private String paymentStatus;   // Unpaid / Partial / Paid / Refunded
+=======
+    private BigDecimal packagePrice;
+    private String services;
+    private String paymentStatus;
+>>>>>>> 108eb2e (backend-completion)
     private BigDecimal amount;
     private String paymentMethod;
 
-    // --- aggregation / computed field (not a DB column) ---
+    // Computed field for aggregation queries
     private int bookingCount;
 
-    public int getBookingCount()                      { return bookingCount; }
-    public void setBookingCount(int bookingCount)     { this.bookingCount = bookingCount; }
-    // ----------------------------------------------------------------
     // Constructors
-    // ----------------------------------------------------------------
 
+<<<<<<< HEAD
 >>>>>>> 0ab4b98 (User my booking view and Cancelling)
+=======
+    /**
+     * Default constructor — initializes status to {@code "Pending"}.
+     */
+>>>>>>> 108eb2e (backend-completion)
     public Booking() {
         this.status = "Pending";
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 108eb2e (backend-completion)
     /**
      * Constructor for core DB fields only.
      *
@@ -80,6 +99,7 @@ public class Booking {
      * @param eventDate   {@code LocalDate}: date of the booked event
      * @param status      {@code String}: current booking status
      */
+<<<<<<< HEAD
     public Booking(int bookingId, int userId, int packageId,
             LocalDate bookingDate, LocalDate payDate,
             LocalDate eventDate, String status) {
@@ -88,6 +108,8 @@ public class Booking {
         this.packageId = packageId;
 =======
     // All-arg constructor for core DB fields only
+=======
+>>>>>>> 108eb2e (backend-completion)
     public Booking(int bookingId, int userId, int packageId,
                    LocalDate bookingDate, LocalDate payDate,
                    LocalDate eventDate, String status) {
@@ -102,6 +124,9 @@ public class Booking {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 108eb2e (backend-completion)
     /**
      * Convenience constructor for new bookings before DB insert.
      * Status defaults to {@code "Pending"}.
@@ -112,12 +137,15 @@ public class Booking {
      * @param payDate     {@code LocalDate}: date payment was made
      * @param eventDate   {@code LocalDate}: date of the booked event
      */
+<<<<<<< HEAD
     public Booking(int userId, int packageId, LocalDate bookingDate,
             LocalDate payDate, LocalDate eventDate) {
         this.userId = userId;
         this.packageId = packageId;
 =======
     // Convenience constructor (new record before DB insert)
+=======
+>>>>>>> 108eb2e (backend-completion)
     public Booking(int userId, int packageId, LocalDate bookingDate,
                    LocalDate payDate, LocalDate eventDate) {
         this.userId      = userId;
@@ -129,6 +157,7 @@ public class Booking {
         this.status      = "Pending";
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     // Getters for core fields
 
@@ -299,66 +328,63 @@ public class Booking {
     // ----------------------------------------------------------------
     // Getters — core
     // ----------------------------------------------------------------
+=======
+    // Getters for core fields
+
+>>>>>>> 108eb2e (backend-completion)
     public int getBookingId()         { return bookingId; }
-    public int getUserId()            { return userId; }
     public int getPackageId()         { return packageId; }
-    public LocalDate getBookingDate() { return bookingDate; }
-    public LocalDate getPayDate()     { return payDate; }
     public LocalDate getEventDate()   { return eventDate; }
-    public String getEventAddress()   { return eventAddress; }
     public String getNotes()          { return notes; }
     public String getStatus()         { return status; }
 
-    // Getters — joined
+    // Getters for joined fields
+
     public String getUserName()       { return userName; }
     public String getEmail()          { return email; }
     public String getPhoneNumber()    { return phoneNumber; }
     public String getPackageName()    { return packageName; }
     public String getServices()       { return services; }
-    public String getPaymentStatus()  { return paymentStatus; }
     public BigDecimal getAmount()     { return amount; }
+<<<<<<< HEAD
     public String getPaymentMethod()  { return paymentMethod; }
 >>>>>>> 0ab4b98 (User my booking view and Cancelling)
+=======
+>>>>>>> 108eb2e (backend-completion)
 
-    // ----------------------------------------------------------------
-    // Setters — core
-    // ----------------------------------------------------------------
+    // Getter for computed field
+
+    public int getBookingCount()      { return bookingCount; }
+
+    // Setters for core fields
+
     public void setBookingId(int bookingId)             { this.bookingId = bookingId; }
     public void setUserId(int userId)                   { this.userId = userId; }
     public void setPackageId(int packageId)             { this.packageId = packageId; }
     public void setBookingDate(LocalDate bookingDate)   { this.bookingDate = bookingDate; }
-    public void setPayDate(LocalDate payDate)           { this.payDate = payDate; }
     public void setEventDate(LocalDate eventDate)       { this.eventDate = eventDate; }
     public void setEventAddress(String eventAddress)    { this.eventAddress = eventAddress; }
     public void setNotes(String notes)                  { this.notes = notes; }
     public void setStatus(String status)                { this.status = status; }
 
-    // Setters — joined
+    // Setters for joined fields
+
     public void setUserName(String userName)            { this.userName = userName; }
     public void setEmail(String email)                  { this.email = email; }
     public void setPhoneNumber(String phoneNumber)      { this.phoneNumber = phoneNumber; }
     public void setPackageName(String packageName)      { this.packageName = packageName; }
+    public void setPackagePrice(BigDecimal packagePrice) { this.packagePrice = packagePrice; }
     public void setServices(String services)            { this.services = services; }
     public void setPaymentStatus(String paymentStatus)  { this.paymentStatus = paymentStatus; }
     public void setAmount(BigDecimal amount)            { this.amount = amount; }
     public void setPaymentMethod(String paymentMethod)  { this.paymentMethod = paymentMethod; }
 
-    // ── Add this field + getter + setter to your existing Booking.java ──
-// Place the field alongside the other joined fields (around line 20),
-// and the getter/setter alongside the other joined getters/setters.
+    // Setter for computed field
 
-    // ── Field ──────────────────────────────────────────────────────────
-    private BigDecimal packagePrice;   // p.price — the package's catalogue price
+    public void setBookingCount(int bookingCount)       { this.bookingCount = bookingCount; }
 
-    // ── Getter ─────────────────────────────────────────────────────────
-    public BigDecimal getPackagePrice()                   { return packagePrice; }
+    // toString for debugging and logging
 
-    // ── Setter ─────────────────────────────────────────────────────────
-    public void setPackagePrice(BigDecimal packagePrice)  { this.packagePrice = packagePrice; }
-
-    // ----------------------------------------------------------------
-    // toString
-    // ----------------------------------------------------------------
     @Override
     public String toString() {
         return "Booking{" +

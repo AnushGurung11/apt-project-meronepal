@@ -16,6 +16,9 @@ import java.util.ArrayList;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 108eb2e (backend-completion)
 /**
  * Servlet for admin dashboard page.
  * URL Mapping: {@code /dashboard}
@@ -23,6 +26,7 @@ import java.util.ArrayList;
  * doGet: fetches stats like total users, total bookings,
  * bookings by package, and recent bookings for display.
  */
+<<<<<<< HEAD
 =======
 // User DAO bata User count
 // Booking Dao Bata Total Booking
@@ -31,6 +35,8 @@ import java.util.ArrayList;
 // JSP ma Load
 // Filter Ma filter garne
 >>>>>>> e3c7318 (Admin redirect to dashboard)
+=======
+>>>>>>> 108eb2e (backend-completion)
 @WebServlet(name = "AdminDashboardServlet", urlPatterns = {"/dashboard"})
 public class AdminDashboardServlet extends HttpServlet {
 
@@ -50,6 +56,7 @@ public class AdminDashboardServlet extends HttpServlet {
      *
      * On SQL error, sets empty/zero values and prints stack trace.
      */
+<<<<<<< HEAD
     @Override
 <<<<<<< HEAD
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -93,31 +100,35 @@ public class AdminDashboardServlet extends HttpServlet {
 public class AdminDashboardServlet extends HttpServlet {
 >>>>>>> f3cda60 (admin dashbaord)
 
+=======
+>>>>>>> 108eb2e (backend-completion)
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // Initialize DAOs for data access
         UserDAO userDAO       = new UserDAO();
         BookingDAO bookingDAO = new BookingDAO();
 
         try {
-            // 1. Total Users
+            // Get total user count
             int totalUsers = userDAO.getUserCount();
             request.setAttribute("userCount", totalUsers != -1 ? totalUsers : 0);
 
-            // 2. Total Bookings
+            // Get total booking count
             int totalBookings = bookingDAO.getTotalBookingCount();
             request.setAttribute("totalBookings", totalBookings != -1 ? totalBookings : 0);
 
-            // 3. Bookings Grouped by Package
+            // Get bookings grouped by package
             ArrayList<Booking> bookingsByPackage = bookingDAO.getBookingCountByPackage();
             request.setAttribute("bookingsByPackage", bookingsByPackage);
 
-            // 4. Recent Bookings
+            // Get recent bookings list
             ArrayList<Booking> recentBookings = bookingDAO.getRecentBookings();
             request.setAttribute("recentBookings", recentBookings);
 
         } catch (SQLException e) {
+            // On database error, set safe default values
             request.setAttribute("userCount", 0);
             request.setAttribute("totalBookings", 0);
             request.setAttribute("bookingsByPackage", new ArrayList<>());
@@ -125,7 +136,11 @@ public class AdminDashboardServlet extends HttpServlet {
             e.printStackTrace();
         }
 
+<<<<<<< HEAD
 >>>>>>> e3c7318 (Admin redirect to dashboard)
+=======
+        // Forward to admin dashboard view
+>>>>>>> 108eb2e (backend-completion)
         RequestDispatcher rd = request.getRequestDispatcher(
                 "/WEB-INF/pages/admin/admin-dashboard.jsp");
         rd.forward(request, response);

@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+<<<<<<< HEAD
  * Servlet for displaying the blog index and individual blog detail pages.
  * URL Mapping: {@code /blog} and {@code /blog/*}
  *
@@ -22,6 +23,18 @@ public class BlogServlet extends HttpServlet {
 
     /**
      * doGet — routes to the blog index or a single blog detail page
+=======
+ * Servlet for displaying the blog page.
+ * URL Mapping: {@code /blog}
+ *
+ * doGet: forwards request to {@code blog.jsp} for rendering.
+ */
+@WebServlet(name = "BlogServlet", urlPatterns = {"/blog"})
+public class BlogServlet extends HttpServlet {
+
+    /**
+     * doGet — forwards request to blog.jsp for display
+>>>>>>> 108eb2e (backend-completion)
      *
      * @param request  {@code HttpServletRequest} from client
      * @param response {@code HttpServletResponse} to forward to JSP
@@ -32,6 +45,7 @@ public class BlogServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+<<<<<<< HEAD
         String pathInfo = request.getPathInfo();
 
         // No path info or bare "/" -> blog index
@@ -54,5 +68,10 @@ public class BlogServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
+=======
+        // Forward to blog view page
+        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/pages/blog.jsp");
+        rd.forward(request, response);
+>>>>>>> 108eb2e (backend-completion)
     }
 }

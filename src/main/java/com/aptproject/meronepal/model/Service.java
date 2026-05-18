@@ -13,6 +13,7 @@ public class Service {
     private String description;
 
     // Constructors
+<<<<<<< HEAD
 
     /**
      * Default constructor.
@@ -27,6 +28,21 @@ public class Service {
      * @param serviceName {@code String}: name of the service
      * @param serviceType {@code String}: type or category of service
      * @param description {@code String}: service description
+=======
+
+    /**
+     * Default constructor.
+     */
+    public Service() {}
+
+    /**
+     * Constructor with all fields.
+     *
+     * @param serviceId    {@code int}: unique service identifier
+     * @param serviceName  {@code String}: name of the service
+     * @param serviceType  {@code String}: type or category of service
+     * @param description  {@code String}: service description
+>>>>>>> 108eb2e (backend-completion)
      */
     public Service(int serviceId, String serviceName, String serviceType, String description) {
         this.serviceId = serviceId;
@@ -38,9 +54,15 @@ public class Service {
     /**
      * Constructor for new services before DB insert (no ID yet).
      *
+<<<<<<< HEAD
      * @param serviceName {@code String}: name of the service
      * @param serviceType {@code String}: type or category of service
      * @param description {@code String}: service description
+=======
+     * @param serviceName  {@code String}: name of the service
+     * @param serviceType  {@code String}: type or category of service
+     * @param description  {@code String}: service description
+>>>>>>> 108eb2e (backend-completion)
      */
     public Service(String serviceName, String serviceType, String description) {
         this.serviceName = serviceName;
@@ -50,6 +72,7 @@ public class Service {
 
     // Getters
 
+<<<<<<< HEAD
     public int getServiceId() {
         return serviceId;
     } // ← was missing
@@ -83,6 +106,18 @@ public class Service {
     public void setDescription(String description) {
         this.description = description;
     }
+=======
+    public String getServiceName() { return serviceName; }
+    public String getServiceType() { return serviceType; }
+    public String getDescription() { return description; }
+
+    // Setters
+
+    public void setServiceId(int serviceId)           { this.serviceId = serviceId; }
+    public void setServiceName(String serviceName)    { this.serviceName = serviceName; }
+    public void setServiceType(String serviceType)    { this.serviceType = serviceType; }
+    public void setDescription(String description)    { this.description = description; }
+>>>>>>> 108eb2e (backend-completion)
 
     // toString for debugging and logging
 

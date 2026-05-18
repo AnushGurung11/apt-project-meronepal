@@ -25,10 +25,22 @@ public class ServiceDAO implements ServiceDAOInterface {
      */
 =======
 
+/**
+ * DAO for managing service data in the database.
+ * Handles CRUD operations for the {@code Services} table.
+ */
 public class ServiceDAO implements ServiceDAOInterface {
+
     private Connection conn;
 
+<<<<<<< HEAD
 >>>>>>> a37e247 (admin service and packages view)
+=======
+    /**
+     * Constructor — initializes database connection via {@code DBConfig}.
+     * Catches and logs {@code SQLException} or {@code ClassNotFoundException}.
+     */
+>>>>>>> 108eb2e (backend-completion)
     public ServiceDAO() {
         try {
             conn = DBConfig.getConnection();
@@ -124,7 +136,11 @@ public class ServiceDAO implements ServiceDAOInterface {
         try {
 =======
 
-    /** Returns every active service in the database. */
+    /**
+     * Fetches all active services from the database.
+     *
+     * @return {@code List<Service>}: list of active services, empty list on error
+     */
     public List<Service> getAllServices() {
         List<Service> services = new ArrayList<>();
         try {
@@ -147,8 +163,10 @@ public class ServiceDAO implements ServiceDAOInterface {
     }
 
     /**
-     * Soft-deletes a service by setting is_active = 0.
-     * Returns the number of rows affected (1 on success, 0 on failure).
+     * Soft-deletes a service by marking it inactive.
+     *
+     * @param serviceId {@code int}: ID of the service to deactivate
+     * @return {@code int}: 1=success (row updated), 0=not found or error
      */
     public int deleteService(int serviceId) {
         try {
@@ -164,6 +182,14 @@ public class ServiceDAO implements ServiceDAOInterface {
         }
     }
 
+    /**
+     * Inserts a new service record into the database.
+     *
+     * @param serviceName {@code String}: name of the new service
+     * @param serviceType {@code String}: type/category of the service
+     * @param description {@code String}: description of the service
+     * @return {@code int}: 1=success (row inserted), 0=error
+     */
     @Override
     public int insertService(String serviceName, String serviceType, String description) {
         try {

@@ -13,63 +13,52 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Servlet responsible for the read-only user profile view.
+ * Servlet for displaying user profile page.
+ * URL Mapping: {@code /profile}
  *
- * <p>Maps to {@code /profile}. Retrieves the authenticated {@link User}
- * from the HTTP session and forwards all display attributes to the
- * profile JSP. No DAO calls are made here — the session object is the
- * single source of truth for the currently logged-in user.</p>
- *
- * <p>Unauthenticated requests (no session or null user) are redirected
- * to {@code /login} rather than returning a 500 error.</p>
+ * GET: checks session, sets user attributes, forwards to {@code profile.jsp}
+ * Redirects to {@code /login} if user not authenticated.
  */
 @WebServlet(name = "UserProfileServlet", urlPatterns = {"/profile"})
 public class UserProfileServlet extends HttpServlet {
 
-    /** Path to the profile view JSP, relative to the web-app root. */
+    // Path to profile view JSP
     private static final String PROFILE_JSP = "WEB-INF/pages/profile/profile.jsp";
 
     /**
-     * Handles GET requests to {@code /profile}.
+     * doGet — displays profile page for logged-in user
      *
-     * <p>Reads the {@link User} stored under the key {@code "user"} in the
-     * current session and exposes each field as a request attribute so the
-     * JSP can render them via EL (e.g. {@code ${userName}}) without calling
-     * bean getters directly.</p>
+     * @param request  {@code HttpServletRequest} from client
+     * @param response {@code HttpServletResponse} to forward to JSP
+     * @throws ServletException if servlet processing fails
+     * @throws IOException      if forward operation fails
      *
-     * <p>Also consumes any one-shot flash message placed in the session by
-     * other servlets (e.g. {@code BookingServlet} stores {@code "message"}
-     * after a successful or failed booking). The message is removed from the
-     * session after being forwarded so it only shows once.</p>
-     *
-     * @param request  the incoming {@link HttpServletRequest}
-     * @param response the outgoing {@link HttpServletResponse}
-     * @throws ServletException if the RequestDispatcher fails
-     * @throws IOException      if an I/O error occurs during forwarding
+     * Sets request attributes: {@code user}, {@code userName}, {@code email},
+     * {@code phoneNumber}, {@code userRole}, {@code formattedCreatedAt}
+     * Also handles one-time flash messages from session.
      */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Retrieve the authenticated user — getSession(false) avoids creating a new session
+        // Get user from session
         User user = (User) SessionUtil.getAttribute(request, "user");
 
-        // Guard: no active session or user not logged in → redirect to login
+        // Redirect to login if not authenticated
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
-        // Expose individual fields as request attributes for the JSP
+        // Set user fields as request attributes for JSP
         request.setAttribute("user",        user);
         request.setAttribute("userName",    user.getUserName());
         request.setAttribute("email",       user.getEmail());
         request.setAttribute("phoneNumber", user.getPhoneNumber());
-        // Defensive null-check: role may be null if old session pre-dates the getUser() fix
         request.setAttribute("userRole",
                 user.getUserRole() != null ? user.getUserRole() : "Customer");
 
-
+        // Format creation date for display
         if (user.getCreatedAt() != null) {
             String formattedDate = user.getCreatedAt()
                     .format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
@@ -78,13 +67,14 @@ public class UserProfileServlet extends HttpServlet {
             request.setAttribute("formattedCreatedAt", "N/A");
         }
 
-        // Consume one-shot flash message from session (set by BookingServlet on redirect)
+        // Handle one-time flash message from session
         Object flashMessage = SessionUtil.getAttribute(request, "message");
         if (flashMessage != null) {
             request.setAttribute("success", flashMessage.toString());
-            SessionUtil.removeAttribute(request, "message"); // show once, then discard
+            SessionUtil.removeAttribute(request, "message");
         }
 
+        // Forward to profile view
         RequestDispatcher rd = request.getRequestDispatcher(PROFILE_JSP);
         rd.forward(request, response);
     }

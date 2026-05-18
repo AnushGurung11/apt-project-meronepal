@@ -12,46 +12,67 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet responsible for handling user registration.
- * URL Mapping register {@code /register}
- * doGet will redirect to the register.jsp page
+ * Servlet for handling user registration.
+ * URL Mapping: {@code /register}
  *
- * doPost method gets parameters from the request,
- * validates them, and delegates to UserDAO.
- * returns 1: successful insertion
- * returns 2: duplicate user/email
- * returns 3: DB/query error
+ * GET: forwards to {@code register.jsp} to display registration form
+ * POST: validates input, inserts user via {@code UserDAO}, handles errors
  *
- * On successful register, redirects to {@code /login}
+ * Return codes from {@code insertUser}:
+ * {@code 1} — success, redirects to {@code /login}
+ * {@code 2} — duplicate username or email
+ * {@code 3} or other — database error
  */
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
 
     /**
-     * doGet — renders register.jsp
+     * doGet — displays the registration form page
+     *
+     * @param request  {@code HttpServletRequest} from client
+     * @param response {@code HttpServletResponse} to forward to JSP
+     * @throws ServletException if servlet processing fails
+     * @throws IOException      if forward operation fails
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // Forward to registration form view
         RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/pages/auth/register.jsp");
         rd.forward(request, response);
     }
 
     /**
-     * doPost — validates input, inserts user, handles all error cases
+     * doPost — validates registration input and creates new user
+     *
+     * @param request  {@code HttpServletRequest} containing form parameters
+     * @param response {@code HttpServletResponse} for redirect or forward
+     * @throws ServletException if servlet processing fails
+     * @throws IOException      if redirect or I/O operation fails
+     *
+     * Expected params:
+     * {@code username} — required, alphabetic, more than 3 chars
+     * {@code phoneNumber} — must pass phone validation
+     * {@code email} — must be valid email format
+     * {@code password} — must meet complexity rules
+     * {@code confirmPassword} — must match password
+     *
+     * Sets request attributes for errors and previous input values.
+     * Redirects to {@code /login} on success, forwards back to form on error.
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // ── Read parameters ───────────────────────────────────────
+        // Read form parameters
         String userName        = request.getParameter("username");
         String phoneNumber     = request.getParameter("phoneNumber");
         String email           = request.getParameter("email");
         String password        = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 
-        // ── Validate each field ───────────────────────────────────
+        // Validate each field using ValidationUtil
         final boolean isValidName = !ValidationUtil.isNullOrEmpty(userName)
                 && ValidationUtil.isAlphabetic(userName)
                 && userName.length() > 3;
@@ -69,10 +90,10 @@ public class RegisterServlet extends HttpServlet {
         final boolean isValidCon = ValidationUtil.doPasswordsMatch(password, confirmPassword);
         String errorCon = isValidCon ? "" : "Passwords do not match. ";
 
-        // ── Aggregate errors ──────────────────────────────────────
+        // Combine all error messages
         String aggregatedErrors = errorUser + errorMail + errorNum + errorPass + errorCon;
 
-        // ── Log validation result to console ─────────────────────
+        // Log validation failures to console for debugging
         if (!aggregatedErrors.isBlank()) {
             System.out.println("=== Registration Validation Failed ===");
             System.out.println("User    : " + userName);
@@ -85,7 +106,7 @@ public class RegisterServlet extends HttpServlet {
             System.out.println("======================================");
         }
 
-        // ── Expose individual errors to the view ─────────────────
+        // Set error messages and previous input values for the view
         request.setAttribute("error",  aggregatedErrors);
         request.setAttribute("erUser", errorUser);
         request.setAttribute("erMail", errorMail);
@@ -93,20 +114,19 @@ public class RegisterServlet extends HttpServlet {
         request.setAttribute("erPass", errorPass);
         request.setAttribute("erCon",  errorCon);
 
-        // Also re-populate fields so the user doesn't lose their input
+        // Re-populate form fields so user doesn't lose input
         request.setAttribute("prevUserName", userName);
         request.setAttribute("prevEmail",    email);
         request.setAttribute("prevPhone",    phoneNumber);
 
-        // ── Forward back if validation failed ─────────────────────
+        // If validation failed, forward back to form
         if (!aggregatedErrors.isBlank()) {
             RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/pages/auth/register.jsp");
             rd.forward(request, response);
             return;
         }
 
-        // ── Attempt DB insertion ───────────────────────────────────
-        // FIX: create UserDAO per-request so the connection is always fresh
+        // Validation passed: attempt to insert user into database
         UserDAO userDAO = new UserDAO();
         try {
             String hashedPassword = PasswordUtil.getHashPassword(password);
@@ -114,9 +134,10 @@ public class RegisterServlet extends HttpServlet {
 
             System.out.println("=== Registration DB Result: " + check + " (user: " + userName + ") ===");
 
+            // Handle result based on return code
             switch (check) {
                 case 1:
-                    // Success — redirect to login
+                    // Success: redirect to login page
                     System.out.println("[OK] User registered successfully: " + email);
                     response.sendRedirect(request.getContextPath() + "/login");
                     break;
@@ -131,7 +152,7 @@ public class RegisterServlet extends HttpServlet {
                     break;
 
                 default:
-                    // Unexpected DB error
+                    // Unexpected database error
                     System.out.println("[ERR] DB insert returned unexpected code: " + check);
                     request.setAttribute("error",
                             "Registration failed due to a server error. Please try again.");
@@ -139,7 +160,8 @@ public class RegisterServlet extends HttpServlet {
                     rdErr.forward(request, response);
                     break;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
+            // Log any unexpected exceptions
             System.out.println(e.getLocalizedMessage());
         }
     }

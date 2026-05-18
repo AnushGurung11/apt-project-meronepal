@@ -1,7 +1,12 @@
 package com.aptproject.meronepal.model;
 
+/**
+ * Model class representing a package-service relationship.
+ * Holds junction table fields plus display-only names from JOIN queries.
+ */
 public class PackageService {
 
+    // Core fields mapped to Package_Service table columns
     private int packageServiceId;
     private int packageId;
     private int serviceId;
@@ -10,35 +15,38 @@ public class PackageService {
     private String packageName;
     private String serviceName;
 
-    // No-arg constructor
+    // Constructors
+
+    /**
+     * Default constructor.
+     */
     public PackageService() {}
 
-    // All-arg constructor
-    public PackageService(int packageServiceId, int packageId, int serviceId) {
-        this.packageServiceId = packageServiceId;
-        this.packageId = packageId;
-        this.serviceId = serviceId;
-    }
 
-    // Convenience constructor (without packageServiceId — for new records before DB insert)
-    public PackageService(int packageId, int serviceId) {
-        this.packageId = packageId;
-        this.serviceId = serviceId;
-    }
 
-    // Getters
-    public int getPackageServiceId() { return packageServiceId; }
+
+
+    // Getters for core fields
+
     public int getPackageId()        { return packageId; }
-    public int getServiceId()        { return serviceId; }
+
+    // Getters for display-only fields
+
     public String getPackageName()   { return packageName; }
     public String getServiceName()   { return serviceName; }
 
-    // Setters
+    // Setters for core fields
+
     public void setPackageServiceId(int packageServiceId) { this.packageServiceId = packageServiceId; }
     public void setPackageId(int packageId)               { this.packageId = packageId; }
     public void setServiceId(int serviceId)               { this.serviceId = serviceId; }
+
+    // Setters for display-only fields
+
     public void setPackageName(String packageName)        { this.packageName = packageName; }
     public void setServiceName(String serviceName)        { this.serviceName = serviceName; }
+
+    // toString for debugging and logging
 
     @Override
     public String toString() {

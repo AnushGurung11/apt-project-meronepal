@@ -4,9 +4,7 @@ import com.aptproject.meronepal.dao.interfaces.UserDAOInterface;
 import com.aptproject.meronepal.model.User;
 import com.aptproject.meronepal.utility.DBConfig;
 import com.aptproject.meronepal.utility.PasswordUtil;
-import jakarta.servlet.jsp.tagext.JspTag;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,37 +12,16 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 /**
- * Data Access Object (DAO) for the {@code User} table.
- *
- * <p>Provides CRUD operations against the {@code apt_booking_system.User} table.
- * Each instance opens one {@link Connection} on construction via
- * {@link DBConfig#getConnection()}. Use one DAO per request and discard it
- * afterwards — do not share instances across threads.</p>
- *
- * <h3>Return-code contract (shared across all mutating methods):</h3>
- * <ul>
- *   <li>{@code 0} — No rows affected (user not found / nothing changed).</li>
- *   <li>{@code 1} — Operation succeeded.</li>
- *   <li>{@code 2} — Conflict: username or email already exists for another account.</li>
- *   <li>{@code 3} — Database / SQL error.</li>
- *   <li>{@code 4} — Invalid input supplied by the caller (null object, invalid ID).</li>
- * </ul>
+ * DAO for managing user data in the database.
+ * Handles CRUD operations for the {@code user} table.
  */
 public class UserDAO implements UserDAOInterface {
 
-    /** Active JDBC connection. Opened once in the constructor. */
     private final Connection conn;
 
-    // -------------------------------------------------------------------------
-    // Constructor
-    // -------------------------------------------------------------------------
-
     /**
-     * Constructs a new {@code UserDAO} and opens a database connection.
-     *
-     * <p>If the connection cannot be established, {@code conn} is {@code null}
-     * and all subsequent calls will fall through to their {@code catch} blocks,
-     * returning error code {@code 3}.</p>
+     * Constructor — initializes database connection via {@code DBConfig}.
+     * Catches and logs {@code SQLException} or {@code ClassNotFoundException}.
      */
     public UserDAO() {
         Connection tempConn = null;
@@ -56,28 +33,19 @@ public class UserDAO implements UserDAOInterface {
         this.conn = tempConn;
     }
 
-    // -------------------------------------------------------------------------
-    // INSERT
-    // -------------------------------------------------------------------------
-
     /**
-     * Inserts a new user record into the {@code User} table.
+     * Inserts a new user record with duplicate check.
      *
-     * <p>Performs a case-insensitive duplicate check on both username and email
-     * before inserting. The {@code password} parameter must already be a BCrypt
-     * hash — hashing is the caller's responsibility.</p>
-     *
-     * @param userName     the desired username
-     * @param email        the user's email address
-     * @param phone_number the user's phone number
-     * @param password     the <em>already-hashed</em> BCrypt password string
-     * @return {@code 1} on success, {@code 2} if username/email already taken,
-     *         {@code 3} on SQL error
+     * @param userName {@code String}: desired username
+     * @param email {@code String}: user's email address
+     * @param phone_number {@code String}: user's phone number
+     * @param password {@code String}: already-hashed BCrypt password
+     * @return {@code int}: 1=success, 2=duplicate username/email, 3=SQL error
      */
     @Override
     public int insertUser(String userName, String email, String phone_number, String password) {
         try {
-            // Duplicate check (case-insensitive)
+            // Check for duplicate username or email (case-insensitive)
             final String CHECK_IF_USER =
                     "SELECT user_name FROM user " +
                             "WHERE LOWER(user_name) = LOWER(?) OR LOWER(email) = LOWER(?)";
@@ -86,7 +54,7 @@ public class UserDAO implements UserDAOInterface {
                 checkStmt.setString(1, userName);
                 checkStmt.setString(2, email);
                 try (ResultSet rs = checkStmt.executeQuery()) {
-                    if (rs.next()) return 2; // username or email already registered
+                    if (rs.next()) return 2;
                 }
             }
 
@@ -99,7 +67,7 @@ public class UserDAO implements UserDAOInterface {
                 insertStmt.setString(2, email);
                 insertStmt.setString(3, phone_number);
                 insertStmt.setString(4, password);
-                return insertStmt.executeUpdate(); // 1 on success
+                return insertStmt.executeUpdate();
             }
 
         } catch (SQLException ex) {
@@ -108,21 +76,11 @@ public class UserDAO implements UserDAOInterface {
         }
     }
 
-    // -------------------------------------------------------------------------
-    // SELECT
-    // -------------------------------------------------------------------------
-
     /**
-     * Retrieves a single {@link User} by email address.
+     * Fetches a user by email address.
      *
-     * <p><strong>Bug fixed:</strong> the original implementation never called
-     * {@code user.setUserRole()}, which meant the role was always {@code null}
-     * in the session, causing NPEs downstream (e.g. in the profile JSP) and
-     * forcing the servlet to fall back to a hard-coded default. This version
-     * maps all columns including {@code user_role} and {@code created_at}.</p>
-     *
-     * @param email the email address to look up (exact match as stored)
-     * @return the matching {@link User}, or {@code null} if not found or on error
+     * @param email {@code String}: email to look up
+     * @return {@code User}: user object if found, {@code null} otherwise
      */
     @Override
     public User getUser(String email) {
@@ -139,7 +97,6 @@ public class UserDAO implements UserDAOInterface {
                     user.setPasswordHash(rs.getString("password"));
                     user.setPhoneNumber(rs.getString("phone_number"));
                     user.setEmail(rs.getString("email"));
-                    // FIX: this line was missing in the original — role was always null in session
                     user.setUserRole(rs.getString("user_role"));
                     user.setCreatedAt(rs.getObject("created_at", LocalDateTime.class));
                     return user;
@@ -151,49 +108,20 @@ public class UserDAO implements UserDAOInterface {
         return null;
     }
 
-    // -------------------------------------------------------------------------
-    // UPDATE
-    // -------------------------------------------------------------------------
-
     /**
-     * Updates the non-sensitive profile fields of an existing user.
+     * Updates user profile fields with conflict check and password handling.
      *
-     * <h3>Fields updated:</h3>
-     * <ul>
-     *   <li>Username</li>
-     *   <li>Email</li>
-     *   <li>Phone number</li>
-     *   <li>Password — handled intelligently:
-     *     <ul>
-     *       <li>Already a BCrypt hash (starts with {@code $2a$}) → stored as-is.</li>
-     *       <li>Plain text → hashed via {@link PasswordUtil#getHashPassword(String)}.</li>
-     *       <li>{@code null} or empty → current hash is fetched from DB and preserved
-     *           via {@link #getCurrentPasswordHash(int)}.</li>
-     *     </ul>
-     *   </li>
-     *   <li>User role — copied from the caller; not editable by the user.</li>
-     * </ul>
-     *
-     * <p><strong>Bug fixed:</strong> the original code called
-     * {@code updatedUser.getPasswordHash(updatedUser.getUserId())} which does not
-     * exist — {@code getPasswordHash()} takes no arguments. Replaced with a call
-     * to the private {@link #getCurrentPasswordHash(int)} helper.</p>
-     *
-     * @param updatedUser a {@link User} carrying the new values;
-     *                    {@code userId} must be a positive integer
-     * @return {@code 1} on success, {@code 0} if no row matched,
-     *         {@code 2} on username/email conflict, {@code 3} on SQL error,
-     *         {@code 4} if input is invalid or the user ID is not found in the DB
+     * @param updatedUser {@code User}: user object with new values, {@code userId} required
+     * @return {@code int}: 1=success, 0=no row matched, 2=conflict, 3=SQL error, 4=invalid input
      */
     public int updateUser(User updatedUser) {
 
-        // Guard: validate input
         if (updatedUser == null || updatedUser.getUserId() <= 0) {
             return 4;
         }
 
         try {
-            // STEP 1: Conflict check — exclude the current user from the uniqueness test
+            // Check for username/email conflict excluding current user
             final String CHECK_CONFLICT =
                     "SELECT user_id FROM user " +
                             "WHERE (LOWER(user_name) = LOWER(?) OR LOWER(email) = LOWER(?)) " +
@@ -205,30 +133,25 @@ public class UserDAO implements UserDAOInterface {
                 checkStmt.setInt(3, updatedUser.getUserId());
 
                 try (ResultSet rs = checkStmt.executeQuery()) {
-                    if (rs.next()) return 2; // another user already owns this username/email
+                    if (rs.next()) return 2;
                 }
             }
 
-            // STEP 2: Resolve the password to store
-            // FIX: original called updatedUser.getPasswordHash(userId) — method takes no args.
-            //      Now correctly calls the private getCurrentPasswordHash(int) helper instead.
+            // Resolve password: hash if plain text, preserve if null/empty
             String passwordToStore = updatedUser.getPasswordHash();
 
             if (passwordToStore != null && !passwordToStore.isEmpty()) {
                 if (!passwordToStore.startsWith("$2a$")) {
-                    // Plain-text supplied → hash it before storing
                     passwordToStore = PasswordUtil.getHashPassword(passwordToStore);
                 }
-                // else: already a BCrypt hash → store as-is
             } else {
-                // No new password provided → preserve whatever is currently in the DB
                 passwordToStore = getCurrentPasswordHash(updatedUser.getUserId());
                 if (passwordToStore == null) {
-                    return 4; // user ID not found in DB
+                    return 4;
                 }
             }
 
-            // STEP 3: Execute the update
+            // Execute update
             final String UPDATE_USER =
                     "UPDATE user " +
                             "SET user_name    = ?, " +
@@ -257,20 +180,11 @@ public class UserDAO implements UserDAOInterface {
         }
     }
 
-    // -------------------------------------------------------------------------
-    // Private helpers
-    // -------------------------------------------------------------------------
-
     /**
-     * Fetches the current BCrypt password hash for a given user ID directly
-     * from the database.
+     * Helper to fetch current password hash for a user.
      *
-     * <p>Used by {@link #updateUser(User)} when no new password is provided,
-     * so the existing hash is preserved rather than overwritten with {@code null}.</p>
-     *
-     * @param userId the primary key of the user whose hash to retrieve
-     * @return the stored BCrypt hash, or {@code null} if the user is not found
-     *         or a SQL error occurs
+     * @param userId {@code int}: ID of user whose hash to retrieve
+     * @return {@code String}: stored BCrypt hash, or {@code null} if not found or error
      */
     private String getCurrentPasswordHash(int userId) {
         final String SELECT_PASS = "SELECT password FROM user WHERE user_id = ?";
@@ -286,20 +200,20 @@ public class UserDAO implements UserDAOInterface {
         return null;
     }
 
-
     /**
+     * Updates only the password for a user.
      *
-     * @param userID int the user id for which password is to be changed
-     * @param updatedPassword String, new password
-     * @return {@code 1 } for single row affected with successful execution, {@code 0} meaning user id is incorrect and no row affected, {@code 3 } sql error
-     * @throws SQLException
+     * @param userID {@code int}: ID of user whose password to update
+     * @param updatedPassword {@code String}: new password (should be pre-hashed)
+     * @return {@code int}: 1=success, 0=user not found, 3=SQL error
+     * @throws SQLException if database query fails
      */
     public int updateUserPassword(int userID, String updatedPassword) throws SQLException {
 
         final String PASS_UPDATE_QUERY = "UPDATE user SET password = ? WHERE user_id = ?;";
 
         try(PreparedStatement statement = conn.prepareStatement(PASS_UPDATE_QUERY)){
-            statement.setString(1,updatedPassword);
+            statement.setString(1, updatedPassword);
             statement.setInt(2, userID);
 
             int rowsAffected = statement.executeUpdate();
@@ -317,17 +231,15 @@ public class UserDAO implements UserDAOInterface {
 
         }catch (SQLException e) {
             e.printStackTrace();
-            // SQL Error
             return 3;
-    }
-
+        }
     }
 
     /**
-     * Retrieves the total number of users registered in the system.
+     * Counts total number of registered users.
      *
-     * @return the total user count as an {@code int}, or {@code -1} on SQL error
-     * @throws SQLException
+     * @return {@code int}: total user count, or {@code -1} on SQL error
+     * @throws SQLException if database query fails
      */
     public int getUserCount() throws SQLException {
         final String GET_USER_COUNT = "SELECT COUNT(*) FROM user;";
@@ -345,7 +257,6 @@ public class UserDAO implements UserDAOInterface {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            // SQL Error
             return -1;
         }
     }

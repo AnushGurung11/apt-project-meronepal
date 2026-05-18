@@ -9,10 +9,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * DAO for managing payment data in the database.
+ * Handles payment status updates for the {@code Payment} table linked to bookings.
+ */
 public class PaymentDAO {
 
     private Connection conn;
 
+    /**
+     * Constructor — initializes database connection via {@code DBConfig}.
+     * Catches and logs {@code SQLException} or {@code ClassNotFoundException}.
+     */
     public PaymentDAO() {
         try {
             conn = DBConfig.getConnection();
@@ -21,17 +29,16 @@ public class PaymentDAO {
         }
     }
 
-    // ----------------------------------------------------------------
-    // UPDATE PAYMENT STATUS for a given booking_id.
-    //
-    // When the status is set to "Paid" (or any status), the amount is
-    // automatically pulled from the linked package price so the Payment
-    // row always reflects the correct catalogue amount.
-    //
-    // Uses INSERT … ON DUPLICATE KEY UPDATE to handle both:
-    //   • No Payment row yet → INSERT a fresh one with the package price
-    //   • Existing Payment row → UPDATE status (and keep amount current)
-    // ----------------------------------------------------------------
+    /**
+     * Updates or inserts payment status for a booking, syncing amount from package price.
+     *
+     * @param bookingId {@code int}: ID of the booking whose payment to update
+     * @param newStatus {@code String}: new status (must be one of: Unpaid, Partial, Paid, Refunded)
+     * @return {@code boolean}: true=success (row inserted/updated), false=invalid status or error
+     *
+     * Uses {@code INSERT ... ON DUPLICATE KEY UPDATE} to handle both new and existing payment rows.
+     * Amount is auto-set from the linked package price to keep data consistent.
+     */
     public boolean updatePaymentStatus(int bookingId, String newStatus) {
 
         final List<String> ALLOWED = List.of("Unpaid", "Partial", "Paid", "Refunded");
@@ -40,15 +47,14 @@ public class PaymentDAO {
             return false;
         }
 
-        // Step 1 — fetch the package price for this booking
+        // Get package price for this booking to set payment amount
         BigDecimal packagePrice = getPackagePriceByBookingId(bookingId);
         if (packagePrice == null) {
             System.err.println("updatePaymentStatus: could not resolve package price for booking " + bookingId);
-            packagePrice = BigDecimal.ZERO; // fall back gracefully
+            packagePrice = BigDecimal.ZERO;
         }
 
-        // Step 2 — upsert the Payment row
-        // ON DUPLICATE KEY fires on the UNIQUE constraint: payment.booking_id
+        // Upsert payment row: insert new or update existing based on booking_id uniqueness
         final String SQL = """
                 INSERT INTO Payment (booking_id, payment_status, amount)
                 VALUES (?, ?, ?)
@@ -71,9 +77,12 @@ public class PaymentDAO {
         }
     }
 
-    // ----------------------------------------------------------------
-    // Helper — look up the package price for a booking
-    // ----------------------------------------------------------------
+    /**
+     * Helper method to fetch the package price for a given booking.
+     *
+     * @param bookingId {@code int}: ID of the booking to look up
+     * @return {@code BigDecimal}: package price if found, {@code null} on error or not found
+     */
     private BigDecimal getPackagePriceByBookingId(int bookingId) {
         final String SQL = """
                 SELECT p.price

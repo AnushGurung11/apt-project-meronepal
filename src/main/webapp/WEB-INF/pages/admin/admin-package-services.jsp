@@ -344,7 +344,7 @@
         <a href="${pageContext.request.contextPath}/admin/add-service" class="btn btn-gold">
           &#43;&nbsp; Add New Service
         </a>
-        <a href="${pageContext.request.contextPath}/admin/add-package" class="btn btn-ghost">
+        <a href="${pageContext.request.contextPath}/admin/create-package" class="btn btn-ghost">
           &#43;&nbsp; Create New Package
         </a>
       </div>

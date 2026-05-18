@@ -3,21 +3,39 @@ package com.aptproject.meronepal.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * Model class representing a payment record.
+ * Holds payment details linked to a booking via {@code bookingId}.
+ */
 public class Payment {
 
+    // Core payment fields mapped to Payment table columns
     private int paymentId;
-    private int bookingId;          // UNIQUE — enforces 1:1 with Booking
+    private int bookingId;
     private BigDecimal amount;
-    private String paymentMethod;   // nullable
+    private String paymentMethod;
     private String paymentStatus;
-    private LocalDate paymentDate;  // nullable
+    private LocalDate paymentDate;
 
-    // No-arg constructor
+    // Constructors
+
+    /**
+     * Default constructor — initializes status to {@code "Unpaid"}.
+     */
     public Payment() {
         this.paymentStatus = "Unpaid";
     }
 
-    // All-arg constructor
+    /**
+     * Constructor with all fields.
+     *
+     * @param paymentId      {@code int}: unique payment identifier
+     * @param bookingId      {@code int}: ID of the linked booking
+     * @param amount         {@code BigDecimal}: payment amount
+     * @param paymentMethod  {@code String}: method used for payment
+     * @param paymentStatus  {@code String}: current payment status
+     * @param paymentDate    {@code LocalDate}: date payment was made
+     */
     public Payment(int paymentId, int bookingId, BigDecimal amount,
                    String paymentMethod, String paymentStatus, LocalDate paymentDate) {
         this.paymentId = paymentId;
@@ -28,7 +46,15 @@ public class Payment {
         this.paymentDate = paymentDate;
     }
 
-    // Convenience constructor (without paymentId — for new records before DB insert)
+    /**
+     * Constructor for new payments before DB insert (no ID yet).
+     * Status defaults to {@code "Unpaid"}.
+     *
+     * @param bookingId      {@code int}: ID of the linked booking
+     * @param amount         {@code BigDecimal}: payment amount
+     * @param paymentMethod  {@code String}: method used for payment
+     * @param paymentDate    {@code LocalDate}: date payment was made
+     */
     public Payment(int bookingId, BigDecimal amount,
                    String paymentMethod, LocalDate paymentDate) {
         this.bookingId = bookingId;
@@ -39,20 +65,16 @@ public class Payment {
     }
 
     // Getters
-    public int getPaymentId()           { return paymentId; }
+
     public int getBookingId()           { return bookingId; }
     public BigDecimal getAmount()       { return amount; }
-    public String getPaymentMethod()    { return paymentMethod; }
-    public String getPaymentStatus()    { return paymentStatus; }
-    public LocalDate getPaymentDate()   { return paymentDate; }
 
     // Setters
-    public void setPaymentId(int paymentId)             { this.paymentId = paymentId; }
+
     public void setBookingId(int bookingId)             { this.bookingId = bookingId; }
-    public void setAmount(BigDecimal amount)             { this.amount = amount; }
-    public void setPaymentMethod(String paymentMethod)   { this.paymentMethod = paymentMethod; }
-    public void setPaymentStatus(String paymentStatus)   { this.paymentStatus = paymentStatus; }
-    public void setPaymentDate(LocalDate paymentDate)    { this.paymentDate = paymentDate; }
+    public void setAmount(BigDecimal amount)            { this.amount = amount; }
+
+    // toString for debugging and logging
 
     @Override
     public String toString() {

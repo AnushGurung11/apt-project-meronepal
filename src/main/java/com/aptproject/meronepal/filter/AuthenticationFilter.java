@@ -118,7 +118,7 @@ public class AuthenticationFilter implements Filter {
      */
     private boolean isAdminPath(String path) {
         // Quick prefix check for /admin/* paths
-        if (path.startsWith("/admin/")) {
+        if (path.startsWith("/admin/") || path.equals("/admin")) {
             return true;
         }
         // Check exact matches for specific admin paths (like /dashboard)

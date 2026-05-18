@@ -622,7 +622,7 @@
                     </tr>
                   </c:otherwise>
                 </c:choose>
-              </tbody>
+              </body>
             </table>
           </div>
 

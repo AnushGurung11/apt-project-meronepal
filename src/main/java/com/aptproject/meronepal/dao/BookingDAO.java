@@ -43,11 +43,11 @@ public class BookingDAO implements BookingDAOInterface {
         }
     }
 
+    // ── Replace the existing getAllBooking() in BookingDAO with this ──
+
     public List<Booking> getAllBooking() {
         List<Booking> bookings = new ArrayList<>();
 
-        // One query pulls everything needed via JOINs.
-        // GROUP_CONCAT aggregates multiple service names per booking into one row.
         final String SQL = """
         SELECT
             b.booking_id,
@@ -61,25 +61,26 @@ public class BookingDAO implements BookingDAOInterface {
             u.phone_number,
 
             p.package_name,
+            p.price             AS package_price,
 
             GROUP_CONCAT(s.service_name ORDER BY s.service_name SEPARATOR ', ')
                                 AS services,
 
             pay.payment_status,
-            pay.amount,
+            pay.amount          AS paid_amount,
             pay.payment_method
         FROM Booking b
         JOIN User    u   ON b.user_id    = u.user_id
         JOIN Package p   ON b.package_id = p.package_id
         LEFT JOIN Package_Service ps ON p.package_id  = ps.package_id
         LEFT JOIN Services        s  ON ps.service_id = s.service_id
-        LEFT JOIN Payment         pay ON b.booking_id = pay.booking_id
+        LEFT JOIN Payment        pay ON b.booking_id  = pay.booking_id
         GROUP BY
             b.booking_id, b.event_date, b.event_address, b.notes, b.status,
             u.user_name, u.email, u.phone_number,
-            p.package_name,
+            p.package_name, p.price,
             pay.payment_status, pay.amount, pay.payment_method
-        ORDER BY b.booking_id DESC;
+        ORDER BY b.booking_id DESC
     """;
 
         try (PreparedStatement pStm = conn.prepareStatement(SQL);
@@ -88,15 +89,12 @@ public class BookingDAO implements BookingDAOInterface {
             while (rs.next()) {
                 Booking booking = new Booking();
 
-                // Core
                 booking.setBookingId(rs.getInt("booking_id"));
-                booking.setUserId(rs.getInt("user_id"));
-                booking.setPackageId(rs.getInt("package_id"));
+                // user_id / package_id are NOT in SELECT — do not read them here
                 booking.setStatus(rs.getString("booking_status"));
                 booking.setEventAddress(rs.getString("event_address"));
                 booking.setNotes(rs.getString("notes"));
 
-                // Dates — rs.getDate() returns java.sql.Date, .toLocalDate() converts it
                 java.sql.Date eventDate = rs.getDate("event_date");
                 if (eventDate != null) booking.setEventDate(eventDate.toLocalDate());
 
@@ -107,11 +105,12 @@ public class BookingDAO implements BookingDAOInterface {
 
                 // Package
                 booking.setPackageName(rs.getString("package_name"));
-                booking.setServices(rs.getString("services"));   // "Photography, Catering, DJ"
+                booking.setPackagePrice(rs.getBigDecimal("package_price")); // NEW
+                booking.setServices(rs.getString("services"));
 
-                // Payment (LEFT JOIN — could be null if no payment record yet)
+                // Payment (LEFT JOIN — may be null)
                 booking.setPaymentStatus(rs.getString("payment_status"));
-                booking.setAmount(rs.getBigDecimal("amount"));
+                booking.setAmount(rs.getBigDecimal("paid_amount"));         // actual paid amount
                 booking.setPaymentMethod(rs.getString("payment_method"));
 
                 bookings.add(booking);
@@ -122,6 +121,7 @@ public class BookingDAO implements BookingDAOInterface {
 
         return bookings;
     }
+
 
     // ----------------------------------------------------------------
 // GET BOOKINGS BY USER ID

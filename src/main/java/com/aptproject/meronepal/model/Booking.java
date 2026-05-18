@@ -109,6 +109,19 @@ public class Booking {
     public void setAmount(BigDecimal amount)            { this.amount = amount; }
     public void setPaymentMethod(String paymentMethod)  { this.paymentMethod = paymentMethod; }
 
+    // ── Add this field + getter + setter to your existing Booking.java ──
+// Place the field alongside the other joined fields (around line 20),
+// and the getter/setter alongside the other joined getters/setters.
+
+    // ── Field ──────────────────────────────────────────────────────────
+    private BigDecimal packagePrice;   // p.price — the package's catalogue price
+
+    // ── Getter ─────────────────────────────────────────────────────────
+    public BigDecimal getPackagePrice()                   { return packagePrice; }
+
+    // ── Setter ─────────────────────────────────────────────────────────
+    public void setPackagePrice(BigDecimal packagePrice)  { this.packagePrice = packagePrice; }
+
     // ----------------------------------------------------------------
     // toString
     // ----------------------------------------------------------------

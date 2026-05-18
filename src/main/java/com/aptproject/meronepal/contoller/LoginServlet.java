@@ -154,12 +154,18 @@ public class LoginServlet extends HttpServlet {
                 boolean matched = PasswordUtil.checkPassword(typedPassword, hashedPassword);
                 if (matched) {
                     SessionUtil.setAttribute(request, "user", user) ;
+                    SessionUtil.setAttribute(request, "role", user.getUserRole());
                     CookieUtil.addCookie(response, "UserName", user.getUserName(), 30*60);
 
                     System.out.println(user.getUserName());
                     System.out.println(user.getEmail());
+                    System.out.println(user.getUserRole());
 
-                    response.sendRedirect(request.getContextPath() + "/home");
+                    if ("Admin".equalsIgnoreCase(user.getUserRole())) {
+                        response.sendRedirect(request.getContextPath() + "/dashboard");
+                    } else {
+                        response.sendRedirect(request.getContextPath() + "/home");
+                    }
                 } else {
 >>>>>>> 87f3a87 (Adding Error Handeling in Register and login)
                     request.setAttribute("error", "email or password mismatch!");

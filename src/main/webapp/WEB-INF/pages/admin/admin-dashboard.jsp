@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
 contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
+=======
+<%@ page contentType="text/html" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+>>>>>>> f3cda60 (admin dashbaord)
 <!doctype html>
 <html lang="en">
   <head>
@@ -16,6 +21,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
     />
+<<<<<<< HEAD
     <link
       rel="icon"
       type="image/x-icon"
@@ -25,6 +31,11 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
       rel="stylesheet"
       href="${pageContext.request.contextPath}/assets/css/styles.css"
     />
+=======
+    <%-- CORRECT --%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css" />
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" />
+>>>>>>> f3cda60 (admin dashbaord)
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap");
 
@@ -419,8 +430,54 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
       class="fixed inset-0 opacity-5 pointer-events-none grain-overlay"
     ></div>
 
+<<<<<<< HEAD
      <%@ include file="/WEB-INF/pages/components/mobile-top-bar.jsp" %>
         <%@ include file="/WEB-INF/pages/components/mobile-nav-drawer-admin.jsp" %>  
+=======
+    <!-- ── MOBILE TOP BAR ── -->
+    <div
+      class="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-14 bg-[#0a0a0a]"
+      style="border-bottom: 1px solid var(--border)"
+    >
+      <div class="text-xl font-black">
+        M<span style="color: var(--gold)">.NP</span>
+      </div>
+      <button
+        id="nav-toggle"
+        class="flex flex-col gap-[5px] p-1"
+        aria-label="Toggle menu"
+      >
+        <span
+          id="bar1"
+          class="block w-6 h-px bg-white"
+          style="transition: transform 0.25s, opacity 0.25s;"
+        ></span>
+        <span
+          id="bar2"
+          class="block w-6 h-px bg-white"
+          style="transition: opacity 0.25s"
+        ></span>
+        <span
+          id="bar3"
+          class="block w-4 h-px bg-white"
+          style="transition: transform 0.25s"
+        ></span>
+      </button>
+    </div>
+
+    <!-- ── MOBILE NAV DRAWER ── -->
+    <nav
+      id="mobile-nav"
+      class="md:hidden fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col justify-center items-center gap-10"
+      style="transform: translateX(100%); transition: transform 0.3s ease"
+    >
+      <a href="admin-dashboard.jsp" class="text-3xl font-black uppercase tracking-widest active">Dashboard</a>
+      <a href="admin-bookings.jsp" class="text-3xl font-black uppercase tracking-widest">Bookings</a>
+      <a href="admin-services.jsp" class="text-3xl font-black uppercase tracking-widest">Services</a>
+      <a href="../auth/login.jsp" class="uppercase btn-secondary mt-4">Login</a>
+      <a href="../../index.jsp" class="uppercase btn-primary mt-4">Visit Site</a>
+    </nav>
+>>>>>>> f3cda60 (admin dashbaord)
 
     <!-- ── MAIN 3-COLUMN LAYOUT ── -->
     <div
@@ -429,15 +486,23 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
   <%@ include file="/WEB-INF/pages/components/left-rail-auth.jsp" %> 
       <!-- CENTER — MAIN CONTENT -->
       <main class="pt-14 md:pt-0">
-        <!-- Dashboard (no sidebar, content fills center) -->
         <div class="dashboard-main">
+
+          <!-- ── Page Header ── -->
           <div class="page-header">
             <h2>Dashboard</h2>
             <p>Welcome back, Admin. Here's the latest overview.</p>
           </div>
 
-          <!-- Stats -->
+          <!-- ── Stat Cards ── -->
           <div class="grid-4" style="margin-bottom: 40px">
+
+            <div class="stat-card">
+              <div class="stat-label">Total Users</div>
+              <div class="stat-value">${userCount}</div>
+              <div class="stat-change">Registered accounts</div>
+            </div>
+
             <div class="stat-card">
               <div class="stat-label">Total Users</div>
               <div class="stat-value">${userCount}</div>
@@ -449,8 +514,10 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
               <div class="stat-value">${totalBookings}</div>
               <div class="stat-change">All time</div>
             </div>
+
           </div>
 
+<<<<<<< HEAD
           <!-- Bookings by Package -->
           <div class="page-header flex-between" style="margin-bottom: 20px">
             <h4>Bookings by Package</h4>
@@ -459,6 +526,12 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
               class="btn btn-ghost btn-sm"
               >View All →</a
             >
+=======
+          <!-- ── Bookings by Package ── -->
+          <div class="page-header flex-between" style="margin-bottom: 20px">
+            <h4>Bookings by Package</h4>
+            <a href="admin-bookings.jsp" class="btn btn-ghost btn-sm">View All →</a>
+>>>>>>> f3cda60 (admin dashbaord)
           </div>
 
           <div class="table-wrap" style="margin-bottom: 40px">
@@ -495,6 +568,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
             </table>
           </div>
 
+<<<<<<< HEAD
           <!-- Recent Bookings -->
           <div class="page-header flex-between" style="margin-bottom: 20px">
             <h4>Recent Bookings</h4>
@@ -503,7 +577,14 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
               class="btn btn-ghost btn-sm"
               >View All →</a
             >
+=======
+          <!-- ── Recent Bookings ── -->
+          <div class="page-header flex-between" style="margin-bottom: 20px">
+            <h4>Recent Bookings</h4>
+            <a href="admin-bookings.jsp" class="btn btn-ghost btn-sm">View All →</a>
+>>>>>>> f3cda60 (admin dashbaord)
           </div>
+
           <div class="table-wrap">
             <table class="data-table">
               <thead>
@@ -579,15 +660,110 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
               </tbody>
             </table>
           </div>
-        </div>
 
+<<<<<<< HEAD
         <%@ include file="/WEB-INF/pages/components/footer-admin.jsp" %>
-      </main>
+=======
+        </div>
+        <!-- end dashboard-main -->
 
+        <!-- ── FOOTER ── -->
+        <div class="footer">
+          <div class="container">
+            <div class="container2">
+              <div class="mero-nepal">Mero Nepal Production</div>
+              <div class="text">
+                Cinematic photography and media production based in Nepal. We
+                capture the moments that define your story.
+              </div>
+            </div>
+            <div class="container5">
+              <div>
+                <div class="navigation">Navigation</div>
+                <br />
+                <div class="list">
+                  <div><a href="admin-dashboard.jsp">Dashboard</a></div>
+                  <div><a href="admin-bookings.jsp">Bookings</a></div>
+                  <div><a href="admin-services.jsp">Services</a></div>
+                </div>
+              </div>
+              <div>
+                <div class="legal">Other Actions</div>
+                <br />
+                <div class="list">
+                  <div><a href="../auth/login.jsp">Logout</a></div>
+                  <div><a href="../../index.jsp">View Site</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="horizontal-border2">
+            <div class="_2024-mero-nepal-production-the-modern-auteur">
+              ©
+              <script>document.write(new Date().getFullYear());</script>
+              Mero Nepal Production. All rights reserved.
+            </div>
+          </div>
+        </div>
+        <!-- end footer -->
+
+>>>>>>> f3cda60 (admin dashbaord)
+      </main>
+      <!-- end center -->
+
+<<<<<<< HEAD
        <%@ include file="/WEB-INF/pages/components/right-rail-admin.jsp" %>
     </div>
     <!-- end 3-col grid -->
 
    <%@ include file="/WEB-INF/pages/components/mobile-nav-script.jsp" %> 
+=======
+      <!-- RIGHT RAIL -->
+      <aside
+        class="hidden md:flex flex-col justify-between p-12 border-l border-white/10 sticky top-0 h-screen"
+      >
+        <nav class="space-y-6">
+          <a href="admin-dashboard.jsp" class="block uppercase active">Dashboard</a>
+          <a href="admin-bookings.jsp" class="block uppercase">Bookings</a>
+          <a href="admin-services.jsp" class="block uppercase">Services</a>
+          <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
+            <a href="../auth/login.jsp" class="uppercase btn-secondary">Logout</a>
+            <a href="../../index.jsp" class="uppercase btn-primary">Visit Site</a>
+          </div>
+        </nav>
+      </aside>
+
+    </div>
+    <!-- end 3-col grid -->
+
+    <!-- ── MOBILE NAV SCRIPT ── -->
+    <script>
+      const toggle = document.getElementById("nav-toggle");
+      const drawer = document.getElementById("mobile-nav");
+      const bar1   = document.getElementById("bar1");
+      const bar2   = document.getElementById("bar2");
+      const bar3   = document.getElementById("bar3");
+      let isOpen   = false;
+
+      toggle.addEventListener("click", () => {
+        isOpen = !isOpen;
+        drawer.style.transform = isOpen ? "translateX(0)" : "translateX(100%)";
+        bar1.style.transform   = isOpen ? "translateY(6px) rotate(45deg)" : "";
+        bar2.style.opacity     = isOpen ? "0" : "1";
+        bar3.style.transform   = isOpen ? "translateY(-6px) rotate(-45deg)" : "";
+        bar3.style.width       = isOpen ? "24px" : "";
+      });
+
+      drawer.querySelectorAll("a").forEach((a) =>
+        a.addEventListener("click", () => {
+          isOpen = false;
+          drawer.style.transform = "translateX(100%)";
+          bar1.style.transform   = bar3.style.transform = "";
+          bar2.style.opacity     = "1";
+          bar3.style.width       = "";
+        })
+      );
+    </script>
+>>>>>>> f3cda60 (admin dashbaord)
   </body>
 </html>

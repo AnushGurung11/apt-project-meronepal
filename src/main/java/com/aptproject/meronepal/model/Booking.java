@@ -54,6 +54,11 @@ public class Booking {
     private BigDecimal amount;
     private String paymentMethod;
 
+    // --- aggregation / computed field (not a DB column) ---
+    private int bookingCount;
+
+    public int getBookingCount()                      { return bookingCount; }
+    public void setBookingCount(int bookingCount)     { this.bookingCount = bookingCount; }
     // ----------------------------------------------------------------
     // Constructors
     // ----------------------------------------------------------------

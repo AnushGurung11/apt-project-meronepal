@@ -342,7 +342,15 @@ public class BookingDAO implements BookingDAOInterface {
             return false;
         }
     }
+    /**
+     * Retrieves the total number of bookings in the system.
+     *
+     * @return total booking count as {@code int}, or {@code -1} on SQL error
+     */
+    public int getTotalBookingCount() throws SQLException {
+        final String GET_BOOKING_COUNT = "SELECT COUNT(*) FROM booking;";
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     /**
      * Counts total number of bookings in the system.
@@ -353,6 +361,8 @@ public class BookingDAO implements BookingDAOInterface {
     public int getTotalBookingCount() throws SQLException {
         final String GET_BOOKING_COUNT = "SELECT COUNT(*) FROM booking;";
 
+=======
+>>>>>>> f3cda60 (admin dashbaord)
         try (PreparedStatement statement = conn.prepareStatement(GET_BOOKING_COUNT)) {
             ResultSet resultSet = statement.executeQuery();
 
@@ -370,16 +380,34 @@ public class BookingDAO implements BookingDAOInterface {
     }
 
     /**
+<<<<<<< HEAD
      * Fetches booking counts grouped by package.
      *
      * @return {@code ArrayList<Booking>}: list with {@code packageId}, {@code packageName}, and {@code bookingCount} set, empty list on error
      * @throws SQLException if database query fails
+=======
+     * Retrieves booking counts grouped by package.
+     * Uses the Booking model — only packageId and packageName
+     * are populated; bookingCount is stored in the amount field
+     *
+     * Returns a list where each entry represents one package group,
+     * with packageId, packageName set, and bookingCount readable
+     * via a dedicated int field using a lightweight Booking subclass.
+     *
+     * @return {@code ArrayList<Booking>} one entry per package,
+     *         with packageId, packageName, and bookingCount populated.
+     *         Returns empty list on SQL error.
+>>>>>>> f3cda60 (admin dashbaord)
      */
     public ArrayList<Booking> getBookingCountByPackage() throws SQLException {
         final String GET_GROUPED =
                 "SELECT b.package_id, p.package_name, COUNT(*) AS booking_count " +
                         "FROM booking b " +
+<<<<<<< HEAD
                         "JOIN `package` p ON b.package_id = p.package_id " +
+=======
+                        "JOIN `package` p ON b.package_id = p.package_id " +  // ← backticks
+>>>>>>> f3cda60 (admin dashbaord)
                         "GROUP BY b.package_id, p.package_name " +
                         "ORDER BY booking_count DESC;";
 
@@ -392,7 +420,11 @@ public class BookingDAO implements BookingDAOInterface {
                 Booking booking = new Booking();
                 booking.setPackageId(resultSet.getInt("package_id"));
                 booking.setPackageName(resultSet.getString("package_name"));
+<<<<<<< HEAD
                 booking.setBookingCount(resultSet.getInt("booking_count"));
+=======
+                booking.setBookingCount(resultSet.getInt("booking_count")); // ← use proper field
+>>>>>>> f3cda60 (admin dashbaord)
                 list.add(booking);
             }
             return list;
@@ -403,12 +435,15 @@ public class BookingDAO implements BookingDAOInterface {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Fetches the 10 most recent bookings with user, package, and payment data.
      *
      * @return {@code ArrayList<Booking>}: list of recent bookings, empty list on error
      * @throws SQLException if database query fails
      */
+=======
+>>>>>>> f3cda60 (admin dashbaord)
     public ArrayList<Booking> getRecentBookings() throws SQLException {
         final String GET_RECENT =
                 "SELECT b.booking_id, b.event_date, b.status, " +
@@ -417,7 +452,11 @@ public class BookingDAO implements BookingDAOInterface {
                         "       pay.payment_status, pay.amount, pay.payment_method " +
                         "FROM booking b " +
                         "JOIN user u          ON b.user_id    = u.user_id " +
+<<<<<<< HEAD
                         "JOIN `package` p     ON b.package_id = p.package_id " +
+=======
+                        "JOIN `package` p     ON b.package_id = p.package_id " +  // ← backticks
+>>>>>>> f3cda60 (admin dashbaord)
                         "LEFT JOIN payment pay ON pay.booking_id = b.booking_id " +
                         "ORDER BY b.booking_id DESC " +
                         "LIMIT 10;";
@@ -431,6 +470,10 @@ public class BookingDAO implements BookingDAOInterface {
                 Booking booking = new Booking();
                 booking.setBookingId(rs.getInt("booking_id"));
 
+<<<<<<< HEAD
+=======
+                // ── Null-safe date ──────────────────────────────────
+>>>>>>> f3cda60 (admin dashbaord)
                 java.sql.Date eventDate = rs.getDate("event_date");
                 if (eventDate != null) booking.setEventDate(eventDate.toLocalDate());
 
@@ -440,11 +483,20 @@ public class BookingDAO implements BookingDAOInterface {
                 booking.setPhoneNumber(rs.getString("phone_number"));
                 booking.setPackageName(rs.getString("package_name"));
 
+<<<<<<< HEAD
                 String paymentStatus = rs.getString("payment_status");
                 booking.setPaymentStatus(paymentStatus != null ? paymentStatus : "Unpaid");
 
                 booking.setAmount(rs.getBigDecimal("amount"));
                 booking.setPaymentMethod(rs.getString("payment_method"));
+=======
+                // ── Null-safe payment (LEFT JOIN may return nulls) ──
+                String paymentStatus = rs.getString("payment_status");
+                booking.setPaymentStatus(paymentStatus != null ? paymentStatus : "Unpaid");
+
+                booking.setAmount(rs.getBigDecimal("amount"));        // BigDecimal handles null fine
+                booking.setPaymentMethod(rs.getString("payment_method")); // String handles null fine
+>>>>>>> f3cda60 (admin dashbaord)
 
                 list.add(booking);
             }

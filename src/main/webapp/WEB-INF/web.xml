@@ -1,7 +1,4 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
+<?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
@@ -10,5 +7,29 @@
          metadata-complete="false">
 
   <display-name>Mero Nepal Production</display-name>
+
+  <!-- Welcome file (optional) -->
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <!-- Custom error page for 404 - Not Found -->
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/pages/errors/404.jsp</location>
+  </error-page>
+
+  <!-- Custom error page for 500 - Internal Server Error -->
+  <error-page>
+    <error-code>500</error-code>
+    <location>/WEB-INF/pages/errors/500.jsp</location>
+  </error-page>
+
+  <!-- Catch unhandled exceptions -->
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/WEB-INF/pages/errors/500.jsp</location>
+  </error-page>
+
 
 </web-app>

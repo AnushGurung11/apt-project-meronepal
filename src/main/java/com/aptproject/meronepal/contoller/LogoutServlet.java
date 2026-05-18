@@ -40,10 +40,14 @@ public class LogoutServlet extends HttpServlet {
 
         // Expire the UserName cookie by setting its max age to 0
 <<<<<<< HEAD
+<<<<<<< HEAD
         CookieUtil.deleteCookie(response, "user");
 =======
         CookieUtil.addCookie(response, "UserName", "", 0);
 >>>>>>> 25e2045 (Logout)
+=======
+        CookieUtil.deleteCookie(response, "user");
+>>>>>>> a37e247 (admin service and packages view)
 
         // Redirect to login page
         response.sendRedirect(request.getContextPath() + "/login");

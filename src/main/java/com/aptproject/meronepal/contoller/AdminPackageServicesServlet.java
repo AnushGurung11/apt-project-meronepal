@@ -1,6 +1,9 @@
 package com.aptproject.meronepal.contoller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a37e247 (admin service and packages view)
 import com.aptproject.meronepal.dao.PackageServiceDAO;
 import com.aptproject.meronepal.dao.ServiceDAO;
 import com.aptproject.meronepal.model.PackageService;
@@ -123,7 +126,10 @@ public class AdminPackageServicesServlet extends HttpServlet {
             );
         }
     }
+<<<<<<< HEAD
 =======
 public class AdminPackageServicesServlet {
 >>>>>>> 25e2045 (Logout)
+=======
+>>>>>>> a37e247 (admin service and packages view)
 }

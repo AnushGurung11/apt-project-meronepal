@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 
 /**
  * DAO for managing service data in the database.
@@ -22,6 +23,12 @@ public class ServiceDAO implements ServiceDAOInterface {
      * Constructor — initializes database connection via {@code DBConfig}.
      * Catches and logs {@code SQLException} or {@code ClassNotFoundException}.
      */
+=======
+
+public class ServiceDAO implements ServiceDAOInterface {
+    private Connection conn;
+
+>>>>>>> a37e247 (admin service and packages view)
     public ServiceDAO() {
         try {
             conn = DBConfig.getConnection();
@@ -56,6 +63,7 @@ public class ServiceDAO implements ServiceDAOInterface {
         }
         return null;
     }
+<<<<<<< HEAD
 
     /**
      * Fetches all active services from the database.
@@ -114,6 +122,52 @@ public class ServiceDAO implements ServiceDAOInterface {
     @Override
     public int insertService(String serviceName, String serviceType, String description) {
         try {
+=======
+
+    /** Returns every active service in the database. */
+    public List<Service> getAllServices() {
+        List<Service> services = new ArrayList<>();
+        try {
+            final String SQL = "SELECT * FROM Services WHERE is_active = 1 ORDER BY service_id;";
+            PreparedStatement pStm = conn.prepareStatement(SQL);
+            ResultSet rs = pStm.executeQuery();
+            while (rs.next()) {
+                Service s = new Service();
+                s.setServiceId(rs.getInt("service_id"));
+                s.setServiceName(rs.getString("service_name"));
+                s.setServiceType(rs.getString("service_type"));
+                s.setDescription(rs.getString("description"));
+                services.add(s);
+            }
+            pStm.close();
+        } catch (SQLException ex) {
+            System.out.println("Error fetching all services: " + ex.getLocalizedMessage());
+        }
+        return services;
+    }
+
+    /**
+     * Soft-deletes a service by setting is_active = 0.
+     * Returns the number of rows affected (1 on success, 0 on failure).
+     */
+    public int deleteService(int serviceId) {
+        try {
+            final String SQL = "UPDATE Services SET is_active = 0 WHERE service_id = ?;";
+            PreparedStatement pStm = conn.prepareStatement(SQL);
+            pStm.setInt(1, serviceId);
+            int rows = pStm.executeUpdate();
+            pStm.close();
+            return rows;
+        } catch (SQLException ex) {
+            System.out.println("Error deleting service: " + ex.getLocalizedMessage());
+            return 0;
+        }
+    }
+
+    @Override
+    public int insertService(String serviceName, String serviceType, String description) {
+        try {
+>>>>>>> a37e247 (admin service and packages view)
             final String INSERT_SERVICE =
                     "INSERT INTO Services (service_name, service_type, description) VALUES (?, ?, ?);";
             PreparedStatement pStm = conn.prepareStatement(INSERT_SERVICE);

@@ -15,6 +15,7 @@ import java.util.List;
  * Handles CRUD operations for the {@code Package_Service} junction table.
  */
 public class PackageServiceDAO implements PackageServiceDAOInterface {
+<<<<<<< HEAD
 
     private Connection conn;
 
@@ -22,6 +23,10 @@ public class PackageServiceDAO implements PackageServiceDAOInterface {
      * Constructor — initializes database connection via {@code DBConfig}.
      * Catches and logs {@code SQLException} or {@code ClassNotFoundException}.
      */
+=======
+    private Connection conn;
+
+>>>>>>> a37e247 (admin service and packages view)
     public PackageServiceDAO() {
         try {
             conn = DBConfig.getConnection();
@@ -30,12 +35,16 @@ public class PackageServiceDAO implements PackageServiceDAOInterface {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Fetches a single package-service link by its primary key.
      *
      * @param packageServiceID {@code int}: ID of the package-service link to fetch
      * @return {@code PackageService}: the link object if found, {@code null} otherwise
      */
+=======
+    /** Fetch a single PackageService row by its primary key. */
+>>>>>>> a37e247 (admin service and packages view)
     @Override
     public PackageService getPackageService(int packageServiceID) {
         try {
@@ -57,9 +66,14 @@ public class PackageServiceDAO implements PackageServiceDAOInterface {
     }
 
     /**
+<<<<<<< HEAD
      * Fetches all active package-service links with package and service names.
      *
      * @return {@code List<PackageService>}: list of links with names populated, empty list on error
+=======
+     * Returns all Package_Service rows joined with Package and Services
+     * so that packageName and serviceName are available for display.
+>>>>>>> a37e247 (admin service and packages view)
      */
     public List<PackageService> getAllPackageServicesWithNames() {
         List<PackageService> list = new ArrayList<>();
@@ -91,12 +105,16 @@ public class PackageServiceDAO implements PackageServiceDAOInterface {
         return list;
     }
 
+<<<<<<< HEAD
     /**
      * Fetches all service links for a specific package.
      *
      * @param packageId {@code int}: ID of the package whose services to fetch
      * @return {@code List<PackageService>}: list of service links for the package, empty list on error
      */
+=======
+    /** Returns all Package_Service rows for a specific package. */
+>>>>>>> a37e247 (admin service and packages view)
     public List<PackageService> getPackageServicesByPackageId(int packageId) {
         List<PackageService> list = new ArrayList<>();
         try {
@@ -122,6 +140,47 @@ public class PackageServiceDAO implements PackageServiceDAOInterface {
             System.out.println(ex.getLocalizedMessage());
         }
         return list;
+<<<<<<< HEAD
+=======
+    }
+
+    /**
+     * Hard-deletes a Package_Service link row.
+     * Returns rows affected (1 on success, 0 on failure).
+     */
+    public int deletePackageService(int packageServiceId) {
+        try {
+            final String SQL = "DELETE FROM Package_Service WHERE package_service_id = ?;";
+            PreparedStatement pStm = conn.prepareStatement(SQL);
+            pStm.setInt(1, packageServiceId);
+            int rows = pStm.executeUpdate();
+            pStm.close();
+            return rows;
+        } catch (SQLException ex) {
+            System.out.println("Error deleting package-service link: " + ex.getLocalizedMessage());
+            return 0;
+        }
+    }
+
+    /**
+     * Inserts a new Package_Service link.
+     * Returns rows affected (1 on success, 0 on failure).
+     */
+    public int insertPackageService(int packageId, int serviceId) {
+        try {
+            final String SQL =
+                    "INSERT INTO Package_Service (package_id, service_id) VALUES (?, ?);";
+            PreparedStatement pStm = conn.prepareStatement(SQL);
+            pStm.setInt(1, packageId);
+            pStm.setInt(2, serviceId);
+            int rows = pStm.executeUpdate();
+            pStm.close();
+            return rows;
+        } catch (SQLException ex) {
+            System.out.println("Error inserting package-service link: " + ex.getLocalizedMessage());
+            return 0;
+        }
+>>>>>>> a37e247 (admin service and packages view)
     }
 
     /**

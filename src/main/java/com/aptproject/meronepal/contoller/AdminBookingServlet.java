@@ -30,6 +30,7 @@ public class AdminBookingServlet extends HttpServlet {
     // ----------------------------------------------------------------
     // GET — load all bookings and forward to JSP
     // ----------------------------------------------------------------
+<<<<<<< HEAD
     /**
      * doGet — fetches all bookings and displays them in admin view
      *
@@ -38,10 +39,13 @@ public class AdminBookingServlet extends HttpServlet {
      * @throws ServletException if servlet processing fails
      * @throws IOException      if forward or I/O operation fails
      */
+=======
+>>>>>>> 9d49e9f (Admin Booking View)
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+<<<<<<< HEAD
         // ── Fetch all bookings from DAO ───────────────────────────
         BookingDAO bookingDAO = new BookingDAO();
         List<Booking> allBookings = bookingDAO.getAllBooking();
@@ -50,6 +54,13 @@ public class AdminBookingServlet extends HttpServlet {
         request.setAttribute("allBookings", allBookings);
 
         // ── Forward to admin bookings JSP ─────────────────────────
+=======
+        BookingDAO bookingDAO = new BookingDAO();
+        List<Booking> allBookings = bookingDAO.getAllBooking();
+
+        request.setAttribute("allBookings", allBookings);
+
+>>>>>>> 9d49e9f (Admin Booking View)
         RequestDispatcher rd = request.getRequestDispatcher(
                 "/WEB-INF/pages/admin/admin-bookings.jsp");
         rd.forward(request, response);
@@ -61,6 +72,7 @@ public class AdminBookingServlet extends HttpServlet {
     //   action=updateBookingStatus  → bookingId + bookingStatus
     //   action=updatePaymentStatus  → bookingId + paymentStatus
     // ----------------------------------------------------------------
+<<<<<<< HEAD
     /**
      * doPost — processes admin actions to update booking or payment status
      *
@@ -77,11 +89,16 @@ public class AdminBookingServlet extends HttpServlet {
      * After processing, redirects to {@code /admin-booking} with success/error flag
      * to prevent duplicate form submission (Post-Redirect-Get pattern)
      */
+=======
+>>>>>>> 9d49e9f (Admin Booking View)
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+<<<<<<< HEAD
         // ── Read and validate required parameters ─────────────────
+=======
+>>>>>>> 9d49e9f (Admin Booking View)
         String action      = request.getParameter("action");
         String bookingIdStr = request.getParameter("bookingId");
 
@@ -92,7 +109,10 @@ public class AdminBookingServlet extends HttpServlet {
             return;
         }
 
+<<<<<<< HEAD
         // ── Parse bookingId safely ────────────────────────────────
+=======
+>>>>>>> 9d49e9f (Admin Booking View)
         int bookingId;
         try {
             bookingId = Integer.parseInt(bookingIdStr);
@@ -104,7 +124,10 @@ public class AdminBookingServlet extends HttpServlet {
 
         BookingDAO bookingDAO = new BookingDAO();
 
+<<<<<<< HEAD
         // ── Route based on action type ────────────────────────────
+=======
+>>>>>>> 9d49e9f (Admin Booking View)
         switch (action) {
 
             // ── Update Booking Status ────────────────────────────
@@ -152,16 +175,26 @@ public class AdminBookingServlet extends HttpServlet {
                 break;
             }
 
+<<<<<<< HEAD
             // ── Handle unknown action ─────────────────────────────
+=======
+>>>>>>> 9d49e9f (Admin Booking View)
             default:
                 request.setAttribute("errorMessage", "Unknown action: " + action);
         }
 
+<<<<<<< HEAD
         // ── Redirect to GET to avoid duplicate submission ─────────
+=======
+>>>>>>> 9d49e9f (Admin Booking View)
         // Always redirect back to GET (Post-Redirect-Get pattern) so a
         // page refresh does not re-submit the form.
         response.sendRedirect(request.getContextPath() + "/admin-booking"
                 + (request.getAttribute("successMessage") != null
                 ? "?success=1" : "?error=1"));
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9d49e9f (Admin Booking View)

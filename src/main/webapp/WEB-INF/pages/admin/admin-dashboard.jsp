@@ -657,7 +657,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                     </tr>
                   </c:otherwise>
                 </c:choose>
-              </tbody>
+              </body>
             </table>
           </div>
 

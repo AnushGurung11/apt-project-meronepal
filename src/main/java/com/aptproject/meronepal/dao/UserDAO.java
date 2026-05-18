@@ -322,4 +322,31 @@ public class UserDAO implements UserDAOInterface {
     }
 
     }
+
+    /**
+     * Retrieves the total number of users registered in the system.
+     *
+     * @return the total user count as an {@code int}, or {@code -1} on SQL error
+     * @throws SQLException
+     */
+    public int getUserCount() throws SQLException {
+        final String GET_USER_COUNT = "SELECT COUNT(*) FROM user;";
+
+        try (PreparedStatement statement = conn.prepareStatement(GET_USER_COUNT)) {
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                System.out.println("Total users: " + count);
+                return count;
+            }
+
+            return 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // SQL Error
+            return -1;
+        }
+    }
 }

@@ -245,6 +245,118 @@ public class BookingDAO implements BookingDAOInterface {
             return false;
         }
     }
+    /**
+     * Retrieves the total number of bookings in the system.
+     *
+     * @return total booking count as {@code int}, or {@code -1} on SQL error
+     */
+    public int getTotalBookingCount() throws SQLException {
+        final String GET_BOOKING_COUNT = "SELECT COUNT(*) FROM booking;";
 
+        try (PreparedStatement statement = conn.prepareStatement(GET_BOOKING_COUNT)) {
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                System.out.println("Total bookings: " + count);
+                return count;
+            }
+            return 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**
+     * Retrieves booking counts grouped by package.
+     * Uses the Booking model — only packageId and packageName
+     * are populated; bookingCount is stored in the amount field
+     *
+     * Returns a list where each entry represents one package group,
+     * with packageId, packageName set, and bookingCount readable
+     * via a dedicated int field using a lightweight Booking subclass.
+     *
+     * @return {@code ArrayList<Booking>} one entry per package,
+     *         with packageId, packageName, and bookingCount populated.
+     *         Returns empty list on SQL error.
+     */
+    public ArrayList<Booking> getBookingCountByPackage() throws SQLException {
+        final String GET_GROUPED =
+                "SELECT b.package_id, p.package_name, COUNT(*) AS booking_count " +
+                        "FROM booking b " +
+                        "JOIN `package` p ON b.package_id = p.package_id " +  // ← backticks
+                        "GROUP BY b.package_id, p.package_name " +
+                        "ORDER BY booking_count DESC;";
+
+        ArrayList<Booking> list = new ArrayList<>();
+
+        try (PreparedStatement statement = conn.prepareStatement(GET_GROUPED)) {
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Booking booking = new Booking();
+                booking.setPackageId(resultSet.getInt("package_id"));
+                booking.setPackageName(resultSet.getString("package_name"));
+                booking.setBookingCount(resultSet.getInt("booking_count")); // ← use proper field
+                list.add(booking);
+            }
+            return list;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return list;
+        }
+    }
+
+    public ArrayList<Booking> getRecentBookings() throws SQLException {
+        final String GET_RECENT =
+                "SELECT b.booking_id, b.event_date, b.status, " +
+                        "       u.user_name, u.email, u.phone_number, " +
+                        "       p.package_name, " +
+                        "       pay.payment_status, pay.amount, pay.payment_method " +
+                        "FROM booking b " +
+                        "JOIN user u          ON b.user_id    = u.user_id " +
+                        "JOIN `package` p     ON b.package_id = p.package_id " +  // ← backticks
+                        "LEFT JOIN payment pay ON pay.booking_id = b.booking_id " +
+                        "ORDER BY b.booking_id DESC " +
+                        "LIMIT 10;";
+
+        ArrayList<Booking> list = new ArrayList<>();
+
+        try (PreparedStatement statement = conn.prepareStatement(GET_RECENT)) {
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Booking booking = new Booking();
+                booking.setBookingId(rs.getInt("booking_id"));
+
+                // ── Null-safe date ──────────────────────────────────
+                java.sql.Date eventDate = rs.getDate("event_date");
+                if (eventDate != null) booking.setEventDate(eventDate.toLocalDate());
+
+                booking.setStatus(rs.getString("status"));
+                booking.setUserName(rs.getString("user_name"));
+                booking.setEmail(rs.getString("email"));
+                booking.setPhoneNumber(rs.getString("phone_number"));
+                booking.setPackageName(rs.getString("package_name"));
+
+                // ── Null-safe payment (LEFT JOIN may return nulls) ──
+                String paymentStatus = rs.getString("payment_status");
+                booking.setPaymentStatus(paymentStatus != null ? paymentStatus : "Unpaid");
+
+                booking.setAmount(rs.getBigDecimal("amount"));        // BigDecimal handles null fine
+                booking.setPaymentMethod(rs.getString("payment_method")); // String handles null fine
+
+                list.add(booking);
+            }
+            return list;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return list;
+        }
+    }
 
 }

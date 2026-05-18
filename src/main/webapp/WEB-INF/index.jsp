@@ -87,10 +87,17 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
   </head>
 
   <body>
+<<<<<<< HEAD
     <c:if test="${not empty errorMessage}">
       <div class="alert alert-error">${errorMessage}</div>
       <c:remove var="errorMessage" scope="session"/>
     </c:if>
+=======
+  <c:if test="${not empty errorMessage}">
+      <div class="alert alert-error">${errorMessage}</div>
+      <c:remove var="errorMessage" scope="session"/>
+  </c:if>
+>>>>>>> 390bb54 (error page handeling and filter management)
 
     <!-- Background Grid -->
     <div class="fixed inset-0 opacity-20 z-0 background-grid">

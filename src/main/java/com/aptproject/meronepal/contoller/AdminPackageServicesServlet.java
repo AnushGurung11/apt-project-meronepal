@@ -1,5 +1,6 @@
 package com.aptproject.meronepal.contoller;
 
+<<<<<<< HEAD
 import com.aptproject.meronepal.dao.PackageServiceDAO;
 import com.aptproject.meronepal.dao.ServiceDAO;
 import com.aptproject.meronepal.model.PackageService;
@@ -122,4 +123,7 @@ public class AdminPackageServicesServlet extends HttpServlet {
             );
         }
     }
+=======
+public class AdminPackageServicesServlet {
+>>>>>>> 25e2045 (Logout)
 }

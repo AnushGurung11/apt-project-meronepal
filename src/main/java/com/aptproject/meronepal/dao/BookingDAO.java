@@ -348,7 +348,7 @@ public class BookingDAO implements BookingDAOInterface {
                     booking.setServices(rs.getString("services"));
 
                     booking.setPaymentStatus(rs.getString("payment_status"));
-                    booking.setAmount(rs.getBigDecimal("package_price"));
+                    booking.setAmount(rs.getBigDecimal("amount"));
                     booking.setPaymentMethod(rs.getString("payment_method"));
 
                     bookings.add(booking);

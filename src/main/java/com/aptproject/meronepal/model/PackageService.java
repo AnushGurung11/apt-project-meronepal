@@ -135,4 +135,9 @@ public class PackageService {
                 ", serviceName='" + serviceName + '\'' +
                 '}';
     }
+
+    // ADD THESE — both were missing despite setters being present
+
+    public int getPackageServiceId() { return packageServiceId; }
+    public int getServiceId()        { return serviceId; }
 }

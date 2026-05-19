@@ -1,4 +1,3 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%--
   Reusable Profile button — designed for the RIGHT RAIL of authenticated pages.
   Replaces the previous "Logout" link on the right rail.

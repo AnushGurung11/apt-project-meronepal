@@ -1,4 +1,3 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!-- ── MOBILE TOP BAR ── -->
 <div
   class="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-14 bg-[#0a0a0a]"

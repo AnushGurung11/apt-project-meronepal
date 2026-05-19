@@ -1,4 +1,3 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!-- ── LEFT RAIL (authenticated — includes Logout) ── -->
 <aside
   class="hidden md:flex flex-col justify-between items-center py-12 border-r border-white/10 sticky top-0 h-screen"

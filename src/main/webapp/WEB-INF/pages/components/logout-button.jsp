@@ -1,4 +1,3 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%--
   Reusable Logout button — designed for the LEFT RAIL of authenticated pages.
   Include via: <%@ include file="/WEB-INF/pages/components/logout-button.jsp" %>

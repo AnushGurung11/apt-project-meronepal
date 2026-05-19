@@ -1,4 +1,3 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!-- ── FOOTER ── -->
 <div class="footer">
   <div class="container">

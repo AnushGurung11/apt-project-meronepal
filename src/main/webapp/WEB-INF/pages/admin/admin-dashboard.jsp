@@ -419,15 +419,14 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
       class="fixed inset-0 opacity-5 pointer-events-none grain-overlay"
     ></div>
 
-    <%@ include file="/WEB-INF/pages/components/mobile-top-bar.jsp" %> <%@
-    include file="/WEB-INF/pages/components/mobile-nav-drawer-admin.jsp" %>
+     <%@ include file="/WEB-INF/pages/components/mobile-top-bar.jsp" %>
+        <%@ include file="/WEB-INF/pages/components/mobile-nav-drawer-admin.jsp" %>  
 
     <!-- ── MAIN 3-COLUMN LAYOUT ── -->
     <div
       class="relative z-10 grid md:grid-cols-[80px_1fr_280px] min-h-screen border-b border-white/10"
     >
-      <%@ include file="/WEB-INF/pages/components/left-rail-auth.jsp" %>
-
+  <%@ include file="/WEB-INF/pages/components/left-rail-auth.jsp" %> 
       <!-- CENTER — MAIN CONTENT -->
       <main class="pt-14 md:pt-0">
         <!-- Dashboard (no sidebar, content fills center) -->
@@ -585,10 +584,10 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
         <%@ include file="/WEB-INF/pages/components/footer-admin.jsp" %>
       </main>
 
-      <%@ include file="/WEB-INF/pages/components/right-rail-admin.jsp" %>
+       <%@ include file="/WEB-INF/pages/components/right-rail-admin.jsp" %>
     </div>
     <!-- end 3-col grid -->
 
-    <%@ include file="/WEB-INF/pages/components/mobile-nav-script.jsp" %>
+   <%@ include file="/WEB-INF/pages/components/mobile-nav-script.jsp" %> 
   </body>
 </html>

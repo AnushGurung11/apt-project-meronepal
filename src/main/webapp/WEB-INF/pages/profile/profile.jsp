@@ -1,5 +1,7 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
-contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <!doctype html>
 <html lang="en">
   <head>
@@ -295,6 +297,11 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
         border-color: #34c759;
         color: #34c759;
       }
+      .alert-error {
+        background: rgba(192, 57, 43, 0.1);
+        border-color: var(--red);
+        color: var(--red);
+      }
 
       /* ── Utilities ── */
       .mt-8 {
@@ -349,11 +356,18 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
         <div class="profile-wrapper">
           <div class="page-header">
             <h2 class="profile-h2">My Profile</h2>
-            <p>View and update your personal details.</p>
+            <p>View and manage your personal details.</p>
           </div>
 
+          <c:if test="${not empty success}">
+            <div class="alert alert-success"><c:out value="${success}" /></div>
+          </c:if>
+          <c:if test="${not empty error}">
+            <div class="alert alert-error"><c:out value="${error}" /></div>
+          </c:if>
+
           <div class="profile-grid">
-            <!-- Profile card -->
+            <!-- Profile summary card -->
             <div class="profile-card">
               <div
                 style="
@@ -363,88 +377,69 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                   margin-bottom: 32px;
                 "
               >
-                <div class="profile-avatar">K</div>
+                <div class="profile-avatar">
+                  ${fn:toUpperCase(fn:substring(userName, 0, 1))}
+                </div>
                 <div>
                   <h3 class="profile-h3" style="margin-bottom: 4px">
-                    Krish Shrestha
+                    <c:out value="${userName}" />
                   </h3>
-                  <span class="badge badge-confirmed">Customer</span>
+                  <span class="badge badge-confirmed">
+                    <c:out value="${userRole}" />
+                  </span>
                 </div>
               </div>
+
               <div class="summary-row">
-                <span class="label">Email</span
-                ><span class="value">krish.shrestha@gmail.com</span>
+                <span class="label">Email</span>
+                <span class="value"><c:out value="${email}" /></span>
               </div>
+
               <div class="summary-row">
-                <span class="label">Phone</span
-                ><span class="value">+977 9800000001</span>
+                <span class="label">Phone</span>
+                <span class="value">
+                  <c:choose>
+                    <c:when test="${fn:startsWith(phoneNumber, '+977')}">
+                      <c:out value="${phoneNumber}" />
+                    </c:when>
+                    <c:otherwise>+977 <c:out value="${phoneNumber}" /></c:otherwise>
+                  </c:choose>
+                </span>
               </div>
+
               <div class="summary-row">
-                <span class="label">Member Since</span
-                ><span class="value">January 2025</span>
+                <span class="label">Member Since</span>
+                <span class="value"><c:out value="${formattedCreatedAt}" /></span>
               </div>
+
               <div class="summary-row">
-                <span class="label">Total Bookings</span
-                ><span class="value" style="color: var(--gold)">2</span>
+                <span class="label">Role</span>
+                <span class="value"><c:out value="${userRole}" /></span>
               </div>
             </div>
 
-            <!-- Edit form -->
+            <!-- Quick actions card -->
             <div class="profile-card">
-              <h4 class="profile-h4" style="margin-bottom: 24px">
-                Edit Details
-              </h4>
-              <form onsubmit="return false;">
-                <div class="form-row">
-                  <div class="form-group">
-                    <label class="form-label">First Name</label>
-                    <input type="text" value="Krish" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Last Name</label>
-                    <input type="text" value="Shrestha" />
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Email</label>
-                  <input type="email" value="krish.shrestha@gmail.com" />
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Phone</label>
-                  <input type="tel" value="+977 9800000001" />
-                </div>
-                <div class="divider"></div>
-                <h4 class="profile-h4" style="margin-bottom: 20px">
-                  Change Password
-                </h4>
-                <div class="form-group">
-                  <label class="form-label">Current Password</label>
-                  <input type="password" placeholder="••••••••" />
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label class="form-label">New Password</label>
-                    <input type="password" placeholder="••••••••" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Confirm</label>
-                    <input type="password" placeholder="••••••••" />
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  class="btn btn-gold mt-8"
-                  onclick="showSaved()"
-                >
-                  Save Changes
-                </button>
-              </form>
-              <div
-                class="alert alert-success mt-16"
-                id="savedMsg"
-                style="display: none"
-              >
-                Profile updated successfully.
+              <h4 class="profile-h4" style="margin-bottom: 24px">Account Actions</h4>
+
+              <div class="summary-row">
+                <span class="label">Update name, email or phone</span>
+                <a href="${pageContext.request.contextPath}/profile/update"
+                   class="btn btn-gold btn-sm">Edit Details</a>
+              </div>
+
+              <div class="summary-row">
+                <span class="label">Change your password</span>
+                <a href="${pageContext.request.contextPath}/profile/changePassword"
+                   class="btn btn-gold btn-sm">Change Password</a>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="summary-row">
+                <span class="label">View your bookings</span>
+                <a href="${pageContext.request.contextPath}/my-booking"
+                   class="btn btn-gold btn-sm">My Bookings</a>
               </div>
             </div>
           </div>
@@ -462,13 +457,5 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
 
     <%@ include file="/WEB-INF/pages/components/mobile-nav-script.jsp" %>
 
-    <!-- ── PROFILE SCRIPT ── -->
-    <script>
-      function showSaved() {
-        const msg = document.getElementById("savedMsg");
-        msg.style.display = "block";
-        setTimeout(() => (msg.style.display = "none"), 3000);
-      }
-    </script>
   </body>
 </html>

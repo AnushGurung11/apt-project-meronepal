@@ -362,6 +362,22 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
       .badge-partial::before {
         background: #ff9500;
       }
+      .badge-cancelled {
+        background: rgba(192, 57, 43, 0.12);
+        color: #e74c3c;
+      }
+      .badge-cancelled::before {
+        background: #e74c3c;
+      }
+
+      /* ── Empty State ─────────────────────────────────────────── */
+      .empty-state {
+        text-align: center;
+        padding: 48px 24px;
+        color: var(--muted);
+        font-size: 13px;
+        letter-spacing: 0.06em;
+      }
 
       /* ── Responsive ──────────────────────────────────────────── */
       @media (max-width: 1024px) {
@@ -418,37 +434,66 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
         <div class="dashboard-main">
           <div class="page-header">
             <h2>Dashboard</h2>
-            <p>Welcome back, Darshan. Here's the latest overview.</p>
+            <p>Welcome back, Admin. Here's the latest overview.</p>
           </div>
 
           <!-- Stats -->
           <div class="grid-4" style="margin-bottom: 40px">
             <div class="stat-card">
+              <div class="stat-label">Total Users</div>
+              <div class="stat-value">${userCount}</div>
+              <div class="stat-change">Registered accounts</div>
+            </div>
+
+            <div class="stat-card">
               <div class="stat-label">Total Bookings</div>
-              <div class="stat-value">7</div>
-              <div class="stat-change">↑ 2 this month</div>
+              <div class="stat-value">${totalBookings}</div>
+              <div class="stat-change">All time</div>
             </div>
-            <div class="stat-card">
-              <div class="stat-label">Revenue Collected</div>
-              <div class="stat-value">
-                <span class="currency">NPR</span>80,000
-              </div>
-              <div class="stat-change">↑ 15,000 this month</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-label">Pending Bookings</div>
-              <div class="stat-value" style="color: var(--gold)">2</div>
-              <div class="stat-change" style="color: var(--muted)">
-                Awaiting review
-              </div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-label">Avg. Rating</div>
-              <div class="stat-value">
-                4.7 <span style="font-size: 1rem; color: var(--gold)">★</span>
-              </div>
-              <div class="stat-change">From 3 reviews</div>
-            </div>
+          </div>
+
+          <!-- Bookings by Package -->
+          <div class="page-header flex-between" style="margin-bottom: 20px">
+            <h4>Bookings by Package</h4>
+            <a
+              href="${pageContext.request.contextPath}/admin-booking"
+              class="btn btn-ghost btn-sm"
+              >View All →</a
+            >
+          </div>
+
+          <div class="table-wrap" style="margin-bottom: 40px">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Package ID</th>
+                  <th>Package Name</th>
+                  <th>Total Bookings</th>
+                </tr>
+              </thead>
+              <tbody>
+                <c:choose>
+                  <c:when test="${not empty bookingsByPackage}">
+                    <c:forEach var="row" items="${bookingsByPackage}">
+                      <tr>
+                        <td style="color: var(--gold); font-family: var(--font-display)">
+                          #${row.packageId}
+                        </td>
+                        <td>${row.packageName}</td>
+                        <td>${row.bookingCount}</td>
+                      </tr>
+                    </c:forEach>
+                  </c:when>
+                  <c:otherwise>
+                    <tr>
+                      <td colspan="3" class="empty-state">
+                        No package booking data available.
+                      </td>
+                    </tr>
+                  </c:otherwise>
+                </c:choose>
+              </tbody>
+            </table>
           </div>
 
           <!-- Recent Bookings -->
@@ -473,90 +518,65 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td
-                    style="color: var(--gold); font-family: var(--font-display)"
-                  >
-                    #001
-                  </td>
-                  <td>Krish Shrestha</td>
-                  <td>Basic Package</td>
-                  <td>Feb 15, 2025</td>
-                  <td><span class="badge badge-completed">Completed</span></td>
-                  <td><span class="badge badge-paid">Paid</span></td>
-                </tr>
-                <tr>
-                  <td
-                    style="color: var(--gold); font-family: var(--font-display)"
-                  >
-                    #002
-                  </td>
-                  <td>Sudip Gautam</td>
-                  <td>Premium Package</td>
-                  <td>Mar 20, 2025</td>
-                  <td><span class="badge badge-completed">Completed</span></td>
-                  <td><span class="badge badge-paid">Paid</span></td>
-                </tr>
-                <tr>
-                  <td
-                    style="color: var(--gold); font-family: var(--font-display)"
-                  >
-                    #003
-                  </td>
-                  <td>Bijaya Khanal</td>
-                  <td>Standard Package</td>
-                  <td>Apr 10, 2025</td>
-                  <td><span class="badge badge-completed">Completed</span></td>
-                  <td><span class="badge badge-paid">Paid</span></td>
-                </tr>
-                <tr>
-                  <td
-                    style="color: var(--gold); font-family: var(--font-display)"
-                  >
-                    #004
-                  </td>
-                  <td>Arjun Bastola</td>
-                  <td>Luxury Package</td>
-                  <td>Jun 1, 2025</td>
-                  <td><span class="badge badge-confirmed">Confirmed</span></td>
-                  <td><span class="badge badge-partial">Partial</span></td>
-                </tr>
-                <tr>
-                  <td
-                    style="color: var(--gold); font-family: var(--font-display)"
-                  >
-                    #005
-                  </td>
-                  <td>Krish Shrestha</td>
-                  <td>Business Package</td>
-                  <td>May 20, 2025</td>
-                  <td><span class="badge badge-confirmed">Confirmed</span></td>
-                  <td><span class="badge badge-paid">Paid</span></td>
-                </tr>
-                <tr>
-                  <td
-                    style="color: var(--gold); font-family: var(--font-display)"
-                  >
-                    #006
-                  </td>
-                  <td>Sudip Gautam</td>
-                  <td>Documentary Package</td>
-                  <td>Jul 4, 2025</td>
-                  <td><span class="badge badge-pending">Pending</span></td>
-                  <td><span class="badge badge-unpaid">Unpaid</span></td>
-                </tr>
-                <tr>
-                  <td
-                    style="color: var(--gold); font-family: var(--font-display)"
-                  >
-                    #007
-                  </td>
-                  <td>Bijaya Khanal</td>
-                  <td>Music Video Package</td>
-                  <td>Aug 12, 2025</td>
-                  <td><span class="badge badge-pending">Pending</span></td>
-                  <td><span class="badge badge-unpaid">Unpaid</span></td>
-                </tr>
+                <c:choose>
+                  <c:when test="${not empty recentBookings}">
+                    <c:forEach var="booking" items="${recentBookings}">
+                      <tr>
+                        <td style="color: var(--gold); font-family: var(--font-display)">
+                          #${booking.bookingId}
+                        </td>
+                        <td>${booking.userName}</td>
+                        <td>${booking.packageName}</td>
+                        <td>${booking.eventDate}</td>
+                        <td>
+                          <c:choose>
+                            <c:when test="${booking.status == 'Completed'}">
+                              <span class="badge badge-completed">Completed</span>
+                            </c:when>
+                            <c:when test="${booking.status == 'Confirmed'}">
+                              <span class="badge badge-confirmed">Confirmed</span>
+                            </c:when>
+                            <c:when test="${booking.status == 'Pending'}">
+                              <span class="badge badge-pending">Pending</span>
+                            </c:when>
+                            <c:when test="${booking.status == 'Cancelled'}">
+                              <span class="badge badge-cancelled">Cancelled</span>
+                            </c:when>
+                            <c:otherwise>
+                              <span class="badge badge-pending">${booking.status}</span>
+                            </c:otherwise>
+                          </c:choose>
+                        </td>
+                        <td>
+                          <c:choose>
+                            <c:when test="${booking.paymentStatus == 'Paid'}">
+                              <span class="badge badge-paid">Paid</span>
+                            </c:when>
+                            <c:when test="${booking.paymentStatus == 'Partial'}">
+                              <span class="badge badge-partial">Partial</span>
+                            </c:when>
+                            <c:when test="${booking.paymentStatus == 'Unpaid'}">
+                              <span class="badge badge-unpaid">Unpaid</span>
+                            </c:when>
+                            <c:when test="${booking.paymentStatus == 'Refunded'}">
+                              <span class="badge badge-cancelled">Refunded</span>
+                            </c:when>
+                            <c:otherwise>
+                              <span class="badge badge-unpaid">${booking.paymentStatus}</span>
+                            </c:otherwise>
+                          </c:choose>
+                        </td>
+                      </tr>
+                    </c:forEach>
+                  </c:when>
+                  <c:otherwise>
+                    <tr>
+                      <td colspan="6" class="empty-state">
+                        No bookings found.
+                      </td>
+                    </tr>
+                  </c:otherwise>
+                </c:choose>
               </tbody>
             </table>
           </div>

@@ -189,6 +189,8 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
         padding: 9px 20px;
         font-size: 12px;
       }
+      .btn-teal { background: #1a6b6b; color: #7ee8e8; border: 1px solid #1e8080; }
+      .btn-teal:hover { background: #1e8080; transform: translateY(-1px); }
 
       /* ── Table ───────────────────────────────────────────────── */
       .table-wrap {
@@ -293,6 +295,44 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
         background: rgba(255, 149, 0, 0.12);
         color: #ff9500;
       }
+      .badge-cancelled { background: rgba(192,57,43,0.12); color: #e74c3c; }
+      .badge-cancelled::before { background: #e74c3c; }
+      .badge-refunded  { background: rgba(90,200,250,0.12); color: #5ac8fa; }
+      .badge-refunded::before  { background: #5ac8fa; }
+
+      /* ── Toast ───────────────────────────────────────────────── */
+      .toast {
+        position: fixed; top: 24px; right: 24px; z-index: 9999;
+        padding: 14px 24px; border-radius: var(--radius);
+        font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+        box-shadow: var(--shadow); max-width: 360px;
+        animation: slideIn 0.3s ease, fadeOut 0.4s ease 3.5s forwards;
+      }
+      .toast-success { background: #1a3a1a; border: 1px solid #34c759; color: #34c759; }
+      .toast-error   { background: #3a1a1a; border: 1px solid #e74c3c; color: #e74c3c; }
+      @keyframes slideIn { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+      @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; pointer-events: none; } }
+
+      /* ── Modal ───────────────────────────────────────────────── */
+      .modal-overlay {
+        display: none; position: fixed; inset: 0; z-index: 900;
+        background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
+        align-items: center; justify-content: center;
+      }
+      .modal-overlay.open { display: flex; }
+      .modal-box {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: var(--radius-lg); padding: 40px;
+        min-width: 320px; max-width: 460px; width: 90%;
+        box-shadow: var(--shadow); animation: popIn 0.2s ease;
+      }
+      @keyframes popIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+      .modal-box h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; margin-bottom: 8px; color: var(--white); }
+      .modal-box p { font-size: 13px; margin-bottom: 28px; }
+      .modal-select-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
+      .modal-select-row label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+      .modal-select-row select { width: 100%; padding: 12px 16px; font-size: 14px; }
+      .modal-actions { display: flex; gap: 12px; justify-content: flex-end; }
 
       /* ── Responsive ──────────────────────────────────────────── */
       @media (max-width: 768px) {
@@ -304,6 +344,13 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
   </head>
 
   <body>
+    <c:if test="${param.success == '1'}">
+      <div class="toast toast-success" id="toast">&#10003; Status updated successfully.</div>
+    </c:if>
+    <c:if test="${param.error == '1'}">
+      <div class="toast toast-error" id="toast">&#10005; Update failed. Please try again.</div>
+    </c:if>
+
     <!-- ── BACKGROUND GRID ── -->
     <div class="fixed inset-0 opacity-20 z-0 background-grid">
       <script>
@@ -370,182 +417,138 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                   <th>Ref</th>
                   <th>Customer</th>
                   <th>Package</th>
+                  <th>Services</th>
                   <th>Event Date</th>
-                  <th>Status</th>
-                  <th>Payment</th>
+                  <th>Booking Status</th>
+                  <th>Payment Status</th>
+                  <th>Amount</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody id="bookingBody">
-                <tr data-status="Completed">
-                  <td
-                    style="color: var(--gold); font-family: var(--font-display)"
-                  >
-                    #001
-                  </td>
-                  <td>Krish Shrestha</td>
-                  <td>Basic Package</td>
-                  <td>Feb 15, 2025</td>
-                  <td><span class="badge badge-completed">Completed</span></td>
-                  <td>
-                    <span class="badge badge-paid">Paid — NPR 10,000</span>
-                  </td>
-                  <td class="actions">
-                    <a href="bookings/1.jsp" class="btn btn-ghost btn-sm"
-                      >View</a
-                    >
-                  </td>
-                </tr>
-                <tr data-status="Completed">
-                  <td
-                    style="color: var(--gold); font-family: var(--font-display)"
-                  >
-                    #002
-                  </td>
-                  <td>Sudip Gautam</td>
-                  <td>Premium Package</td>
-                  <td>Mar 20, 2025</td>
-                  <td><span class="badge badge-completed">Completed</span></td>
-                  <td>
-                    <span class="badge badge-paid">Paid — NPR 35,000</span>
-                  </td>
-                  <td class="actions">
-                    <a href="bookings/1.jsp" class="btn btn-ghost btn-sm"
-                      >View</a
-                    >
-                  </td>
-                </tr>
-                <tr data-status="Completed">
-                  <td
-                    style="color: var(--gold); font-family: var(--font-display)"
-                  >
-                    #003
-                  </td>
-                  <td>Bijaya Khanal</td>
-                  <td>Standard Package</td>
-                  <td>Apr 10, 2025</td>
-                  <td><span class="badge badge-completed">Completed</span></td>
-                  <td>
-                    <span class="badge badge-paid">Paid — NPR 20,000</span>
-                  </td>
-                  <td class="actions">
-                    <a href="bookings/1.jsp" class="btn btn-ghost btn-sm"
-                      >View</a
-                    >
-                  </td>
-                </tr>
-                <tr data-status="Confirmed">
-                  <td
-                    style="color: var(--gold); font-family: var(--font-display)"
-                  >
-                    #004
-                  </td>
-                  <td>Arjun Bastola</td>
-                  <td>Luxury Package</td>
-                  <td>Jun 1, 2025</td>
-                  <td><span class="badge badge-confirmed">Confirmed</span></td>
-                  <td>
-                    <span class="badge badge-partial"
-                      >Partial — NPR 30,000</span
-                    >
-                  </td>
-                  <td class="actions">
-                    <a href="bookings/1.jsp" class="btn btn-ghost btn-sm"
-                      >View</a
-                    >
-                    <button
-                      class="btn btn-danger btn-sm"
-                      onclick="deleteRow(this)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr data-status="Confirmed">
-                  <td
-                    style="color: var(--gold); font-family: var(--font-display)"
-                  >
-                    #005
-                  </td>
-                  <td>Krish Shrestha</td>
-                  <td>Business Package</td>
-                  <td>May 20, 2025</td>
-                  <td><span class="badge badge-confirmed">Confirmed</span></td>
-                  <td>
-                    <span class="badge badge-paid">Paid — NPR 15,000</span>
-                  </td>
-                  <td class="actions">
-                    <a href="bookings/1.jsp" class="btn btn-ghost btn-sm"
-                      >View</a
-                    >
-                    <button
-                      class="btn btn-danger btn-sm"
-                      onclick="deleteRow(this)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr data-status="Pending">
-                  <td
-                    style="color: var(--gold); font-family: var(--font-display)"
-                  >
-                    #006
-                  </td>
-                  <td>Sudip Gautam</td>
-                  <td>Documentary Package</td>
-                  <td>Jul 4, 2025</td>
-                  <td><span class="badge badge-pending">Pending</span></td>
-                  <td><span class="badge badge-unpaid">Unpaid</span></td>
-                  <td class="actions">
-                    <a href="bookings/1.jsp" class="btn btn-ghost btn-sm"
-                      >View</a
-                    >
-                    <button
-                      class="btn btn-gold btn-sm"
-                      onclick="confirmBooking(this)"
-                    >
-                      Confirm
-                    </button>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      onclick="deleteRow(this)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr data-status="Pending">
-                  <td
-                    style="color: var(--gold); font-family: var(--font-display)"
-                  >
-                    #007
-                  </td>
-                  <td>Bijaya Khanal</td>
-                  <td>Music Video Package</td>
-                  <td>Aug 12, 2025</td>
-                  <td><span class="badge badge-pending">Pending</span></td>
-                  <td><span class="badge badge-unpaid">Unpaid</span></td>
-                  <td class="actions">
-                    <a href="bookings/1.jsp" class="btn btn-ghost btn-sm"
-                      >View</a
-                    >
-                    <button
-                      class="btn btn-gold btn-sm"
-                      onclick="confirmBooking(this)"
-                    >
-                      Confirm
-                    </button>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      onclick="deleteRow(this)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
+                <c:choose>
+                  <c:when test="${empty allBookings}">
+                    <tr>
+                      <td colspan="9" style="text-align:center;padding:40px;color:var(--muted)">No bookings found.</td>
+                    </tr>
+                  </c:when>
+                  <c:otherwise>
+                    <c:forEach var="b" items="${allBookings}">
+
+                      <c:set var="bClass" value="badge-pending" />
+                      <c:if test="${b.status == 'Confirmed'}"><c:set var="bClass" value="badge-confirmed"/></c:if>
+                      <c:if test="${b.status == 'Completed'}"><c:set var="bClass" value="badge-completed"/></c:if>
+                      <c:if test="${b.status == 'Cancelled'}"><c:set var="bClass" value="badge-cancelled"/></c:if>
+
+                      <c:set var="pStat" value="${not empty b.paymentStatus ? b.paymentStatus : 'Unpaid'}"/>
+                      <c:set var="pClass" value="badge-unpaid"/>
+                      <c:if test="${pStat == 'Partial'}"> <c:set var="pClass" value="badge-partial"/>  </c:if>
+                      <c:if test="${pStat == 'Paid'}">    <c:set var="pClass" value="badge-paid"/>     </c:if>
+                      <c:if test="${pStat == 'Refunded'}"><c:set var="pClass" value="badge-refunded"/> </c:if>
+
+                      <tr data-status="${b.status}">
+                        <td style="color:var(--gold);font-family:var(--font-display);font-size:15px">#${b.bookingId}</td>
+
+                        <td>
+                          <div style="font-weight:500;color:var(--white)">${b.userName}</div>
+                          <div style="font-size:11px;color:var(--muted)">${b.email}</div>
+                          <div style="font-size:11px;color:var(--muted)">${b.phoneNumber}</div>
+                        </td>
+
+                        <td>${b.packageName}</td>
+
+                        <td style="font-size:12px;color:var(--muted);max-width:160px">
+                          <c:choose>
+                            <c:when test="${not empty b.services}">${b.services}</c:when>
+                            <c:otherwise>—</c:otherwise>
+                          </c:choose>
+                        </td>
+
+                        <td style="white-space:nowrap">
+                          <c:choose>
+                            <c:when test="${not empty b.eventDate}">${b.eventDate}</c:when>
+                            <c:otherwise>—</c:otherwise>
+                          </c:choose>
+                        </td>
+
+                        <td><span class="badge ${bClass}">${b.status}</span></td>
+                        <td><span class="badge ${pClass}">${pStat}</span></td>
+
+                        <td style="white-space:nowrap">
+                          <c:choose>
+                            <c:when test="${not empty b.amount}">NPR ${b.amount}</c:when>
+                            <c:otherwise>—</c:otherwise>
+                          </c:choose>
+                        </td>
+
+                        <td>
+                          <div class="actions">
+                            <button class="btn btn-ghost btn-sm"
+                                    onclick="openBookingModal(${b.bookingId}, '${b.status}')">
+                              Booking Status
+                            </button>
+                            <button class="btn btn-teal btn-sm"
+                                    onclick="openPaymentModal(${b.bookingId}, '${pStat}')">
+                              Payment Status
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </c:forEach>
+                  </c:otherwise>
+                </c:choose>
               </tbody>
             </table>
+          </div>
+
+          <!-- Modal: Booking Status -->
+          <div class="modal-overlay" id="bookingModal">
+            <div class="modal-box">
+              <h3>Update Booking Status</h3>
+              <p>Select a new status for booking <strong id="bModalRef" style="color:var(--gold)"></strong>.</p>
+              <form method="post" action="${pageContext.request.contextPath}/admin-booking">
+                <input type="hidden" name="action"    value="updateBookingStatus" />
+                <input type="hidden" name="bookingId" id="bModalBookingId" />
+                <div class="modal-select-row">
+                  <label for="bModalStatus">New Status</label>
+                  <select name="bookingStatus" id="bModalStatus">
+                    <option value="Pending">Pending</option>
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                </div>
+                <div class="modal-actions">
+                  <button type="button" class="btn btn-ghost btn-sm" onclick="closeModal('bookingModal')">Cancel</button>
+                  <button type="submit" class="btn btn-gold btn-sm">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Modal: Payment Status -->
+          <div class="modal-overlay" id="paymentModal">
+            <div class="modal-box">
+              <h3>Update Payment Status</h3>
+              <p>Select a new payment status for booking <strong id="pModalRef" style="color:var(--gold)"></strong>.</p>
+              <form method="post" action="${pageContext.request.contextPath}/admin-booking">
+                <input type="hidden" name="action"    value="updatePaymentStatus" />
+                <input type="hidden" name="bookingId" id="pModalBookingId" />
+                <div class="modal-select-row">
+                  <label for="pModalStatus">New Payment Status</label>
+                  <select name="paymentStatus" id="pModalStatus">
+                    <option value="Unpaid">Unpaid</option>
+                    <option value="Partial">Partial</option>
+                    <option value="Paid">Paid</option>
+                    <option value="Refunded">Refunded</option>
+                  </select>
+                </div>
+                <div class="modal-actions">
+                  <button type="button" class="btn btn-ghost btn-sm" onclick="closeModal('paymentModal')">Cancel</button>
+                  <button type="submit" class="btn btn-teal btn-sm">Save</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
         <%@ include file="/WEB-INF/pages/components/footer-admin.jsp" %>
@@ -560,32 +563,37 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
     <!-- ── PAGE SCRIPT ── -->
     <script>
       function filterTable(status) {
-        const rows = document.querySelectorAll("#bookingBody tr");
-        rows.forEach((row) => {
-          row.style.display =
-            status === "all" || row.dataset.status === status ? "" : "none";
+        document.querySelectorAll("#bookingBody tr").forEach(row => {
+          row.style.display = (status === "all" || row.dataset.status === status) ? "" : "none";
         });
       }
       function searchTable(val) {
-        const rows = document.querySelectorAll("#bookingBody tr");
-        rows.forEach((row) => {
-          row.style.display = row.textContent
-            .toLowerCase()
-            .includes(val.toLowerCase())
-            ? ""
-            : "none";
+        document.querySelectorAll("#bookingBody tr").forEach(row => {
+          row.style.display = row.textContent.toLowerCase().includes(val.toLowerCase()) ? "" : "none";
         });
       }
-      function deleteRow(btn) {
-        if (confirm("Delete this booking?")) btn.closest("tr").remove();
+
+      function openBookingModal(bookingId, currentStatus) {
+        document.getElementById("bModalBookingId").value = bookingId;
+        document.getElementById("bModalRef").textContent = "#" + bookingId;
+        const sel = document.getElementById("bModalStatus");
+        for (let opt of sel.options) opt.selected = (opt.value === currentStatus);
+        document.getElementById("bookingModal").classList.add("open");
       }
-      function confirmBooking(btn) {
-        const row = btn.closest("tr");
-        row.querySelector(".badge-pending").className = "badge badge-confirmed";
-        row.querySelector(".badge-confirmed").textContent = "Confirmed";
-        row.dataset.status = "Confirmed";
-        btn.remove();
+      function openPaymentModal(bookingId, currentPayStatus) {
+        document.getElementById("pModalBookingId").value = bookingId;
+        document.getElementById("pModalRef").textContent = "#" + bookingId;
+        const sel = document.getElementById("pModalStatus");
+        for (let opt of sel.options) opt.selected = (opt.value === currentPayStatus);
+        document.getElementById("paymentModal").classList.add("open");
       }
+      function closeModal(id) { document.getElementById(id).classList.remove("open"); }
+      document.querySelectorAll(".modal-overlay").forEach(o => {
+        o.addEventListener("click", e => { if (e.target === o) o.classList.remove("open"); });
+      });
+
+      const toast = document.getElementById("toast");
+      if (toast) setTimeout(() => toast.remove(), 4000);
     </script>
   </body>
 </html>

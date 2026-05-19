@@ -151,4 +151,20 @@ public class Booking {
                 ", paymentStatus='" + paymentStatus + '\'' +
                 '}';
     }
+
+    // Getters for core fields — ADD THESE
+
+    public int getUserId()                { return userId; }
+    public LocalDate getBookingDate()     { return bookingDate; }
+    public String getEventAddress()       { return eventAddress; }
+    public LocalDate getPayDate()         { return payDate; }   // was missing getter AND setter
+
+// Getters for joined fields — ADD THESE
+
+    public BigDecimal getPackagePrice()   { return packagePrice; }
+    public String getPaymentStatus()      { return paymentStatus; }
+    public String getPaymentMethod()      { return paymentMethod; }
+
+    // Setter — ADD THIS (payDate had no setter at all)
+    public void setPayDate(LocalDate payDate) { this.payDate = payDate; }
 }

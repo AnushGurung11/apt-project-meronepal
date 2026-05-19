@@ -71,4 +71,8 @@ public class Service {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+    // ADD THIS — was missing despite setter being present
+
+    public int getServiceId() { return serviceId; }
 }

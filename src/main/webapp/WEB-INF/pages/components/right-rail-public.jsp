@@ -1,4 +1,3 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!-- ── RIGHT RAIL (public) ── -->
 <aside
   class="hidden md:flex flex-col justify-between p-12 border-l border-white/10 sticky top-0 h-screen"

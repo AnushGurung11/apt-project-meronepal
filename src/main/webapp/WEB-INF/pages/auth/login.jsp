@@ -352,14 +352,14 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
 
         <form action="login" method="POST" id="loginForm">
           <div class="form-group">
-            <label class="form-label" for="loginUsername">Username</label>
+            <label class="form-label" for="loginEmail">Email</label>
             <input
-              type="text"
-              placeholder="your username"
-              id="loginUsername"
-              name="username"
+              type="email"
+              placeholder="your@example.com"
+              id="loginEmail"
+              name="email"
               required
-              autocomplete="username"
+              autocomplete="email"
             />
           </div>
           <div class="form-group">
@@ -397,7 +397,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
       document.addEventListener('DOMContentLoaded', function () {
         const hasError = document.getElementById('inlineError');
         if (hasError) {
-          document.getElementById('loginUsername').classList.add('input-error');
+          document.getElementById('loginEmail').classList.add('input-error');
           document.getElementById('loginPassword').classList.add('input-error');
 
           const btn = document.getElementById('submitBtn');
@@ -420,7 +420,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
       }
 
       // Clear input-error highlight when user starts retyping
-      ['loginUsername', 'loginPassword'].forEach(function (id) {
+      ['loginEmail', 'loginPassword'].forEach(function (id) {
         document.getElementById(id).addEventListener('input', function () {
           this.classList.remove('input-error');
         });

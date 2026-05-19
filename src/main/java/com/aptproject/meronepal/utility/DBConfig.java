@@ -8,7 +8,7 @@ public class DBConfig {
 
     private static final String DB_NAME = "apt_booking_system";
     private static final String USER = "root";
-    private static final String PASSWORD = "D@rshan123";
+    private static final String PASSWORD = "";
     private static final String URL = "jdbc:mysql://localhost:3306/" + DB_NAME;
 
     public static Connection getConnection() throws SQLException, ClassNotFoundException {

@@ -1,4 +1,3 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!-- ── MOBILE NAV DRAWER (admin) ── -->
 <nav
   id="mobile-nav"

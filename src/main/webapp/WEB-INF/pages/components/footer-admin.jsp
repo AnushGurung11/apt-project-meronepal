@@ -16,7 +16,7 @@
         <div class="list">
           <div><a href="${pageContext.request.contextPath}/dashboard">Dashboard</a></div>
           <div><a href="${pageContext.request.contextPath}/admin-booking">Bookings</a></div>
-          <div><a href="admin-services.jsp">Services</a></div>
+          <div><a href="${pageContext.request.contextPath}/admin-services">Services</a></div>
         </div>
       </div>
       <div>

@@ -278,6 +278,25 @@ contentType="text/html" pageEncoding="UTF-8"  isELIgnored="false"%>
         background: #34c759;
       }
 
+      /* ── Toast ───────────────────────────────────────────────── */
+      .toast {
+        position: fixed; top: 24px; right: 24px; z-index: 9999;
+        padding: 14px 24px; border-radius: var(--radius);
+        font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+        box-shadow: var(--shadow); max-width: 360px;
+        animation: slideIn 0.3s ease, fadeOut 0.4s ease 3.5s forwards;
+      }
+      .toast-success { background: #1a3a1a; border: 1px solid #34c759; color: #34c759; }
+      .toast-error   { background: #3a1a1a; border: 1px solid #e74c3c; color: #e74c3c; }
+      @keyframes slideIn { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+      @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; pointer-events: none; } }
+
+      /* ── Empty state row ─────────────────────────────────────── */
+      .empty-row td {
+        text-align: center; padding: 48px 16px;
+        color: var(--muted); font-style: italic;
+      }
+
       /* ── Modal ───────────────────────────────────────────────── */
       .modal-overlay {
         position: fixed;
@@ -333,6 +352,16 @@ contentType="text/html" pageEncoding="UTF-8"  isELIgnored="false"%>
   </head>
 
   <body>
+    <c:if test="${param.success == '1'}">
+      <div class="toast toast-success" id="toast">&#10003; Service saved successfully.</div>
+    </c:if>
+    <c:if test="${param.success == 'deleted'}">
+      <div class="toast toast-success" id="toast">&#10003; Service deactivated.</div>
+    </c:if>
+    <c:if test="${param.error == '1'}">
+      <div class="toast toast-error" id="toast">&#10005; Action failed. Please try again.</div>
+    </c:if>
+
     <!-- ── BACKGROUND GRID ── -->
     <div class="fixed inset-0 opacity-20 z-0 background-grid">
       <script>
@@ -364,9 +393,9 @@ contentType="text/html" pageEncoding="UTF-8"  isELIgnored="false"%>
               <h2>Manage Services</h2>
               <p>Create, update, or remove the services offered by APT.</p>
             </div>
-            <button class="btn btn-gold btn-sm" onclick="openModal('addModal')">
+            <a href="${pageContext.request.contextPath}/admin/add-service" class="btn btn-gold btn-sm">
               + Add Service
-            </button>
+            </a>
           </div>
 
           <div class="table-wrap">
@@ -382,462 +411,54 @@ contentType="text/html" pageEncoding="UTF-8"  isELIgnored="false"%>
                 </tr>
               </thead>
               <tbody id="servicesBody">
-                <tr>
-                  <td style="color: var(--muted)">1</td>
-                  <td>Wedding Photography &amp; Videography</td>
-                  <td>
-                    <span
-                      style="
-                        font-size: 11px;
-                        color: var(--gold);
-                        text-transform: uppercase;
-                        letter-spacing: 0.1em;
-                      "
-                      >Media</span
-                    >
-                  </td>
-                  <td
-                    style="
-                      max-width: 220px;
-                      color: var(--muted);
-                      font-size: 13px;
-                    "
-                  >
-                    Complete wedding photography and videography coverage
-                  </td>
-                  <td><span class="badge badge-confirmed">Active</span></td>
-                  <td class="actions">
-                    <button
-                      class="btn btn-ghost btn-sm"
-                      onclick="
-                        openEdit(
-                          this,
-                          'Wedding Photography &amp; Videography',
-                          'Media',
-                          'Complete wedding photography and videography coverage',
-                        )
-                      "
-                    >
-                      Edit
-                    </button>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      onclick="deleteRow(this)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="color: var(--muted)">2</td>
-                  <td>Pre-Wedding &amp; Engagement Shoots</td>
-                  <td>
-                    <span
-                      style="
-                        font-size: 11px;
-                        color: var(--gold);
-                        text-transform: uppercase;
-                        letter-spacing: 0.1em;
-                      "
-                      >Media</span
-                    >
-                  </td>
-                  <td
-                    style="
-                      max-width: 220px;
-                      color: var(--muted);
-                      font-size: 13px;
-                    "
-                  >
-                    Pre-wedding and engagement shoot sessions for couples
-                  </td>
-                  <td><span class="badge badge-confirmed">Active</span></td>
-                  <td class="actions">
-                    <button
-                      class="btn btn-ghost btn-sm"
-                      onclick="
-                        openEdit(
-                          this,
-                          'Pre-Wedding & Engagement Shoots',
-                          'Media',
-                          'Pre-wedding and engagement shoot sessions for couples',
-                        )
-                      "
-                    >
-                      Edit
-                    </button>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      onclick="deleteRow(this)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="color: var(--muted)">3</td>
-                  <td>Event Coverage</td>
-                  <td>
-                    <span
-                      style="
-                        font-size: 11px;
-                        color: var(--gold);
-                        text-transform: uppercase;
-                        letter-spacing: 0.1em;
-                      "
-                      >Media</span
-                    >
-                  </td>
-                  <td
-                    style="
-                      max-width: 220px;
-                      color: var(--muted);
-                      font-size: 13px;
-                    "
-                  >
-                    Coverage for birthdays, corporate events, and parties
-                  </td>
-                  <td><span class="badge badge-confirmed">Active</span></td>
-                  <td class="actions">
-                    <button
-                      class="btn btn-ghost btn-sm"
-                      onclick="
-                        openEdit(
-                          this,
-                          'Event Coverage',
-                          'Media',
-                          'Coverage for birthdays, corporate events, and parties',
-                        )
-                      "
-                    >
-                      Edit
-                    </button>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      onclick="deleteRow(this)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="color: var(--muted)">4</td>
-                  <td>Portrait &amp; Model Photoshoots</td>
-                  <td>
-                    <span
-                      style="
-                        font-size: 11px;
-                        color: var(--gold);
-                        text-transform: uppercase;
-                        letter-spacing: 0.1em;
-                      "
-                      >Photography</span
-                    >
-                  </td>
-                  <td
-                    style="
-                      max-width: 220px;
-                      color: var(--muted);
-                      font-size: 13px;
-                    "
-                  >
-                    Professional portrait and model photoshoots
-                  </td>
-                  <td><span class="badge badge-confirmed">Active</span></td>
-                  <td class="actions">
-                    <button
-                      class="btn btn-ghost btn-sm"
-                      onclick="openEdit(this)"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      onclick="deleteRow(this)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="color: var(--muted)">5</td>
-                  <td>Product Photography</td>
-                  <td>
-                    <span
-                      style="
-                        font-size: 11px;
-                        color: var(--gold);
-                        text-transform: uppercase;
-                        letter-spacing: 0.1em;
-                      "
-                      >Business</span
-                    >
-                  </td>
-                  <td
-                    style="
-                      max-width: 220px;
-                      color: var(--muted);
-                      font-size: 13px;
-                    "
-                  >
-                    Product photography for brands and business promotion
-                  </td>
-                  <td><span class="badge badge-confirmed">Active</span></td>
-                  <td class="actions">
-                    <button
-                      class="btn btn-ghost btn-sm"
-                      onclick="openEdit(this)"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      onclick="deleteRow(this)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="color: var(--muted)">6</td>
-                  <td>Documentary Production</td>
-                  <td>
-                    <span
-                      style="
-                        font-size: 11px;
-                        color: var(--gold);
-                        text-transform: uppercase;
-                        letter-spacing: 0.1em;
-                      "
-                      >Production</span
-                    >
-                  </td>
-                  <td
-                    style="
-                      max-width: 220px;
-                      color: var(--muted);
-                      font-size: 13px;
-                    "
-                  >
-                    Storytelling, interviews, and cultural documentary
-                    production
-                  </td>
-                  <td><span class="badge badge-confirmed">Active</span></td>
-                  <td class="actions">
-                    <button
-                      class="btn btn-ghost btn-sm"
-                      onclick="openEdit(this)"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      onclick="deleteRow(this)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="color: var(--muted)">7</td>
-                  <td>Music Video Production</td>
-                  <td>
-                    <span
-                      style="
-                        font-size: 11px;
-                        color: var(--gold);
-                        text-transform: uppercase;
-                        letter-spacing: 0.1em;
-                      "
-                      >Production</span
-                    >
-                  </td>
-                  <td
-                    style="
-                      max-width: 220px;
-                      color: var(--muted);
-                      font-size: 13px;
-                    "
-                  >
-                    Cinematic music video production with creative direction
-                  </td>
-                  <td><span class="badge badge-confirmed">Active</span></td>
-                  <td class="actions">
-                    <button
-                      class="btn btn-ghost btn-sm"
-                      onclick="openEdit(this)"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      onclick="deleteRow(this)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="color: var(--muted)">8</td>
-                  <td>Drone &amp; Cinematic Videography</td>
-                  <td>
-                    <span
-                      style="
-                        font-size: 11px;
-                        color: var(--gold);
-                        text-transform: uppercase;
-                        letter-spacing: 0.1em;
-                      "
-                      >Media</span
-                    >
-                  </td>
-                  <td
-                    style="
-                      max-width: 220px;
-                      color: var(--muted);
-                      font-size: 13px;
-                    "
-                  >
-                    Drone shoots and cinematic videography coverage
-                  </td>
-                  <td><span class="badge badge-confirmed">Active</span></td>
-                  <td class="actions">
-                    <button
-                      class="btn btn-ghost btn-sm"
-                      onclick="openEdit(this)"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      onclick="deleteRow(this)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="color: var(--muted)">9</td>
-                  <td>Professional Photo &amp; Video Editing</td>
-                  <td>
-                    <span
-                      style="
-                        font-size: 11px;
-                        color: var(--gold);
-                        text-transform: uppercase;
-                        letter-spacing: 0.1em;
-                      "
-                      >Editing</span
-                    >
-                  </td>
-                  <td
-                    style="
-                      max-width: 220px;
-                      color: var(--muted);
-                      font-size: 13px;
-                    "
-                  >
-                    Professional editing service for photos and videos
-                  </td>
-                  <td><span class="badge badge-confirmed">Active</span></td>
-                  <td class="actions">
-                    <button
-                      class="btn btn-ghost btn-sm"
-                      onclick="openEdit(this)"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      onclick="deleteRow(this)"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
+                <c:choose>
+                  <c:when test="${empty services}">
+                    <tr class="empty-row">
+                      <td colspan="6">No active services found.</td>
+                    </tr>
+                  </c:when>
+                  <c:otherwise>
+                    <c:forEach var="svc" items="${services}" varStatus="status">
+                      <tr>
+                        <td style="color: var(--muted)">${status.index + 1}</td>
+                        <td style="color: var(--white); font-weight: 500;">${svc.serviceName}</td>
+                        <td>
+                          <span style="font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em;">
+                            <c:choose>
+                              <c:when test="${not empty svc.serviceType}">${svc.serviceType}</c:when>
+                              <c:otherwise>General</c:otherwise>
+                            </c:choose>
+                          </span>
+                        </td>
+                        <td style="max-width: 220px; color: var(--muted); font-size: 13px;">
+                          <c:choose>
+                            <c:when test="${not empty svc.description}">${svc.description}</c:when>
+                            <c:otherwise>—</c:otherwise>
+                          </c:choose>
+                        </td>
+                        <td><span class="badge badge-confirmed">Active</span></td>
+                        <td class="actions">
+                          <form method="post"
+                                action="${pageContext.request.contextPath}/admin/package-services"
+                                style="display:inline;"
+                                onsubmit="return confirm('Deactivate this service?');">
+                            <input type="hidden" name="action"    value="deleteService" />
+                            <input type="hidden" name="serviceId" value="${svc.serviceId}" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                          </form>
+                        </td>
+                      </tr>
+                    </c:forEach>
+                  </c:otherwise>
+                </c:choose>
               </tbody>
             </table>
           </div>
 
-          <!-- Add Service Modal -->
-          <div class="modal-overlay" id="addModal">
-            <div class="modal">
-              <div class="modal-header">
-                <h3>Add New Service</h3>
-                <p style="font-size: 14px; margin-top: 4px">
-                  Add a new service to the APT catalogue.
-                </p>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Service Name</label>
-                <input
-                  type="text"
-                  id="newName"
-                  placeholder="e.g. 360° Photo Booth"
-                />
-              </div>
-              <div class="form-group">
-                <label class="form-label">Service Type</label>
-                <select id="newType">
-                  <option value="Media">Media</option>
-                  <option value="Photography">Photography</option>
-                  <option value="Production">Production</option>
-                  <option value="Business">Business</option>
-                  <option value="Editing">Editing</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Description</label>
-                <textarea
-                  id="newDesc"
-                  rows="3"
-                  placeholder="Short description of the service..."
-                ></textarea>
-              </div>
-              <div class="modal-footer">
-                <button class="btn btn-ghost" onclick="closeModal('addModal')">
-                  Cancel
-                </button>
-                <button class="btn btn-gold" onclick="addService()">
-                  Add Service
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Edit Service Modal -->
-          <div class="modal-overlay" id="editModal">
-            <div class="modal">
-              <div class="modal-header">
-                <h3>Edit Service</h3>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Service Name</label>
-                <input type="text" id="editName" />
-              </div>
-              <div class="form-group">
-                <label class="form-label">Service Type</label>
-                <select id="editType">
-                  <option value="Media">Media</option>
-                  <option value="Photography">Photography</option>
-                  <option value="Production">Production</option>
-                  <option value="Business">Business</option>
-                  <option value="Editing">Editing</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Description</label>
-                <textarea id="editDesc" rows="3"></textarea>
-              </div>
-              <div class="modal-footer">
-                <button class="btn btn-ghost" onclick="closeModal('editModal')">
-                  Cancel
-                </button>
-                <button class="btn btn-gold" onclick="saveEdit()">
-                  Save Changes
-                </button>
-              </div>
-            </div>
+          <!-- Bottom CTA -->
+          <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:32px;">
+            <a href="${pageContext.request.contextPath}/admin/create-package" class="btn btn-ghost">+ Create New Package</a>
+            <a href="${pageContext.request.contextPath}/admin/package-services" class="btn btn-ghost">Manage Package-Service Links</a>
           </div>
         </div>
         <%@ include file="/WEB-INF/pages/components/footer-admin.jsp" %>
@@ -851,74 +472,8 @@ contentType="text/html" pageEncoding="UTF-8"  isELIgnored="false"%>
 
     <!-- ── PAGE SCRIPT ── -->
     <script>
-      function openModal(id) {
-        document.getElementById(id).classList.add("open");
-      }
-
-      function closeModal(id) {
-        document.getElementById(id).classList.remove("open");
-      }
-
-      document.querySelectorAll(".modal-overlay").forEach((overlay) => {
-        overlay.addEventListener("click", (e) => {
-          if (e.target === overlay) overlay.classList.remove("open");
-        });
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          document
-            .querySelectorAll(".modal-overlay.open")
-            .forEach((m) => m.classList.remove("open"));
-        }
-      });
-
-      let editRow = null;
-      let counter = 10;
-
-      function deleteRow(btn) {
-        if (confirm("Delete this service?")) btn.closest("tr").remove();
-      }
-
-      function openEdit(btn, name, type, desc) {
-        editRow = btn.closest("tr");
-        document.getElementById("editName").value = name || "";
-        document.getElementById("editType").value = type || "Media";
-        document.getElementById("editDesc").value = desc || "";
-        openModal("editModal");
-      }
-
-      function saveEdit() {
-        if (!editRow) return;
-        const cells = editRow.querySelectorAll("td");
-        cells[1].textContent = document.getElementById("editName").value;
-        cells[2].innerHTML = `<span style="font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">${document.getElementById("editType").value}</span>`;
-        cells[3].textContent = document.getElementById("editDesc").value;
-        closeModal("editModal");
-      }
-
-      function addService() {
-        const name = document.getElementById("newName").value.trim();
-        const type = document.getElementById("newType").value;
-        const desc = document.getElementById("newDesc").value.trim();
-        if (!name) return;
-        const tbody = document.getElementById("servicesBody");
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-      <td style="color:var(--muted);">${counter++}</td>
-      <td>${name}</td>
-      <td><span style="font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">${type}</span></td>
-      <td style="max-width:220px;color:var(--muted);font-size:13px;">${desc}</td>
-      <td><span class="badge badge-confirmed">Active</span></td>
-      <td class="actions">
-        <button class="btn btn-ghost btn-sm" onclick="openEdit(this,'${name}','${type}','${desc}')">Edit</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
-      </td>`;
-        tbody.appendChild(tr);
-        document.getElementById("newName").value = "";
-        document.getElementById("newDesc").value = "";
-        closeModal("addModal");
-      }
+      const toast = document.getElementById("toast");
+      if (toast) setTimeout(() => toast.remove(), 4000);
     </script>
   </body>
 </html>

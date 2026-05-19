@@ -1,5 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@page
-contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <!doctype html>
 <html lang="en">
   <head>
@@ -39,6 +40,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
         --white: #f5f0e8;
         --muted: #888880;
         --red: #c0392b;
+        --red-dim: rgba(192,57,43,0.12);
         --radius: 6px;
         --radius-lg: 12px;
         --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -113,6 +115,80 @@ contentType="text/html" pageEncoding="UTF-8"%>
       .btn-sm {
         padding: 9px 20px;
         font-size: 12px;
+      }
+
+      /* ── Section label ── */
+      .section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 12px;
+      }
+      .section-label::before {
+        content: "";
+        display: block;
+        width: 28px;
+        height: 1px;
+        background: var(--gold);
+      }
+
+      /* ── Alerts ── */
+      .alert {
+        padding: 14px 20px;
+        border-radius: var(--radius);
+        font-size: 13px;
+        border-left: 3px solid;
+        margin-bottom: 28px;
+      }
+      .alert-info    { background: rgba(201,168,76,0.08); border-color: var(--gold);  color: var(--gold); }
+      .alert-success { background: rgba(52,199,89,0.08);  border-color: #34c759;      color: #34c759; }
+      .alert-error   { background: var(--red-dim);         border-color: var(--red);   color: #e57373; }
+
+      /* ── Empty state ── */
+      .bk-empty {
+        text-align: center;
+        padding: 80px 40px;
+        border: 1px dashed var(--border);
+        border-radius: var(--radius-lg);
+      }
+      .bk-empty-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+        opacity: 0.3;
+      }
+      .bk-empty h3 {
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+      }
+      .bk-empty p { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+
+      /* ── Services strip ── */
+      .bk-services {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 20px;
+        padding: 10px 14px;
+        background: var(--surface2);
+        border-radius: var(--radius);
+        border-left: 2px solid var(--gold-dim);
+      }
+      .bk-services span { color: var(--gold); font-weight: 500; }
+
+      /* ── Modal warning ── */
+      .modal-warning {
+        background: rgba(192,57,43,0.1);
+        border: 1px solid rgba(192,57,43,0.3);
+        border-radius: var(--radius);
+        padding: 14px 18px;
+        font-size: 13px;
+        color: #e74c3c;
       }
 
       /* ── Bookings wrapper ── */
@@ -268,6 +344,14 @@ contentType="text/html" pageEncoding="UTF-8"%>
       .badge-paid::before {
         background: #34c759;
       }
+      .badge-pending   { background: rgba(201,168,76,0.12);  color: var(--gold); }
+      .badge-pending::before   { background: var(--gold); }
+      .badge-unpaid    { background: rgba(201,168,76,0.12);  color: var(--gold); }
+      .badge-unpaid::before    { background: var(--gold); }
+      .badge-partial   { background: rgba(90,200,250,0.12);  color: #5ac8fa; }
+      .badge-partial::before   { background: #5ac8fa; }
+      .badge-refunded  { background: rgba(192,57,43,0.12);   color: #e74c3c; }
+      .badge-refunded::before  { background: #e74c3c; }
 
       /* ── Modal ── */
       .modal-overlay {
@@ -376,91 +460,139 @@ contentType="text/html" pageEncoding="UTF-8"%>
         <div class="bk-wrapper">
           <div class="bk-page-header">
             <div>
+              <div class="section-label">Account</div>
               <h2 class="bk-h2">My Bookings</h2>
               <p>Track all your bookings and their current status.</p>
             </div>
-            <a href="../../pages/book.jsp" class="btn btn-gold btn-sm"
-              >+ New Booking</a
-            >
+            <a href="${pageContext.request.contextPath}/book" class="btn btn-gold btn-sm">+ New Booking</a>
           </div>
 
-          <div class="gap-stack">
-            <!-- Booking 1 -->
-            <div class="bk-card" id="b1">
-              <div class="bk-card-head">
-                <div>
-                  <div class="bk-card-id">Booking #APT-2025-001</div>
-                  <div class="bk-card-title">Basic Package</div>
-                </div>
-                <span class="badge badge-completed">Completed</span>
-              </div>
-              <div class="bk-meta">
-                <div>
-                  <div class="bk-meta-label">Event Date</div>
-                  <div class="bk-meta-value">Feb 15, 2025</div>
-                </div>
-                <div>
-                  <div class="bk-meta-label">Location</div>
-                  <div class="bk-meta-value">Lalitpur, Nepal</div>
-                </div>
-                <div>
-                  <div class="bk-meta-label">Amount</div>
-                  <div class="bk-meta-value" style="color: var(--gold)">
-                    NPR 10,000
-                  </div>
-                </div>
-              </div>
-              <div class="bk-actions">
-                <a href="${pageContext.request.contextPath}/bookDetail" class="btn btn-ghost btn-sm"
-                  >View Details</a
-                >
-                <span class="badge badge-paid">Paid</span>
-              </div>
+          <c:if test="${not empty sessionScope.statusMsg}">
+            <div class="alert alert-success">
+              <c:out value="${sessionScope.statusMsg}" />
             </div>
+            <c:remove var="statusMsg" scope="session" />
+          </c:if>
+          <c:if test="${not empty error}">
+            <div class="alert alert-error">
+              <c:out value="${error}" />
+            </div>
+          </c:if>
+          <c:if test="${not empty infoMessage}">
+            <div class="alert alert-info">
+              <c:out value="${infoMessage}" />
+            </div>
+          </c:if>
 
-            <!-- Booking 2 -->
-            <div class="bk-card" id="b2">
-              <div class="bk-card-head">
-                <div>
-                  <div class="bk-card-id">Booking #APT-2025-005</div>
-                  <div class="bk-card-title">Business / Product Package</div>
-                </div>
-                <span class="badge badge-confirmed" id="b2-status"
-                  >Confirmed</span
-                >
+          <c:choose>
+            <c:when test="${empty userBookings}">
+              <div class="bk-empty">
+                <div class="bk-empty-icon">📋</div>
+                <h3>No Bookings Yet</h3>
+                <p>You haven't made any bookings. Start by choosing a package.</p>
+                <a href="${pageContext.request.contextPath}/packages" class="btn btn-gold">
+                  Browse Packages
+                </a>
               </div>
-              <div class="bk-meta">
-                <div>
-                  <div class="bk-meta-label">Event Date</div>
-                  <div class="bk-meta-value">May 20, 2025</div>
-                </div>
-                <div>
-                  <div class="bk-meta-label">Location</div>
-                  <div class="bk-meta-value">Kathmandu, Nepal</div>
-                </div>
-                <div>
-                  <div class="bk-meta-label">Amount</div>
-                  <div class="bk-meta-value" style="color: var(--gold)">
-                    NPR 15,000
+            </c:when>
+
+            <c:otherwise>
+              <div class="gap-stack">
+                <c:forEach var="booking" items="${userBookings}">
+
+                  <div class="bk-card" id="booking-${booking.bookingId}">
+
+                    <div class="bk-card-head">
+                      <div>
+                        <div class="bk-card-id">Booking #APT-${booking.bookingId}</div>
+                        <div class="bk-card-title">
+                          <c:out value="${booking.packageName}" />
+                        </div>
+                      </div>
+
+                      <c:choose>
+                        <c:when test="${booking.status == 'Pending'}">
+                          <span class="badge badge-pending">Pending</span>
+                        </c:when>
+                        <c:when test="${booking.status == 'Confirmed'}">
+                          <span class="badge badge-confirmed">Confirmed</span>
+                        </c:when>
+                        <c:when test="${booking.status == 'Completed'}">
+                          <span class="badge badge-completed">Completed</span>
+                        </c:when>
+                        <c:when test="${booking.status == 'Cancelled'}">
+                          <span class="badge badge-cancelled">Cancelled</span>
+                        </c:when>
+                        <c:otherwise>
+                          <span class="badge badge-pending"><c:out value="${booking.status}" /></span>
+                        </c:otherwise>
+                      </c:choose>
+                    </div>
+
+                    <div class="bk-meta">
+                      <div>
+                        <div class="bk-meta-label">Event Date</div>
+                        <div class="bk-meta-value">
+                          <c:out value="${booking.eventDate}" default="—" />
+                        </div>
+                      </div>
+                      <div>
+                        <div class="bk-meta-label">Location</div>
+                        <div class="bk-meta-value">
+                          <c:out value="${booking.eventAddress}" default="—" />
+                        </div>
+                      </div>
+                      <div>
+                        <div class="bk-meta-label">Amount</div>
+                        <div class="bk-meta-value" style="color:var(--gold)">
+                          <c:choose>
+                            <c:when test="${not empty booking.amount}">
+                              NPR <c:out value="${booking.amount}" />
+                            </c:when>
+                            <c:otherwise>—</c:otherwise>
+                          </c:choose>
+                        </div>
+                      </div>
+                    </div>
+
+                    <c:if test="${not empty booking.services}">
+                      <div class="bk-services">
+                        <span>Services:</span>
+                        <c:out value="${booking.services}" />
+                      </div>
+                    </c:if>
+
+                    <div class="bk-actions">
+                      <c:choose>
+                        <c:when test="${booking.paymentStatus == 'Paid'}">
+                          <span class="badge badge-paid">Paid</span>
+                        </c:when>
+                        <c:when test="${booking.paymentStatus == 'Partial'}">
+                          <span class="badge badge-partial">Partial</span>
+                        </c:when>
+                        <c:when test="${booking.paymentStatus == 'Refunded'}">
+                          <span class="badge badge-refunded">Refunded</span>
+                        </c:when>
+                        <c:otherwise>
+                          <span class="badge badge-unpaid">Unpaid</span>
+                        </c:otherwise>
+                      </c:choose>
+
+                      <c:if test="${booking.status == 'Pending' || booking.status == 'Confirmed'}">
+                        <button class="btn btn-danger btn-sm"
+                                onclick="openCancelModal(${booking.bookingId}, '${fn:escapeXml(booking.packageName)}')">
+                          Cancel Booking
+                        </button>
+                      </c:if>
+
+                    </div>
+
                   </div>
-                </div>
+
+                </c:forEach>
               </div>
-              <div class="bk-actions">
-                <a href="${pageContext.request.contextPath}/bookDetail" class="btn btn-ghost btn-sm"
-                  >View Details</a
-                >
-                <button
-                  class="btn btn-danger btn-sm"
-                  id="b2-cancel-btn"
-                  onclick="openModal('cancelModal')"
-                >
-                  Cancel Booking
-                </button>
-                <span class="badge badge-paid">Paid</span>
-              </div>
-            </div>
-          </div>
-          <!-- /gap-stack -->
+            </c:otherwise>
+          </c:choose>
         </div>
         <!-- /bk-wrapper -->
         <!-- ─── END MY BOOKINGS ─── -->
@@ -477,54 +609,36 @@ contentType="text/html" pageEncoding="UTF-8"%>
       <div class="modal">
         <div class="modal-header">
           <h3>Cancel Booking?</h3>
-          <p>
-            Are you sure you want to cancel
-            <strong>Business / Product Package (#APT-2025-005)</strong>? This
-            action cannot be undone.
-          </p>
+          <p>Are you sure you want to cancel <strong id="modal-pkg-name"></strong>? This action cannot be undone.</p>
         </div>
-        <div
-          style="
-            background: rgba(192, 57, 43, 0.1);
-            border: 1px solid rgba(192, 57, 43, 0.3);
-            border-radius: var(--radius);
-            padding: 14px 18px;
-            font-size: 13px;
-            color: #e74c3c;
-          "
-        >
-          ⚠ Cancellation may be subject to our refund policy. Please contact us
-          within 48 hrs of your event date for a full refund.
+        <div class="modal-warning">
+          ⚠ Cancellation may be subject to our refund policy. Please contact us within 48 hours of your event date for a full refund.
         </div>
         <div class="modal-footer">
-          <button class="btn btn-ghost" onclick="closeModal('cancelModal')">
-            Keep Booking
-          </button>
-          <button class="btn btn-danger" onclick="cancelBooking()">
-            Yes, Cancel
-          </button>
+          <button class="btn btn-ghost btn-sm" onclick="closeModal('cancelModal')">Keep Booking</button>
+          <form id="cancel-form"
+                action="${pageContext.request.contextPath}/my-booking"
+                method="post">
+              <input type="hidden" name="bookingId" id="modal-booking-id" value="" />
+              <input type="hidden" name="action"    value="cancel" />
+              <button type="submit" class="btn btn-danger btn-sm">Yes, Cancel</button>
+          </form>
         </div>
       </div>
     </div>
 
     <%@ include file="/WEB-INF/pages/components/mobile-nav-script.jsp" %>
 
-    <!-- ── MODAL + BOOKINGS SCRIPT ── -->
+    <!-- ── MODAL SCRIPT ── -->
     <script>
-      function openModal(id) {
-        document.getElementById(id).classList.add("open");
-      }
-      function closeModal(id) {
-        document.getElementById(id).classList.remove("open");
-      }
+      function openModal(id)  { document.getElementById(id).classList.add("open"); }
+      function closeModal(id) { document.getElementById(id).classList.remove("open"); }
 
-      function cancelBooking() {
-        closeModal("cancelModal");
-        const statusBadge = document.getElementById("b2-status");
-        statusBadge.className = "badge badge-cancelled";
-        statusBadge.textContent = "Cancelled";
-        const cancelBtn = document.getElementById("b2-cancel-btn");
-        if (cancelBtn) cancelBtn.remove();
+      // Populate modal with the correct booking before opening
+      function openCancelModal(bookingId, packageName) {
+        document.getElementById("modal-booking-id").value = bookingId;
+        document.getElementById("modal-pkg-name").textContent = packageName + " (#APT-" + bookingId + ")";
+        openModal("cancelModal");
       }
 
       // Close modal on overlay click

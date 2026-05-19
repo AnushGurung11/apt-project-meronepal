@@ -339,7 +339,7 @@
                   <input type="hidden" name="packageId" value="${selectedPackage.packageId}" />
 
                   <div class="form-group">
-                    <label class="form-label" for="eventDate">Event Date</label>
+                    <label class="form-label" for="eventDate">Event Date (Must be at least 5 days from today)</label>
                     <input
                       class="form-input"
                       type="date"

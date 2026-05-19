@@ -20,31 +20,56 @@ public class PackageService {
     /**
      * Default constructor.
      */
-    public PackageService() {}
-
-
-
-
+    public PackageService() {
+    }
 
     // Getters for core fields
 
-    public int getPackageId()        { return packageId; }
+    public int getPackageServiceId() {
+        return packageServiceId;
+    } // ← was missing
+
+    public int getPackageId() {
+        return packageId;
+    }
+
+    public int getServiceId() {
+        return serviceId;
+    } // ← was missing
 
     // Getters for display-only fields
 
-    public String getPackageName()   { return packageName; }
-    public String getServiceName()   { return serviceName; }
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
 
     // Setters for core fields
 
-    public void setPackageServiceId(int packageServiceId) { this.packageServiceId = packageServiceId; }
-    public void setPackageId(int packageId)               { this.packageId = packageId; }
-    public void setServiceId(int serviceId)               { this.serviceId = serviceId; }
+    public void setPackageServiceId(int packageServiceId) {
+        this.packageServiceId = packageServiceId;
+    }
+
+    public void setPackageId(int packageId) {
+        this.packageId = packageId;
+    }
+
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
+    }
 
     // Setters for display-only fields
 
-    public void setPackageName(String packageName)        { this.packageName = packageName; }
-    public void setServiceName(String serviceName)        { this.serviceName = serviceName; }
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
 
     // toString for debugging and logging
 

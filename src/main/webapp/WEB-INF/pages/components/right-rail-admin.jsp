@@ -13,7 +13,11 @@
       class="block uppercase"
       >Bookings</a
     >
-    <a href="${pageContext.request.contextPath}/admin-services" class="block uppercase">Services</a>
+    <a
+      href="${pageContext.request.contextPath}/admin/package-services"
+      class="block uppercase"
+      >Services</a
+    >
     <div
       style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px"
     >

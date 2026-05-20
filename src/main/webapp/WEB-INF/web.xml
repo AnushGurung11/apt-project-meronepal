@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <<<<<<< HEAD
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                             https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0"
+         metadata-complete="false">
+=======
+>>>>>>> f193ebf (added images for team member)
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
   version="5.0"
   metadata-complete="false">
+<<<<<<< HEAD
+=======
+>>>>>>> 56d7b4e (added images for team member)
+>>>>>>> f193ebf (added images for team member)
 
 <<<<<<< HEAD
   <display-name>Mero Nepal Production</display-name>

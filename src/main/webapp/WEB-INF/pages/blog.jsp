@@ -16,8 +16,15 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
     />
-    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="${pageContext.request.contextPath}/assets/img/favicon.ico"
+    />
+    <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/assets/css/styles.css"
+    />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap");
 
@@ -265,9 +272,8 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
       class="fixed inset-0 opacity-5 pointer-events-none grain-overlay"
     ></div>
 
-    <%@ include file="/WEB-INF/pages/components/mobile-top-bar.jsp" %>
-
-    <%@ include file="/WEB-INF/pages/components/mobile-nav-drawer-public.jsp" %>
+    <%@ include file="/WEB-INF/pages/components/mobile-top-bar.jsp" %> <%@
+    include file="/WEB-INF/pages/components/mobile-nav-drawer-public.jsp" %>
 
     <!-- ── MAIN 3-COLUMN LAYOUT ── -->
     <div
@@ -321,7 +327,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                 "
               >
                 <img
-                  src="../../assets/img/blog/inside-arjun-priya-luxury-wedding.jpeg"
+                  src="${pageContext.request.contextPath}/assets/img/blog/inside-arjun-priya-luxury-wedding.jpeg"
                   alt="Inside Arjun & Priya's Luxury Wedding"
                   style="width: 100%; height: 360px; object-fit: cover"
                 />
@@ -335,7 +341,9 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                     line-height: 1.3;
                   "
                 >
-                  <a href="${pageContext.request.contextPath}/blog" style="color: var(--white)"
+                  <a
+                    href="${pageContext.request.contextPath}/blog/1"
+                    style="color: var(--white)"
                     >Inside Arjun &amp; Priya's Luxury Wedding — A Pokhara
                     Story</a
                   >
@@ -349,7 +357,11 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                   By Darshan Regmi &nbsp;·&nbsp; June 2025 &nbsp;·&nbsp; 6 min
                   read
                 </div>
-                <a href="${pageContext.request.contextPath}/blog" class="btn btn-outline">Read Story →</a>
+                <a
+                  href="${pageContext.request.contextPath}/blog/1"
+                  class="btn btn-outline"
+                  >Read Story →</a
+                >
               </div>
             </div>
 
@@ -368,7 +380,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                   "
                 >
                   <img
-                    src="../../assets/img/blog/drone-shots-wedding-films.jpeg"
+                    src="${pageContext.request.contextPath}/assets/img/blog/drone-shots-wedding-films.jpeg"
                     alt="5 Drone Shots That Changed Our Wedding Films"
                     style="width: 100%; height: 100%; object-fit: cover"
                   />
@@ -376,7 +388,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                 <div class="blog-card-body">
                   <span class="blog-tag">Drone</span>
                   <h3 class="blog-title">
-                    <a href="${pageContext.request.contextPath}/blog"
+                    <a href="${pageContext.request.contextPath}/blog/2"
                       >5 Drone Shots That Changed Our Wedding Films</a
                     >
                   </h3>
@@ -402,7 +414,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                   "
                 >
                   <img
-                    src="../../assets/img/blog/pre-wedding-shoots-guide.jpeg"
+                    src="${pageContext.request.contextPath}/assets/img/blog/pre-wedding-shoots-guide.jpeg"
                     alt="Pre-Wedding Shoots Guide"
                     style="width: 100%; height: 100%; object-fit: cover"
                   />
@@ -410,7 +422,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                 <div class="blog-card-body">
                   <span class="blog-tag">Pre-Wedding</span>
                   <h3 class="blog-title">
-                    <a href="${pageContext.request.contextPath}/blog"
+                    <a href="${pageContext.request.contextPath}/blog/3"
                       >Pre-Wedding Shoots: Our Guide to the Perfect Session</a
                     >
                   </h3>
@@ -436,7 +448,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                   "
                 >
                   <img
-                    src="../../assets/img/blog/product-photography-tips.jpeg"
+                    src="${pageContext.request.contextPath}/assets/img/blog/product-photography-tips.jpeg"
                     alt="Product Photography Tips"
                     style="width: 100%; height: 100%; object-fit: cover"
                   />
@@ -444,7 +456,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                 <div class="blog-card-body">
                   <span class="blog-tag">Product</span>
                   <h3 class="blog-title">
-                    <a href="${pageContext.request.contextPath}/blog"
+                    <a href="${pageContext.request.contextPath}/blog/4"
                       >Why Product Photography Makes or Breaks Your Brand</a
                     >
                   </h3>
@@ -470,7 +482,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                   "
                 >
                   <img
-                    src="../../assets/img/blog/documenting-heritage-patan.jpeg"
+                    src="${pageContext.request.contextPath}/assets/img/blog/documenting-heritage-patan.jpeg"
                     alt="Documenting Heritage: Our Cultural Film in Patan"
                     style="width: 100%; height: 100%; object-fit: cover"
                   />
@@ -478,7 +490,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                 <div class="blog-card-body">
                   <span class="blog-tag">Documentary</span>
                   <h3 class="blog-title">
-                    <a href="${pageContext.request.contextPath}/blog"
+                    <a href="${pageContext.request.contextPath}/blog/5"
                       >Documenting Heritage: Our Cultural Film in Patan</a
                     >
                   </h3>
@@ -504,7 +516,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                   "
                 >
                   <img
-                    src="../../assets/img/blog/color-grading-wedding-films.jpeg"
+                    src="${pageContext.request.contextPath}/assets/img/blog/color-grading-wedding-films.jpeg"
                     alt="The Art of Color Grading in Wedding Films"
                     style="width: 100%; height: 100%; object-fit: cover"
                   />
@@ -512,7 +524,9 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
                 <div class="blog-card-body">
                   <span class="blog-tag">Editing</span>
                   <h3 class="blog-title">
-                    <a href="${pageContext.request.contextPath}/blog">The Art of Color Grading in Wedding Films</a>
+                    <a href="${pageContext.request.contextPath}/blog/6"
+                      >The Art of Color Grading in Wedding Films</a
+                    >
                   </h3>
                   <p style="font-size: 13px; margin-bottom: 16px">
                     How subtle color grading choices shape mood, memory, and

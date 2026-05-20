@@ -226,7 +226,8 @@
     </style>
   </head>
 
-  <body>
+    <body>
+    <!-- Background Grid -->
     <div class="fixed inset-0 opacity-20 z-0 background-grid">
       <script>
         for (let i = 0; i < 96; i++)
@@ -234,34 +235,20 @@
       </script>
     </div>
 
-    <div class="fixed inset-0 opacity-5 pointer-events-none grain-overlay"></div>
+    <!-- Film grain -->
+    <div
+      class="fixed inset-0 opacity-5 pointer-events-none grain-overlay"
+    ></div>
 
-    <div class="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-14 bg-[#0a0a0a]" style="border-bottom: 1px solid var(--color-border)">
-      <div class="text-xl font-black"><a href="home">M.NP</a></div>
-      <button id="nav-toggle" class="flex flex-col gap-[5px] p-1" aria-label="Toggle menu">
-        <span id="bar1" class="block w-6 h-px bg-white" style="transition: transform 0.25s, opacity 0.25s;"></span>
-        <span id="bar2" class="block w-6 h-px bg-white" style="transition: opacity 0.25s"></span>
-        <span id="bar3" class="block w-4 h-px bg-white" style="transition: transform 0.25s"></span>
-      </button>
-    </div>
+    <%@ include file="/WEB-INF/pages/components/mobile-top-bar.jsp" %>
 
-    <nav id="mobile-nav" class="md:hidden fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col justify-center items-center gap-10" style="transform: translateX(100%); transition: transform 0.3s ease">
-      <a href="home" class="text-3xl font-black uppercase tracking-widest">Home</a>
-      <a href="packages" class="text-3xl font-black uppercase tracking-widest active">Package</a>
-      <a href="about" class="text-3xl font-black uppercase tracking-widest">About</a>
-      <a href="blog" class="text-3xl font-black uppercase tracking-widest">Blog</a>
-      <a href="login" class="uppercase btn-secondary mt-4">Login</a>
-      <a href="packages" class="uppercase btn-primary mt-4">Book Now</a>
-    </nav>
+    <%@ include file="/WEB-INF/pages/components/mobile-nav-drawer-public.jsp" %>
 
-    <div class="relative z-10 grid md:grid-cols-[80px_1fr_300px] min-h-screen border-b border-white/10">
-      <aside class="hidden md:flex flex-col justify-between items-center py-12 border-r border-white/10 sticky top-0 h-screen">
-        <div class="text-2xl font-black"><a href="home">M.NP</a></div>
-        <div class="vertical-text text-[10px] tracking-[0.4em] uppercase" style="color: var(--color-gold)">
-          Mero Nepal Production — EST. 2014
-        </div>
-        <div class="w-2 h-2 rounded-full" style="background: var(--color-gold)"></div>
-      </aside>
+    <!-- Main layout -->
+    <div
+      class="relative z-10 grid md:grid-cols-[80px_1fr_300px] min-h-screen border-b border-white/10"
+    >
+      <%@ include file="/WEB-INF/pages/components/left-rail.jsp" %>
 
       <main class="pt-14 md:pt-0">
         <!-- PAGE HERO -->
@@ -327,7 +314,7 @@
                       </p>
                     </c:if>
 
-                    <a href="booking?packageId=${pkg.packageId}"
+                    <a href="${pageContext.request.contextPath}/booking?packageId=${pkg.packageId}"
                        class="btn ${status.index == 1 ? 'btn-gold' : 'btn-outline'} btn-full mt-24">
                         Book This Package
                     </a>
@@ -347,112 +334,12 @@
           </div>
         </section>
 
-        <!-- FOOTER -->
-        <div class="footer">
-          <div class="container">
-            <div class="container2">
-              <div class="container3">
-                <div class="mero-nepal">Mero Nepal Production</div>
-              </div>
-              <div class="container4">
-                <div class="text">
-                  <br />
-                  Cinematic photography and media production based in Nepal. We capture the moments that define your story.
-                </div>
-              </div>
-            </div>
-
-            <div class="container5">
-              <div class="container6">
-                <div class="heading-6"><div class="navigation">NAVIGATION</div></div>
-                <br />
-                <div class="list">
-                  <div class="item"><a href="home"><div>Home</div></a></div>
-                  <div class="item"><a href="packages"><div>Packages</div></a></div>
-                  <div class="item"><a href="about"><div>About</div></a></div>
-                  <div class="item"><a href="blog"><div>Blog</div></a></div>
-                </div>
-              </div>
-
-              <div class="container7">
-                <div class="heading-6"><div class="legal">Account</div></div>
-                <br />
-                <div class="list">
-                  <div class="item"><a href="login"><div>Login</div></a></div>
-                  <div class="item"><a href="register"><div>Register</div></a></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="container8">
-              <div class="heading-6"><div class="stay-inspired">Contact</div></div>
-              <div class="horizontal-border">
-                <input class="footer-input" type="email" placeholder="Email Address" />
-                <button class="footer-btn">→</button>
-              </div>
-              <div class="container10">
-                <a href="mailto:hello@meronepal.com" class="social-link" aria-label="Email" target="_blank">
-                  <span class="material-symbols-outlined social-icon">mail</span>
-                </a>
-                <a href="https://meronepal.com" class="social-link" aria-label="Website" target="_blank">
-                  <span class="material-symbols-outlined social-icon">language</span>
-                </a>
-                <a href="https://instagram.com/yourpage" class="social-link" aria-label="Instagram" target="_blank">
-                  <span class="material-symbols-outlined social-icon">photo_camera</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="horizontal-border2">
-            <div class="container3">
-              <div class="_2024-mero-nepal-production-the-modern-auteur">
-                © <script>document.write(new Date().getFullYear());</script>
-                Mero Nepal Production. The Modern Auteur.
-              </div>
-            </div>
-          </div>
-        </div>
+        <%@ include file="/WEB-INF/pages/components/footer.jsp" %>
       </main>
 
-      <aside class="hidden md:flex flex-col justify-between p-12 border-l border-white/10 sticky top-0 h-screen">
-        <nav class="space-y-6">
-          <a href="home" class="block uppercase">Home</a>
-          <a href="packages" class="block uppercase active">Packages</a>
-          <a href="about" class="block uppercase">About</a>
-          <a href="blog" class="block uppercase">Blog</a>
-          <a href="login" class="uppercase btn-secondary mt-4">Login</a>
-          <a href="packages" class="uppercase btn-primary mt-4">Book Now</a>
-        </nav>
-      </aside>
+      <%@ include file="/WEB-INF/pages/components/right-rail-public.jsp" %>
     </div>
 
-    <script>
-      const toggle = document.getElementById("nav-toggle");
-      const drawer = document.getElementById("mobile-nav");
-      const bar1 = document.getElementById("bar1");
-      const bar2 = document.getElementById("bar2");
-      const bar3 = document.getElementById("bar3");
-      let isOpen = false;
-
-      toggle.addEventListener("click", () => {
-        isOpen = !isOpen;
-        drawer.style.transform = isOpen ? "translateX(0)" : "translateX(100%)";
-        bar1.style.transform = isOpen ? "translateY(6px) rotate(45deg)" : "";
-        bar2.style.opacity = isOpen ? "0" : "1";
-        bar3.style.transform = isOpen ? "translateY(-6px) rotate(-45deg)" : "";
-        bar3.style.width = isOpen ? "24px" : "";
-      });
-
-      drawer.querySelectorAll("a").forEach((a) =>
-        a.addEventListener("click", () => {
-          isOpen = false;
-          drawer.style.transform = "translateX(100%)";
-          bar1.style.transform = bar3.style.transform = "";
-          bar2.style.opacity = "1";
-          bar3.style.width = "";
-        }),
-      );
-    </script>
+    <%@ include file="/WEB-INF/pages/components/mobile-nav-script.jsp" %>
   </body>
 </html>

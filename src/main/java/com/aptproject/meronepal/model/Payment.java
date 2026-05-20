@@ -87,18 +87,4 @@ public class Payment {
                 ", paymentDate=" + paymentDate +
                 '}';
     }
-    // Getters — ADD ALL OF THESE
-
-    public int getPaymentId()                   { return paymentId; }
-    public String getPaymentMethod()            { return paymentMethod; }
-    public String getPaymentStatus()            { return paymentStatus; }
-    public LocalDate getPaymentDate()           { return paymentDate; }
-
-// Setters — ADD ALL OF THESE
-
-    public void setPaymentId(int paymentId)             { this.paymentId = paymentId; }
-    public void setPaymentMethod(String paymentMethod)  { this.paymentMethod = paymentMethod; }
-    public void setPaymentStatus(String paymentStatus)  { this.paymentStatus = paymentStatus; }
-    public void setPaymentDate(LocalDate paymentDate)   { this.paymentDate = paymentDate; }
-
 }

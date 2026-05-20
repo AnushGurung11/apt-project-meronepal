@@ -464,7 +464,7 @@
               <h2 class="bk-h2">My Bookings</h2>
               <p>Track all your bookings and their current status.</p>
             </div>
-            <a href="${pageContext.request.contextPath}/book" class="btn btn-gold btn-sm">+ New Booking</a>
+            <a href="${pageContext.request.contextPath}/packages" class="btn btn-gold btn-sm">+ New Booking</a>
           </div>
 
           <c:if test="${not empty sessionScope.statusMsg}">

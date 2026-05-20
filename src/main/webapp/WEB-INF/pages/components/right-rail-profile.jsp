@@ -6,9 +6,13 @@
     <a href="${pageContext.request.contextPath}/profile" class="block uppercase"
       >My Profile</a
     >
-    <a href="my-bookings.jsp" class="block uppercase">My Bookings</a>
     <a
-      href="${pageContext.request.contextPath}/book.jsp"
+      href="${pageContext.request.contextPath}/my-booking"
+      class="block uppercase"
+      >My Bookings</a
+    >
+    <a
+      href="${pageContext.request.contextPath}/packages"
       class="block uppercase btn-secondary"
       >+ New Booking</a
     >

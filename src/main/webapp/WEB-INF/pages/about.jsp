@@ -801,7 +801,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
               <div class="team-card" data-member="darshan">
                 <div class="team-avatar">
                   <img
-                    src="../../assets/img/profile/darshan.jpg"
+                    src="${pageContext.request.contextPath}/assets/img/profile/darshan.jpg"
                     alt="Darshan Regmi"
                   />
                 </div>
@@ -868,7 +868,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
               <div class="team-card" data-member="anush">
                 <div class="team-avatar">
                   <img
-                    src="../../assets/img/profile/anush.jpg"
+                    src="${pageContext.request.contextPath}/assets/img/profile/anush.jpg"
                     alt="Anush Gurung"
                   />
                 </div>
@@ -935,7 +935,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
               <div class="team-card" data-member="krish">
                 <div class="team-avatar">
                   <img
-                    src="../../assets/img/profile/krish.jpg"
+                    src="${pageContext.request.contextPath}/assets/img/profile/krish.jpg"
                     alt="Krish Shrestha"
                   />
                 </div>
@@ -1002,7 +1002,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
               <div class="team-card" data-member="sudip">
                 <div class="team-avatar">
                   <img
-                    src="../../assets/img/profile/sudip.jpg"
+                    src="${pageContext.request.contextPath}/assets/img/profile/sudip.jpg"
                     alt="Sudip Gautam"
                   />
                 </div>
@@ -1035,7 +1035,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
               <div class="team-card" data-member="bijaya">
                 <div class="team-avatar">
                   <img
-                    src="../../assets/img/profile/bijaya.jpg"
+                    src="${pageContext.request.contextPath}/assets/img/profile/bijaya.jpg"
                     alt="Bijaya Khanal"
                   />
                 </div>
@@ -1068,7 +1068,7 @@ contentType="text/html" pageEncoding="UTF-8" isELIgnored="false"%>
               <div class="team-card" data-member="arjun">
                 <div class="team-avatar">
                   <img
-                    src="../../assets/img/profile/arjun.jpg"
+                    src="${pageContext.request.contextPath}/assets/img/profile/arjun.jpg"
                     alt="Arjun Bastola"
                   />
                 </div>
